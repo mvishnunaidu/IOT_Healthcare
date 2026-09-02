@@ -22,8 +22,11 @@ class Settings(BaseSettings):
     ]
     
     # Database
-    # Defaults to SQLite local file, but supports PostgreSQL if DATABASE_URL is set
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./healthcare_iot.db")
+    # Defaults to SQLite local file in backend directory, but supports PostgreSQL if DATABASE_URL is set
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        f"sqlite:///{os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'healthcare_iot.db').replace(chr(92), '/')}"
+    )
     
     # Default Rule-Based Abnormality Thresholds
     DEFAULT_THRESHOLDS: Dict[str, Any] = {

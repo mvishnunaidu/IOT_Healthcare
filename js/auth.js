@@ -8,23 +8,26 @@
 const AuthManager = {
   DEFAULT_PASSWORD: 'iot@123',
 
-  currentUser: {
-    name: 'Dr. Pavan',
-    email: 'dr.pavan@hospital.org',
-    role: 'Chief Medical Officer / Attending Physician',
-    hospital: 'City Central Healthcare'
-  },
-  isAuthenticated: true,
+  currentUser: null,
+  isAuthenticated: false,
 
   init() {
     try {
+      const isLoggedOut = localStorage.getItem('healthguard_logged_out');
       const savedUser = localStorage.getItem('healthguard_current_user');
-      if (savedUser) {
+      if (isLoggedOut === 'true') {
+        this.isAuthenticated = false;
+        this.currentUser = null;
+      } else if (savedUser) {
         this.currentUser = JSON.parse(savedUser);
         this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+        this.currentUser = null;
       }
     } catch {
-      // Keep defaults
+      this.isAuthenticated = false;
+      this.currentUser = null;
     }
   },
 
@@ -131,20 +134,19 @@ const AuthManager = {
       };
     }
 
+    this.isAuthenticated = true;
+    localStorage.removeItem('healthguard_logged_out');
     localStorage.setItem('healthguard_current_user', JSON.stringify(this.currentUser));
     return this.currentUser;
   },
 
   logout() {
     this.isAuthenticated = false;
-    this.currentUser = {
-      name: 'Guest Practitioner',
-      email: '',
-      role: 'Signed Out',
-      hospital: ''
-    };
+    this.currentUser = null;
     localStorage.removeItem('healthguard_current_user');
+    localStorage.setItem('healthguard_logged_out', 'true');
   }
 };
 
 AuthManager.init();
+window.AuthManager = AuthManager;

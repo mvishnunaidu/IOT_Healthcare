@@ -145,6 +145,75 @@ header.navbar {
   box-shadow: var(--shadow-sm);
 }
 
+/* ============================================================
+   TWO-TIER PRODUCTION ARCHITECTURE:
+   Tier 1: Public Showcase Website (body.auth-guest)
+   Tier 2: Authenticated Hospital Workstation (body.auth-logged-in)
+   ============================================================ */
+
+/* Tier 1: Public Guest Mode (No internal sidebar, full width) */
+body.auth-guest .app-sidebar,
+body.auth-guest #sidebarBackdrop,
+body.auth-guest #mobileNavToggle,
+body.auth-guest .mobile-bottom-nav,
+body.auth-guest #audioToggleBtn,
+body.auth-guest a[data-route="alerts"].btn,
+body.auth-guest #headerProfileGroup,
+body.auth-guest #headerLogoutBtn,
+body.auth-guest #headerOnlineBadge {
+  display: none !important;
+}
+
+body.auth-guest #headerPublicNav {
+  display: flex !important;
+}
+
+body.auth-guest #headerSignInBtn {
+  display: inline-flex !important;
+}
+
+body.auth-guest .app-main {
+  max-width: 1320px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(1rem, 3vw, 2.5rem) !important;
+  padding-right: clamp(1rem, 3vw, 2.5rem) !important;
+}
+
+/* Tier 2: Authenticated Clinical Workstation */
+body.auth-logged-in #headerPublicNav {
+  display: none !important;
+}
+
+body.auth-logged-in #headerSignInBtn {
+  display: none !important;
+}
+
+body.auth-logged-in #headerProfileGroup {
+  display: flex !important;
+}
+
+body.auth-logged-in #mobileNavToggle {
+  display: flex !important;
+}
+
+/* Public Nav Link styling */
+.public-nav-link {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.public-nav-link:hover {
+  color: var(--primary-accent);
+  background-color: var(--bg-surface);
+}
+
 /* Sidebar Layout */
 .app-sidebar {
   width: 255px;
@@ -292,15 +361,132 @@ header.navbar {
   50% { opacity: 0.88; transform: scale(1.02); }
 }
 
-/* Live Heartbeat Beacon */
+/* Live Heartbeat Beacon Dot */
 .live-beacon {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 4px #10b981;
   animation: beaconPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  flex-shrink: 0;
+}
+
+/* Sleek Micro Status Badge */
+#headerOnlineBadge {
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  padding: 1.5px 6px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  line-height: 1 !important;
+  border-radius: 9999px !important;
+  background-color: rgba(16, 185, 129, 0.09) !important;
+  color: #059669 !important;
+  border: 1px solid rgba(16, 185, 129, 0.28) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3.5px !important;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+[data-bs-theme="dark"] #headerOnlineBadge {
+  background-color: rgba(16, 185, 129, 0.14) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+/* Sleek Micro Logout Button */
+#headerLogoutBtn {
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  padding: 1.5px 6px !important;
+  height: 19px !important;
+  min-height: 19px !important;
+  line-height: 1 !important;
+  border-radius: 4px !important;
+  background-color: rgba(239, 68, 68, 0.05) !important;
+  color: #dc2626 !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  align-items: center !important;
+  gap: 3.5px !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+#headerLogoutBtn i {
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
+#headerLogoutBtn:hover {
+  background-color: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.45) !important;
+  color: #b91c1c !important;
+  transform: translateY(-0.5px);
+}
+
+[data-bs-theme="dark"] #headerLogoutBtn {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  color: #f87171 !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+[data-bs-theme="dark"] #headerLogoutBtn:hover {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  color: #fca5a5 !important;
+}
+
+#headerLogoutBtn:not(.d-none) {
+  display: inline-flex !important;
+}
+
+#headerLogoutBtn.d-none,
+#headerProfileGroup.d-none {
+  display: none !important;
+}
+
+#headerSignInBtn {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  padding: 5px 14px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+  background-color: #0d6efd !important;
+  color: #ffffff !important;
+  border: none !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: 0 1px 3px rgba(13, 110, 253, 0.25) !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+}
+
+#headerSignInBtn i {
+  font-size: 13px !important;
+  line-height: 1 !important;
+}
+
+#headerSignInBtn:hover {
+  background-color: #0b5ed7 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.35) !important;
+}
+
+#headerSignInBtn:not(.d-none) {
+  display: inline-flex !important;
+}
+
+#headerSignInBtn.d-none {
+  display: none !important;
 }
 
 @keyframes beaconPing {
@@ -316,13 +502,26 @@ header.navbar {
   border-radius: var(--card-radius);
   padding: 1.25rem;
   box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .pipeline-track {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
   padding: 0.5rem 0.2rem 1rem 0.2rem;
   scrollbar-width: thin;
 }
@@ -700,4 +899,330 @@ header.navbar {
   background-color: rgba(56, 189, 248, 0.12) !important;
   border-color: rgba(56, 189, 248, 0.25) !important;
   color: var(--text-primary) !important;
+}
+
+/* ==========================================================================
+   LANDING PAGE: MODERN HERO ANIMATED BACKGROUND
+   ========================================================================== */
+
+.hero-glow-bg {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  background-image: url('../img/healthcare-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white !important;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+  z-index: 1;
+  padding: 6rem 2rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-glow-bg::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(11, 19, 41, 0.85) 0%, rgba(2, 132, 199, 0.6) 100%);
+  z-index: -1;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Entrance Animations */
+@keyframes fadeInUpModern {
+  0% { opacity: 0; transform: translateY(40px); filter: blur(5px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes glowPulseSubtle {
+  0% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+  50% { box-shadow: 0 0 35px rgba(56, 189, 248, 0.5); }
+  100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+}
+
+.hero-glow-bg .hero-badge {
+  animation: fadeInUpModern 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.4) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+}
+
+.hero-glow-bg .hero-main-title {
+  animation: fadeInUpModern 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.25s;
+  opacity: 0;
+  color: #ffffff;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-glow-bg .hero-subtitle {
+  animation: fadeInUpModern 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+  color: #cbd5e1 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.hero-glow-bg .hero-actions-container {
+  animation: fadeInUpModern 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.55s;
+  opacity: 0;
+}
+
+.hero-glow-bg .hero-btn-main {
+  animation: glowPulseSubtle 3s infinite;
+  background: linear-gradient(135deg, #2563eb, #0284c7);
+  border: none;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.hero-glow-bg .hero-btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.6);
+}
+
+.hero-glow-bg .hero-btn-sub {
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.hero-glow-bg .hero-btn-sub:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   LANDING PAGE: PREMIUM UI OVERHAUL (Relaxing, Bold, Trustworthy)
+   ========================================================================== */
+
+/* 1. Global Relaxing Mesh Gradient for Guest Mode */
+body.auth-guest {
+  background: linear-gradient(120deg, #f0f7fc 0%, #ffffff 40%, #eefcff 100%);
+  background-attachment: fixed;
+}
+
+[data-bs-theme="dark"] body.auth-guest {
+  background: linear-gradient(120deg, #0a0f1c 0%, #111827 40%, #0c1a26 100%);
+}
+
+/* 2. Premium Navbar Links (Pills with Hover) */
+.public-nav-link {
+  color: var(--text-secondary) !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+[data-bs-theme="dark"] .public-nav-link {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.public-nav-link:hover {
+  background: white;
+  color: var(--primary-accent) !important;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.12);
+  transform: translateY(-2px);
+}
+
+[data-bs-theme="dark"] .public-nav-link:hover {
+  background: var(--bg-card);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.15);
+}
+
+/* 3. Colorful Glowing Icons */
+.public-nav-link i {
+  background: linear-gradient(135deg, #2563eb, #0284c7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 15px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+[data-bs-theme="dark"] .public-nav-link i {
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.public-nav-link:hover i {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+/* 4. Enhanced SAAS Cards (Hover Lift & Glow) */
+body.auth-guest .saas-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04) !important;
+}
+[data-bs-theme="dark"] body.auth-guest .saas-card {
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background: rgba(15, 23, 42, 0.6) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.auth-guest .saas-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(2, 132, 199, 0.15) !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
+}
+[data-bs-theme="dark"] body.auth-guest .saas-card:hover {
+  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+}
+
+/* 5. Bold & Relaxing Headers */
+body.auth-guest h3, body.auth-guest h4, body.auth-guest h5, body.auth-guest h6 {
+  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  width: 100%;
+}
+[data-bs-theme="dark"] body.auth-guest h3, 
+[data-bs-theme="dark"] body.auth-guest h4,
+[data-bs-theme="dark"] body.auth-guest h5,
+[data-bs-theme="dark"] body.auth-guest h6 {
+  background: linear-gradient(135deg, #f8fafc 0%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 6. Dynamic Auth State Toggles for CTAs */
+body.auth-guest .auth-logged-in-only {
+  display: none !important;
+}
+body.auth-logged-in .auth-guest-only {
+  display: none !important;
+}
+
+/* ==========================================================================
+   SIDEBAR: ENTERPRISE GATEWAY STATUS CARD
+   ========================================================================== */
+
+.gateway-status-card {
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .gateway-status-card {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(30, 41, 59, 0.4) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.gateway-icon-wrapper {
+  padding: 6px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.gateway-icon-wrapper i {
+  font-size: 14px;
+}
+
+.gateway-title {
+  font-size: 12px;
+  color: var(--primary-accent);
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+
+.gateway-subtitle {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.gateway-badge {
+  font-size: 9px;
+  padding: 4px 6px;
+  letter-spacing: 0.05em;
+}
+
+@keyframes dotPulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.gateway-badge .pulse-dot {
+  position: relative;
+}
+
+.gateway-badge .pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  animation: dotPulse 1.5s ease-out infinite;
+}
+
+.gateway-uptime-box {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+[data-bs-theme="dark"] .gateway-uptime-box {
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.gateway-uptime-box span:first-child {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.gateway-btn {
+  font-size: 10px;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  border: none;
+  padding: 6px 0;
+  transition: all 0.3s ease;
+}
+
+.gateway-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }

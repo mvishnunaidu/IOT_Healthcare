@@ -96,7 +96,8 @@ class VirtualIoTSimulator {
       const { processedData, edgeMetadata } = EdgeProcessor.processAtEdge(rawPayload);
 
       // 3. Abnormality Detection Layer
-      const detectionResult = AbnormalityDetector.detectAbnormality(processedData);
+      const patient = PatientManager.getPatient(rawPayload.patientId);
+      const detectionResult = AbnormalityDetector.detectAbnormality(processedData, patient.baselines || {});
 
       this.packetsTransmitted++;
       this.lastTransmission = new Date().toLocaleTimeString();

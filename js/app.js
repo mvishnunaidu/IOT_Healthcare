@@ -212,17 +212,41 @@ const HealthGuardApp = {
 
     // Log initialization
     iotSimulator.logEvent('IoT Clinical Gateway Initialized (Telemetry Stream Active)', 'INFO');
+
+    // Route based on clinical authentication session
+    const auth = window.AuthManager || (typeof AuthManager !== 'undefined' ? AuthManager : null);
+    if (!auth || !auth.isAuthenticated) {
+      document.body.classList.add('auth-guest');
+      document.body.classList.remove('auth-logged-in');
+      this.navigateTo('landing');
+    } else {
+      document.body.classList.add('auth-logged-in');
+      document.body.classList.remove('auth-guest');
+      this.navigateTo('dashboard');
+    }
   },
 
   updateUserHeaderUI() {
-    if (!window.AuthManager) return;
+    const auth = window.AuthManager || (typeof AuthManager !== 'undefined' ? AuthManager : null);
+    if (!auth) return;
+    const profileGroup = document.getElementById('headerProfileGroup');
+    const signInBtn = document.getElementById('headerSignInBtn');
     const nameEl = document.getElementById('userDisplayName');
     const roleEl = document.getElementById('userRoleBadge');
     const avatarEl = document.getElementById('userAvatarBadge');
     const logoutBtn = document.getElementById('headerLogoutBtn');
 
-    if (AuthManager.isAuthenticated && AuthManager.currentUser) {
-      const u = AuthManager.currentUser;
+    // Drawer profile elements
+    const drawerNameEl = document.getElementById('drawerUserName');
+    const drawerRoleEl = document.getElementById('drawerUserRole');
+    const drawerAvatarEl = document.getElementById('drawerUserAvatar');
+    const drawerLogoutBtn = document.getElementById('mobileDrawerLogoutBtn');
+    const drawerSignInBtn = document.getElementById('mobileDrawerSignInBtn');
+
+    if (auth.isAuthenticated && auth.currentUser) {
+      const u = auth.currentUser;
+      if (profileGroup) profileGroup.classList.remove('d-none');
+      if (signInBtn) signInBtn.classList.add('d-none');
       if (nameEl) nameEl.innerText = u.name || 'Dr. Pavan';
       if (roleEl) roleEl.innerText = u.role ? u.role.split('/')[0].trim() : 'Physician';
       if (avatarEl) {
@@ -234,11 +258,35 @@ const HealthGuardApp = {
         avatarEl.innerText = initials;
       }
       if (logoutBtn) logoutBtn.classList.remove('d-none');
+
+      if (drawerNameEl) drawerNameEl.innerText = u.name || 'Dr. Pavan';
+      if (drawerRoleEl) drawerRoleEl.innerText = u.role ? u.role.split('/')[0].trim() : 'Attending Physician';
+      if (drawerAvatarEl && avatarEl) drawerAvatarEl.innerText = avatarEl.innerText;
+      if (drawerLogoutBtn) drawerLogoutBtn.classList.remove('d-none');
+      if (drawerSignInBtn) drawerSignInBtn.classList.add('d-none');
+
+      const guestNotice = document.getElementById('sidebarGuestNotice');
+      if (guestNotice) guestNotice.classList.add('d-none');
+
+      document.body.classList.add('auth-logged-in');
+      document.body.classList.remove('auth-guest');
     } else {
-      if (nameEl) nameEl.innerText = 'Sign In';
-      if (roleEl) roleEl.innerText = 'Guest';
-      if (avatarEl) avatarEl.innerText = '??';
+      // User is logged out: completely remove profile (Pavan) and logout button!
+      if (profileGroup) profileGroup.classList.add('d-none');
+      if (signInBtn) signInBtn.classList.remove('d-none');
       if (logoutBtn) logoutBtn.classList.add('d-none');
+
+      if (drawerNameEl) drawerNameEl.innerText = 'Guest Practitioner';
+      if (drawerRoleEl) drawerRoleEl.innerText = 'Not Signed In';
+      if (drawerAvatarEl) drawerAvatarEl.innerText = '??';
+      if (drawerLogoutBtn) drawerLogoutBtn.classList.add('d-none');
+      if (drawerSignInBtn) drawerSignInBtn.classList.remove('d-none');
+
+      const guestNotice = document.getElementById('sidebarGuestNotice');
+      if (guestNotice) guestNotice.classList.remove('d-none');
+
+      document.body.classList.add('auth-guest');
+      document.body.classList.remove('auth-logged-in');
     }
   },
 
@@ -303,48 +351,85 @@ const HealthGuardApp = {
       });
     }
 
-    // Sidebar Mobile Drawer Toggle, Close Button & Backdrop
+    // Universal Sidebar Toggle & Close (Desktop Collapsible + Mobile/Tablet Offcanvas Drawer)
     const mobileNavBtn = document.getElementById('mobileNavToggle');
     const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
     const sidebar = document.querySelector('.app-sidebar');
     const backdrop = document.getElementById('sidebarBackdrop');
 
-    const openDrawer = () => {
-      if (sidebar) sidebar.classList.add('show');
-      if (backdrop) {
-        backdrop.classList.remove('d-none');
-        backdrop.classList.add('show');
+    const isDesktop = () => window.innerWidth >= 992;
+
+    const openSidebar = () => {
+      if (!sidebar) return;
+      if (isDesktop()) {
+        sidebar.classList.remove('collapsed');
+      } else {
+        sidebar.classList.add('show');
+        if (backdrop) {
+          backdrop.classList.remove('d-none');
+          backdrop.classList.add('show');
+        }
+        document.body.style.overflow = 'hidden';
       }
-      document.body.style.overflow = 'hidden';
     };
 
-    const closeDrawer = () => {
-      if (sidebar) sidebar.classList.remove('show');
-      if (backdrop) {
-        backdrop.classList.remove('show');
-        backdrop.classList.add('d-none');
+    const closeSidebar = () => {
+      if (!sidebar) return;
+      if (isDesktop()) {
+        sidebar.classList.add('collapsed');
+      } else {
+        sidebar.classList.remove('show');
+        if (backdrop) {
+          backdrop.classList.remove('show');
+          backdrop.classList.add('d-none');
+        }
+        document.body.style.overflow = '';
       }
-      document.body.style.overflow = '';
+    };
+
+    const toggleSidebar = () => {
+      if (!sidebar) return;
+      if (isDesktop()) {
+        if (sidebar.classList.contains('collapsed')) {
+          openSidebar();
+        } else {
+          closeSidebar();
+        }
+      } else {
+        if (sidebar.classList.contains('show')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      }
     };
 
     if (mobileNavBtn) {
       mobileNavBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (sidebar && sidebar.classList.contains('show')) {
-          closeDrawer();
-        } else {
-          openDrawer();
-        }
+        toggleSidebar();
       });
     }
 
     if (sidebarCloseBtn) {
-      sidebarCloseBtn.addEventListener('click', closeDrawer);
+      sidebarCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeSidebar();
+      });
     }
 
     if (backdrop) {
-      backdrop.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeSidebar);
     }
+
+    // Keyboard ESC key accessibility to dismiss drawer on mobile/tablet
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (sidebar && sidebar.classList.contains('show')) {
+          closeSidebar();
+        }
+      }
+    });
 
     // Swipe-to-close touch gesture on mobile sidebar
     let touchStartX = 0;
@@ -459,7 +544,8 @@ const HealthGuardApp = {
 
         try {
           const { processedData } = EdgeProcessor.processAtEdge({ patientId: pId, heartRate: hr, spo2: spo2, temperature: temp });
-          const detection = AbnormalityDetector.detectAbnormality(processedData);
+          const patient = PatientManager.getPatient(pId);
+          const detection = AbnormalityDetector.detectAbnormality(processedData, patient.baselines || {});
           this.showCustomAnalysisResult(detection);
         } catch (err) {
           alert(err.message);
@@ -552,8 +638,8 @@ const HealthGuardApp = {
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = document.getElementById('loginEmail')?.value || 'dr.pavan@hospital.org';
-        const password = document.getElementById('loginPassword')?.value || 'iot@123';
+        const email = document.getElementById('loginEmail')?.value;
+        const password = document.getElementById('loginPassword')?.value;
         try {
           const user = AuthManager.login(email, password);
           this.updateUserHeaderUI();
@@ -629,13 +715,25 @@ const HealthGuardApp = {
   },
 
   logout() {
-    AuthManager.logout();
+    const auth = window.AuthManager || (typeof AuthManager !== 'undefined' ? AuthManager : null);
+    if (auth) auth.logout();
     this.updateUserHeaderUI();
-    this.showToast('You have been signed out.', 'info');
-    this.navigateTo('login');
+    this.showToast('You have been signed out of clinical session.', 'info');
+    this.navigateTo('landing');
   },
 
+
+
   navigateTo(route) {
+    const auth = window.AuthManager || (typeof AuthManager !== 'undefined' ? AuthManager : null);
+    const protectedRoutes = ['dashboard', 'patients', 'patient-detail', 'live', 'simulator', 'alerts', 'history', 'settings'];
+
+    // Enforce authentication guard: Prevent unauthenticated guests from viewing private clinical telemetry
+    if (protectedRoutes.includes(route) && (!auth || !auth.isAuthenticated)) {
+      this.showToast('🔒 Clinical session required. Please sign in to access telemetry.', 'warning');
+      route = 'login';
+    }
+
     this.currentView = route;
 
     // Update active desktop nav link
@@ -833,11 +931,6 @@ const HealthGuardApp = {
     // Update JSON inspector
     this.updateJsonInspector(bundle);
 
-    // Update navbar edge latency & stats
-    const edgeLatencyEl = document.getElementById('edgeLatencyBadge');
-    if (edgeLatencyEl && edge) {
-      edgeLatencyEl.innerText = `⚡ ${edge.edgeLatencyMs} ms`;
-    }
 
     // Refresh tables and matrix
     this.renderPatientsTable();
@@ -1428,6 +1521,13 @@ const HealthGuardApp = {
     this.inspectArchNode('node_patient');
   },
 
+  scrollPipelineTrack(direction) {
+    const track = document.getElementById('archPipelineTrack');
+    if (!track) return;
+    const scrollAmount = direction * Math.max(160, Math.floor(track.clientWidth * 0.6));
+    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  },
+
   inspectArchNode(nodeId) {
     const node = this.architectureNodes.find(n => n.id === nodeId);
     const box = document.getElementById('archNodeDetailsBox');
@@ -1436,7 +1536,10 @@ const HealthGuardApp = {
     // Update active class on track & list
     document.querySelectorAll('.pipeline-step-node').forEach(el => el.classList.remove('active'));
     const activeTrackNode = document.getElementById(`track-node-${nodeId}`);
-    if (activeTrackNode) activeTrackNode.classList.add('active');
+    if (activeTrackNode) {
+      activeTrackNode.classList.add('active');
+      activeTrackNode.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
 
     document.querySelectorAll('#archNodesListGroup .list-group-item').forEach(el => el.classList.remove('active'));
     const activeListBtn = document.getElementById(`list-btn-${nodeId}`);

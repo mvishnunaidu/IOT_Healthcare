@@ -112,7 +112,18 @@ class VirtualSensorSimulator:
         clean_payload, edge_meta = edge_processor.process(raw_payload)
 
         # 2. Abnormality Detection
-        detection = abnormality_detector.evaluate(clean_payload)
+        # We need to retrieve patient baselines if they exist
+        db = SessionLocal()
+        patient_baselines = None
+        try:
+            p_id = clean_payload["patient_id"]
+            patient = db.query(Patient).filter(Patient.id == p_id).first()
+            if patient and patient.baselines:
+                patient_baselines = patient.baselines
+        except Exception:
+            pass # fallback to default if db error early on
+
+        detection = abnormality_detector.evaluate(clean_payload, patient_baselines)
         status = detection["overall_status"]
         issues_summary = "; ".join(detection["issues_detected"]) if detection["issues_detected"] else "Vitals nominal"
 

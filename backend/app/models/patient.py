@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, JSON
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from app.database.session import Base
@@ -17,6 +17,7 @@ class Patient(Base):
     emergency_contact = Column(String(100), nullable=True)
     medical_conditions = Column(String(255), nullable=True)
     room_number = Column(String(20), nullable=True)
+    baselines = Column(JSON, nullable=True)
     device_id = Column(String(50), default="VIRTUAL_NODE_01")
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

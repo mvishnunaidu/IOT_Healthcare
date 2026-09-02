@@ -28,7 +28,7 @@ class AbnormalityDetector:
     def get_thresholds(self) -> Dict[str, Any]:
         return copy.deepcopy(self.thresholds)
 
-    def evaluate(self, reading_data: Dict[str, Any]) -> Dict[str, Any]:
+    def evaluate(self, reading_data: Dict[str, Any], patient_baselines: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Evaluates a set of physiological readings against multi-tier thresholds.
         Returns:
@@ -45,10 +45,16 @@ class AbnormalityDetector:
         highest_severity = 0  # 0: Normal, 1: Warning, 2: Critical
         generated_alerts: List[Dict[str, Any]] = []
 
+        current_thresholds = self.get_thresholds()
+        if patient_baselines:
+            for metric, conf in patient_baselines.items():
+                if metric in current_thresholds and isinstance(conf, dict):
+                    current_thresholds[metric].update(conf)
+
         # 1. Heart Rate Evaluation
         hr = reading_data.get("heart_rate")
         if hr is not None:
-            hr_conf = self.thresholds["heart_rate"]
+            hr_conf = current_thresholds["heart_rate"]
             hr_status = "NORMAL"
             hr_msg = None
 
@@ -89,7 +95,7 @@ class AbnormalityDetector:
         # 2. SpO2 Oxygen Saturation Evaluation
         spo2 = reading_data.get("spo2")
         if spo2 is not None:
-            spo2_conf = self.thresholds["spo2"]
+            spo2_conf = current_thresholds["spo2"]
             spo2_status = "NORMAL"
             spo2_msg = None
 
@@ -122,7 +128,7 @@ class AbnormalityDetector:
         # 3. Body Temperature Evaluation
         temp = reading_data.get("temperature")
         if temp is not None:
-            temp_conf = self.thresholds["temperature"]
+            temp_conf = current_thresholds["temperature"]
             temp_status = "NORMAL"
             temp_msg = None
 

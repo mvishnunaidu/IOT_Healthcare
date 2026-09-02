@@ -13,6 +13,7 @@ class PatientBase(BaseModel):
     emergency_contact: Optional[str] = None
     medical_conditions: Optional[str] = None
     room_number: Optional[str] = None
+    baselines: Optional[dict] = None
     device_id: Optional[str] = "VIRTUAL_NODE_01"
 
 class PatientCreate(PatientBase):
@@ -28,6 +29,7 @@ class PatientUpdate(BaseModel):
     emergency_contact: Optional[str] = None
     medical_conditions: Optional[str] = None
     room_number: Optional[str] = None
+    baselines: Optional[dict] = None
     device_id: Optional[str] = None
 
 class PatientResponse(PatientBase):
