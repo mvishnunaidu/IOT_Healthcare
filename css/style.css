@@ -103,6 +103,25 @@ body {
                     radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.03) 0%, transparent 40%);
 }
 
+/* Hero Section Typography */
+.hero-main-title {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-main-title {
+    font-size: 1.85rem;
+  }
+}
+
 /* Modern Top Navbar */
 header.navbar {
   background-color: var(--bg-glass) !important;

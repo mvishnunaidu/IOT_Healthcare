@@ -1,4 +1,4 @@
-# IoT-Enabled Clinical Healthcare Telemetry & Abnormality Detection Platform
+# Intelligent IoT Healthcare Monitoring & Abnormality Detection
 
 **HealthGuard IoT** is an enterprise-grade patient vital signs telemetry and automated abnormality triage platform. It integrates biomedical sensor signal acquisition, low-latency edge computing sanitization, multi-tier deterministic clinical triage, 60 FPS real-time hospital oscilloscopes, and automated audio-visual emergency dispatch.
 
