@@ -163,6 +163,7 @@ const HealthGuardApp = {
 
   init() {
     this.bindEvents();
+    this.populateSimulatorPatientDropdown();
     this.renderPatientsTable();
     this.renderPatientCards();
     this.renderLiveMatrix();
@@ -699,116 +700,150 @@ const HealthGuardApp = {
     `;
   },
 
+  populateSimulatorPatientDropdown() {
+    const select = document.getElementById('simPatientSelect');
+    if (!select) return;
+
+    select.innerHTML = PatientManager.patients.map(p => `
+      <option value="${p.id}" ${p.id === this.selectedPatientId ? 'selected' : ''}>
+        ${p.name} (${p.code}) - ${p.room} [${p.status}]
+      </option>
+    `).join('');
+  },
+
   renderPatientsTable() {
     const tbody = document.getElementById('patientsTableBody');
     if (!tbody) return;
 
-    tbody.innerHTML = PatientManager.patients.map(p => `
-      <tr>
-        <td class="font-monospace fw-bold text-muted">${p.code}</td>
-        <td>
-          <div class="fw-bold">${p.name}</div>
-          <span class="text-muted small">${p.condition}</span>
-        </td>
-        <td>${p.age} Yrs / ${p.gender}</td>
-        <td><span class="badge bg-light text-dark border">${p.room}</span></td>
-        <td class="font-monospace text-danger fw-bold">${p.vitals.heartRate} BPM</td>
-        <td class="font-monospace text-info fw-bold">${p.vitals.spo2}%</td>
-        <td class="font-monospace text-warning fw-bold">${p.vitals.temperature}°C</td>
-        <td><span class="badge badge-${p.status.toLowerCase()}">${p.status}</span></td>
-        <td class="text-end">
-          <button class="btn btn-sm btn-outline-primary py-1 px-2" onclick="HealthGuardApp.inspectPatient(${p.id})">
-            <i class="bi bi-eye"></i> Monitor
-          </button>
-        </td>
-      </tr>
-    `).join('');
+    tbody.innerHTML = PatientManager.patients.map(p => {
+      const hr = p.hr || 74;
+      const spo2 = p.spo2 || 98;
+      const temp = p.temp || 36.7;
+      const status = p.status || 'NORMAL';
+      const badgeClass = `badge badge-${status.toLowerCase()}`;
+
+      return `
+        <tr>
+          <td class="font-monospace fw-bold text-info">${p.code}</td>
+          <td>
+            <div class="fw-bold text-light">${p.name}</div>
+            <span class="text-muted small">${p.condition}</span>
+          </td>
+          <td>${p.age} Yrs / ${p.gender}</td>
+          <td><span class="badge bg-secondary-subtle text-light border border-secondary-subtle font-monospace">${p.room}</span></td>
+          <td class="font-monospace fw-bold" style="color: var(--color-hr);">${hr} BPM</td>
+          <td class="font-monospace fw-bold" style="color: var(--color-spo2);">${spo2}%</td>
+          <td class="font-monospace fw-bold" style="color: var(--color-temp);">${temp}°C</td>
+          <td><span class="${badgeClass}">${status}</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-info py-1 px-2.5" onclick="HealthGuardApp.inspectPatient(${p.id})">
+              <i class="bi bi-activity me-1"></i> Monitor
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
   },
 
   renderPatientCards() {
     const grid = document.getElementById('livePatientCardsGrid');
     if (!grid) return;
 
-    grid.innerHTML = PatientManager.patients.map(p => `
-      <div class="col-md-6 col-lg-4">
-        <div class="saas-card saas-card-interactive h-100 ${p.id === this.selectedPatientId ? 'border-primary shadow-sm' : ''}" onclick="HealthGuardApp.inspectPatient(${p.id})">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div>
-              <h6 class="fw-bold mb-0">${p.name}</h6>
-              <span class="text-muted small font-monospace">${p.code} • ${p.room}</span>
+    grid.innerHTML = PatientManager.patients.map(p => {
+      const hr = p.hr || 74;
+      const spo2 = p.spo2 || 98;
+      const temp = p.temp || 36.7;
+      const status = p.status || 'NORMAL';
+      const isSelected = p.id === this.selectedPatientId;
+
+      return `
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="saas-card saas-card-interactive h-100 ${isSelected ? 'border-info shadow-sm' : ''}" onclick="HealthGuardApp.inspectPatient(${p.id})">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div>
+                <h6 class="fw-bold mb-0 text-light">${p.name}</h6>
+                <span class="text-muted small font-monospace">${p.code} • ${p.room}</span>
+              </div>
+              <span class="badge badge-${status.toLowerCase()}">${status}</span>
             </div>
-            <span class="badge badge-${p.status.toLowerCase()}">${p.status}</span>
-          </div>
-          <div class="row g-2 text-center my-2 font-monospace">
-            <div class="col-4">
-              <span class="text-muted small d-block" style="font-size: 10px;">HEART RATE</span>
-              <span class="fw-bold text-danger">${p.vitals.heartRate}</span>
+            <div class="row g-2 text-center my-2 font-monospace">
+              <div class="col-4">
+                <span class="text-muted small d-block" style="font-size: 10px;">HR (BPM)</span>
+                <span class="fw-bold" style="color: var(--color-hr);">${hr}</span>
+              </div>
+              <div class="col-4 border-start border-end border-secondary-subtle">
+                <span class="text-muted small d-block" style="font-size: 10px;">SpO2</span>
+                <span class="fw-bold" style="color: var(--color-spo2);">${spo2}%</span>
+              </div>
+              <div class="col-4">
+                <span class="text-muted small d-block" style="font-size: 10px;">TEMP</span>
+                <span class="fw-bold" style="color: var(--color-temp);">${temp}°C</span>
+              </div>
             </div>
-            <div class="col-4 border-start border-end">
-              <span class="text-muted small d-block" style="font-size: 10px;">SpO2</span>
-              <span class="fw-bold text-info">${p.vitals.spo2}%</span>
+            <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top border-secondary-subtle small text-muted">
+              <span class="font-monospace" style="font-size: 10px;">Node: ${p.deviceId}</span>
+              <span class="text-info fw-semibold" style="font-size: 11px;"><i class="bi bi-activity"></i> Active Feed</span>
             </div>
-            <div class="col-4">
-              <span class="text-muted small d-block" style="font-size: 10px;">TEMP</span>
-              <span class="fw-bold text-warning">${p.vitals.temperature}°C</span>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top small text-muted">
-            <span>Node: ESP32_0${p.id}</span>
-            <span class="text-primary fw-semibold"><i class="bi bi-activity"></i> Active Feed</span>
           </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   },
 
   renderLiveMatrix() {
     const container = document.getElementById('liveMatrixContainer');
     if (!container) return;
 
-    container.innerHTML = PatientManager.patients.map(p => `
-      <div class="col-md-6 col-xl-4">
-        <div class="saas-card h-100">
-          <div class="d-flex justify-content-between align-items-center pb-2 border-bottom mb-3">
-            <div>
-              <div class="d-flex align-items-center gap-2">
-                <span class="live-beacon"></span>
-                <h6 class="fw-bold mb-0">${p.name}</h6>
-                <span class="badge bg-light text-dark border font-monospace">${p.code}</span>
+    container.innerHTML = PatientManager.patients.map(p => {
+      const hr = p.hr || 74;
+      const spo2 = p.spo2 || 98;
+      const temp = p.temp || 36.7;
+      const status = p.status || 'NORMAL';
+
+      return `
+        <div class="col-md-6 col-xl-4">
+          <div class="saas-card h-100">
+            <div class="d-flex justify-content-between align-items-center pb-2 border-bottom border-secondary-subtle mb-3">
+              <div>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="live-beacon"></span>
+                  <h6 class="fw-bold mb-0 text-light">${p.name}</h6>
+                  <span class="badge bg-secondary-subtle text-light border border-secondary-subtle font-monospace">${p.code}</span>
+                </div>
+                <span class="text-muted small">${p.room} • ${p.condition}</span>
               </div>
-              <span class="text-muted small">${p.room} • ${p.condition}</span>
+              <span class="badge badge-${status.toLowerCase()}">${status}</span>
             </div>
-            <span class="badge badge-${p.status.toLowerCase()}">${p.status}</span>
-          </div>
-          <div class="row g-2 text-center mb-3">
-            <div class="col-4">
-              <div class="p-2 rounded bg-light border">
-                <span class="text-muted small d-block" style="font-size: 11px;">HR (BPM)</span>
-                <span class="vital-val text-danger d-block fs-4">${p.vitals.heartRate}</span>
+            <div class="row g-2 text-center mb-3">
+              <div class="col-4">
+                <div class="p-2 rounded bg-dark border border-secondary-subtle">
+                  <span class="text-muted small d-block" style="font-size: 11px;">HR (BPM)</span>
+                  <span class="vital-val d-block fs-4 fw-bold font-monospace" style="color: var(--color-hr);">${hr}</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 rounded bg-dark border border-secondary-subtle">
+                  <span class="text-muted small d-block" style="font-size: 11px;">SpO2 (%)</span>
+                  <span class="vital-val d-block fs-4 fw-bold font-monospace" style="color: var(--color-spo2);">${spo2}</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 rounded bg-dark border border-secondary-subtle">
+                  <span class="text-muted small d-block" style="font-size: 11px;">TEMP (°C)</span>
+                  <span class="vital-val d-block fs-4 fw-bold font-monospace" style="color: var(--color-temp);">${temp}</span>
+                </div>
               </div>
             </div>
-            <div class="col-4">
-              <div class="p-2 rounded bg-light border">
-                <span class="text-muted small d-block" style="font-size: 11px;">SpO2 (%)</span>
-                <span class="vital-val text-info d-block fs-4">${p.vitals.spo2}</span>
-              </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="small text-muted font-monospace"><i class="bi bi-wifi text-info"></i> ${p.deviceId}</span>
+              <button class="btn btn-sm btn-outline-info" onclick="HealthGuardApp.inspectPatient(${p.id})">
+                Bedside Telemetry <i class="bi bi-arrow-right"></i>
+              </button>
             </div>
-            <div class="col-4">
-              <div class="p-2 rounded bg-light border">
-                <span class="text-muted small d-block" style="font-size: 11px;">TEMP (°C)</span>
-                <span class="vital-val text-warning d-block fs-4">${p.vitals.temperature}</span>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="small text-muted font-monospace"><i class="bi bi-wifi"></i> ESP32_NODE_0${p.id}</span>
-            <button class="btn btn-sm btn-outline-primary" onclick="HealthGuardApp.inspectPatient(${p.id})">
-              Bedside Telemetry <i class="bi bi-arrow-right"></i>
-            </button>
           </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   },
 
   inspectPatient(patientId) {

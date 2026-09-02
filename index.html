@@ -333,43 +333,43 @@
 
           <div class="row g-3">
             <div class="col-6 col-md-3">
-              <div class="p-3 rounded-3 bg-light border">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted small fw-bold text-uppercase">❤️ Heart Rate</span>
-                  <i class="bi bi-heart-pulse text-danger heartbeat-icon"></i>
+              <div class="vital-display-card hr-theme">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-uppercase" style="color: var(--color-hr); font-size: 11px;">❤️ Heart Rate</span>
+                  <i class="bi bi-heart-pulse-fill heartbeat-icon" style="color: var(--color-hr);"></i>
                 </div>
-                <span class="vital-val text-danger d-block my-1" id="dashHR">74</span>
-                <span class="text-muted small">Target: 60 - 100 BPM</span>
+                <div class="vital-metric-val" style="color: var(--color-hr);" id="dashHR">74</div>
+                <span class="text-muted small" style="font-size: 11px;">Target: 60 - 100 BPM</span>
               </div>
             </div>
             <div class="col-6 col-md-3">
-              <div class="p-3 rounded-3 bg-light border">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted small fw-bold text-uppercase">🫁 SpO2 Oxygen</span>
-                  <i class="bi bi-droplet-half text-info"></i>
+              <div class="vital-display-card spo2-theme">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-uppercase" style="color: var(--color-spo2); font-size: 11px;">🫁 SpO2 Oxygen</span>
+                  <i class="bi bi-droplet-half" style="color: var(--color-spo2);"></i>
                 </div>
-                <span class="vital-val text-info d-block my-1" id="dashSpO2">98%</span>
-                <span class="text-muted small">Target: 95 - 100%</span>
+                <div class="vital-metric-val" style="color: var(--color-spo2);" id="dashSpO2">98%</div>
+                <span class="text-muted small" style="font-size: 11px;">Target: 95 - 100%</span>
               </div>
             </div>
             <div class="col-6 col-md-3">
-              <div class="p-3 rounded-3 bg-light border">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted small fw-bold text-uppercase">🌡 Temperature</span>
-                  <i class="bi bi-thermometer-half text-warning"></i>
+              <div class="vital-display-card temp-theme">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-uppercase" style="color: var(--color-temp); font-size: 11px;">🌡 Temperature</span>
+                  <i class="bi bi-thermometer-half" style="color: var(--color-temp);"></i>
                 </div>
-                <span class="vital-val text-warning d-block my-1" id="dashTemp">36.7°C</span>
-                <span class="text-muted small">Target: 36.5 - 37.5°C</span>
+                <div class="vital-metric-val" style="color: var(--color-temp);" id="dashTemp">36.7°C</div>
+                <span class="text-muted small" style="font-size: 11px;">Target: 36.5 - 37.5°C</span>
               </div>
             </div>
             <div class="col-6 col-md-3">
-              <div class="p-3 rounded-3 bg-light border">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="text-muted small fw-bold text-uppercase">🩸 Blood Pressure</span>
-                  <i class="bi bi-speedometer2 text-primary"></i>
+              <div class="vital-display-card bp-theme">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small fw-bold text-uppercase" style="color: var(--color-bp); font-size: 11px;">🩸 Blood Pressure</span>
+                  <i class="bi bi-speedometer2" style="color: var(--color-bp);"></i>
                 </div>
-                <span class="vital-val text-primary d-block my-1" id="dashBP">118/78</span>
-                <span class="text-muted small">Target: 120/80 mmHg</span>
+                <div class="vital-metric-val" style="color: var(--color-bp);" id="dashBP">118/78</div>
+                <span class="text-muted small" style="font-size: 11px;">Target: 120/80 mmHg</span>
               </div>
             </div>
           </div>
@@ -379,14 +379,14 @@
         <div class="saas-card mb-4">
           <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
             <div>
-              <h6 class="fw-bold mb-0">Multi-Parameter Telemetry Waveforms (Chart.js)</h6>
+              <h6 class="fw-bold mb-0 text-light">Multi-Parameter Telemetry Waveforms (Chart.js)</h6>
               <span class="text-muted small">Real-time synchronized vital streams with dynamic gradients</span>
             </div>
             <div class="d-flex align-items-center gap-2">
               <span class="small text-muted fw-semibold">Window:</span>
               <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-outline-secondary" data-chart-range="10">15s</button>
-                <button type="button" class="btn btn-primary active" data-chart-range="20">30s</button>
+                <button type="button" class="btn btn-info active text-dark fw-bold" data-chart-range="20">30s</button>
                 <button type="button" class="btn btn-outline-secondary" data-chart-range="40">60s</button>
               </div>
             </div>
@@ -399,8 +399,8 @@
         <!-- Live Patient Monitoring Cards Matrix -->
         <div class="mb-4">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="fw-bold mb-0">Multi-Bed Ward Telemetry Matrix</h5>
-            <span class="badge bg-light text-dark border">5 Beds Online</span>
+            <h5 class="fw-bold mb-0 text-light">Multi-Bed Ward Telemetry Matrix</h5>
+            <span class="badge bg-secondary-subtle text-info border border-secondary-subtle font-monospace">20 Beds Online</span>
           </div>
           <div class="row g-3" id="livePatientCardsGrid"></div>
         </div>
@@ -428,7 +428,7 @@
         <div class="saas-card p-0 overflow-hidden">
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0 small">
-              <thead class="table-light">
+              <thead class="table-head-cyber">
                 <tr>
                   <th>ID</th>
                   <th>Patient</th>
@@ -860,7 +860,7 @@
         <div class="saas-card p-0 overflow-hidden">
           <div class="table-responsive">
             <table class="table table-hover align-middle mb-0 small">
-              <thead class="table-light">
+              <thead class="table-head-cyber">
                 <tr>
                   <th>Timestamp</th>
                   <th>Patient</th>
@@ -947,7 +947,7 @@
           <h6 class="fw-bold mb-3">Multi-Tier Clinical Boundary Reference Matrix</h6>
           <div class="table-responsive">
             <table class="table table-sm small align-middle">
-              <thead class="table-light">
+              <thead class="table-head-cyber">
                 <tr>
                   <th>Physiological Vital</th>
                   <th>Nominal (NORMAL)</th>
