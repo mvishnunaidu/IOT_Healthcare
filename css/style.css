@@ -135,6 +135,60 @@ body {
   }
 }
 
+/* Premium Hero Buttons */
+.hero-btn-main {
+  background: linear-gradient(135deg, var(--primary-accent), #3b82f6) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.hero-btn-main::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-btn-main:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45) !important;
+}
+.hero-btn-main:hover::after {
+  opacity: 1;
+}
+
+.hero-btn-sub {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+[data-bs-theme="dark"] .hero-btn-sub {
+  background: rgba(30, 41, 59, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.hero-btn-sub:hover {
+  background: var(--bg-surface) !important;
+  border-color: var(--primary-accent) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: var(--shadow-md) !important;
+  color: var(--primary-accent) !important;
+}
+[data-bs-theme="dark"] .hero-btn-sub:hover {
+  background: rgba(30, 41, 59, 0.9) !important;
+}
+
 /* Modern Top Navbar */
 header.navbar {
   background-color: var(--bg-glass) !important;
