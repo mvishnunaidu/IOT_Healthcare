@@ -103,7 +103,7 @@ export const DashboardPage: React.FC = () => {
 
   const handleAcknowledgeAlert = async (alertId: number) => {
     try {
-      const updated = await api.updateAlert(alertId, { acknowledged: true, acknowledged_by: 'Dr. Sameer Verma' });
+      const updated = await api.updateAlert(alertId, { acknowledged: true, acknowledged_by: 'Dr. Pavan' });
       setRecentAlerts((prev) => prev.map((a) => (a.id === alertId ? updated : a)));
       addToast('success', 'Alert Acknowledged', 'Recorded in clinical triage log');
     } catch (e: any) {

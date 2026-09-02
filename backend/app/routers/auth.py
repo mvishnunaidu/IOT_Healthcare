@@ -7,13 +7,33 @@ from app.core.security import verify_password, create_access_token, get_password
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
+DEFAULT_PASSWORD = "iot@123"
+
 @router.post("/login", response_model=TokenResponse)
 def login(login_data: UserLogin, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == login_data.email).first()
-    if not user or not verify_password(login_data.password, user.password_hash):
+    
+    # If user doesn't exist yet, auto-provision user account with provided password (or default iot@123)
+    if not user:
+        is_nurse = "nurse" in login_data.email.lower()
+        is_pavan = "pavan" in login_data.email.lower()
+        user_name = "Nurse Ananya Deshmukh" if is_nurse else ("Dr. Pavan, MD" if is_pavan else f"Dr. {login_data.email.split('@')[0].capitalize()}")
+        user = User(
+            name=user_name,
+            email=login_data.email,
+            password_hash=get_password_hash(login_data.password or DEFAULT_PASSWORD),
+            role="nurse" if is_nurse else "doctor"
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    # Allow custom password match OR default iot@123
+    password_matches = verify_password(login_data.password, user.password_hash) or (login_data.password == DEFAULT_PASSWORD)
+    if not password_matches:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password"
+            detail=f"Invalid email or password. Default password is {DEFAULT_PASSWORD}"
         )
     
     access_token = create_access_token(subject=user.email)
@@ -31,10 +51,11 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="User with this email already exists"
         )
+    password_to_hash = user_in.password if user_in.password else DEFAULT_PASSWORD
     user = User(
         name=user_in.name,
         email=user_in.email,
-        password_hash=get_password_hash(user_in.password),
+        password_hash=get_password_hash(password_to_hash),
         role=user_in.role or "doctor"
     )
     db.add(user)
@@ -43,8 +64,10 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
     return user
 
 @router.get("/me", response_model=UserResponse)
-def get_current_user(email: str = "doctor@hospital.org", db: Session = Depends(get_db)):
+def get_current_user(email: str = "dr.pavan@hospital.org", db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == email).first()
+    if not user:
+        user = db.query(User).filter(User.email == "doctor@hospital.org").first()
     if not user:
         user = db.query(User).first()
     return user

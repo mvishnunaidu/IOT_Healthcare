@@ -61,7 +61,7 @@ def update_alert(alert_id: int, alert_update: AlertUpdate, db: Session = Depends
     if alert_update.acknowledged is not None:
         alert.acknowledged = alert_update.acknowledged
         if alert_update.acknowledged:
-            alert.acknowledged_by = alert_update.acknowledged_by or "Dr. Sameer Verma"
+            alert.acknowledged_by = alert_update.acknowledged_by or "Dr. Pavan"
             alert.acknowledged_at = now
             
     if alert_update.resolved is not None:

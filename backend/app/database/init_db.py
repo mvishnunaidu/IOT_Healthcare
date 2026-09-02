@@ -21,23 +21,29 @@ def init_db():
 
     try:
         # 1. Seed Demo Users
-        existing_user = db.query(User).filter(User.email == "doctor@hospital.org").first()
+        existing_user = db.query(User).filter(User.email.in_(["dr.pavan@hospital.org", "doctor@hospital.org"])).first()
         if not existing_user:
             demo_doctor = User(
-                name="Dr. Sameer Verma, MD",
+                name="Dr. Pavan, MD",
+                email="dr.pavan@hospital.org",
+                password_hash=get_password_hash("iot@123"),
+                role="doctor"
+            )
+            demo_doctor_alias = User(
+                name="Dr. Pavan, MD",
                 email="doctor@hospital.org",
-                password_hash=get_password_hash("doctor123"),
+                password_hash=get_password_hash("iot@123"),
                 role="doctor"
             )
             demo_nurse = User(
                 name="Nurse Ananya Deshmukh",
                 email="nurse@hospital.org",
-                password_hash=get_password_hash("nurse123"),
+                password_hash=get_password_hash("iot@123"),
                 role="nurse"
             )
-            db.add_all([demo_doctor, demo_nurse])
+            db.add_all([demo_doctor, demo_doctor_alias, demo_nurse])
             db.commit()
-            print("[INFO] Seeded demo users: doctor@hospital.org / doctor123")
+            print("[INFO] Seeded demo users: dr.pavan@hospital.org / iot@123 (Default password for all)")
 
         # 2. Seed Demo Patients
         if db.query(Patient).count() == 0:

@@ -179,7 +179,7 @@ const HealthGuardApp = {
 
   init() {
     this.bindEvents();
-    this.populateSimulatorPatientDropdown();
+    this.populateAllPatientDropdowns();
     this.renderPatientsTable();
     this.renderPatientCards();
     this.renderLiveMatrix();
@@ -187,6 +187,9 @@ const HealthGuardApp = {
     this.renderArchitecture();
     this.renderHistoryTable();
     this.updateStats();
+
+    // Set initial user display name & avatar from AuthManager
+    this.updateUserHeaderUI();
 
     // Chart.js init
     setTimeout(() => {
@@ -209,6 +212,34 @@ const HealthGuardApp = {
 
     // Log initialization
     iotSimulator.logEvent('IoT Clinical Gateway Initialized (Telemetry Stream Active)', 'INFO');
+  },
+
+  updateUserHeaderUI() {
+    if (!window.AuthManager) return;
+    const nameEl = document.getElementById('userDisplayName');
+    const roleEl = document.getElementById('userRoleBadge');
+    const avatarEl = document.getElementById('userAvatarBadge');
+    const logoutBtn = document.getElementById('headerLogoutBtn');
+
+    if (AuthManager.isAuthenticated && AuthManager.currentUser) {
+      const u = AuthManager.currentUser;
+      if (nameEl) nameEl.innerText = u.name || 'Dr. Pavan';
+      if (roleEl) roleEl.innerText = u.role ? u.role.split('/')[0].trim() : 'Physician';
+      if (avatarEl) {
+        const cleanName = (u.name || 'Dr. Pavan').replace(/^(Dr\.|Nurse|Mr\.|Ms\.)\s*/i, '').trim();
+        const parts = cleanName.split(' ');
+        const initials = parts.length > 1
+          ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+          : cleanName.substring(0, 2).toUpperCase() || 'DP';
+        avatarEl.innerText = initials;
+      }
+      if (logoutBtn) logoutBtn.classList.remove('d-none');
+    } else {
+      if (nameEl) nameEl.innerText = 'Sign In';
+      if (roleEl) roleEl.innerText = 'Guest';
+      if (avatarEl) avatarEl.innerText = '??';
+      if (logoutBtn) logoutBtn.classList.add('d-none');
+    }
   },
 
   bindEvents() {
@@ -386,6 +417,129 @@ const HealthGuardApp = {
         addPatientForm.reset();
 
         this.showToast(`Patient ${name} (${newPat.code}) registered successfully.`, 'success');
+      });
+    }
+
+    // Patient Selector Dropdowns (Dashboard, Bedside, Simulator)
+    const dashPatientSel = document.getElementById('dashPatientSelect');
+    if (dashPatientSel) {
+      dashPatientSel.addEventListener('change', (e) => {
+        this.selectActivePatient(Number(e.target.value));
+      });
+    }
+
+    const bedsidePatientSel = document.getElementById('bedsidePatientSelect');
+    if (bedsidePatientSel) {
+      bedsidePatientSel.addEventListener('change', (e) => {
+        this.selectActivePatient(Number(e.target.value));
+      });
+    }
+
+    const simPatientSel = document.getElementById('simPatientSelect');
+    if (simPatientSel) {
+      simPatientSel.addEventListener('change', (e) => {
+        this.selectActivePatient(Number(e.target.value));
+      });
+    }
+
+    // Auth Tabs Switcher (Sign In vs Register)
+    const tabSignIn = document.getElementById('tabSignInBtn');
+    const tabRegister = document.getElementById('tabRegisterBtn');
+    const loginContainer = document.getElementById('authLoginFormContainer');
+    const registerContainer = document.getElementById('authRegisterFormContainer');
+    const switchToReg = document.getElementById('switchToRegisterLink');
+    const switchToLogin = document.getElementById('switchToSignInLink');
+
+    const showSignInTab = () => {
+      if (tabSignIn && tabRegister) {
+        tabSignIn.classList.add('active');
+        tabRegister.classList.remove('active');
+      }
+      if (loginContainer) loginContainer.classList.remove('d-none');
+      if (registerContainer) registerContainer.classList.add('d-none');
+    };
+
+    const showRegisterTab = () => {
+      if (tabSignIn && tabRegister) {
+        tabRegister.classList.add('active');
+        tabSignIn.classList.remove('active');
+      }
+      if (loginContainer) loginContainer.classList.add('d-none');
+      if (registerContainer) registerContainer.classList.remove('d-none');
+    };
+
+    if (tabSignIn) tabSignIn.addEventListener('click', showSignInTab);
+    if (tabRegister) tabRegister.addEventListener('click', showRegisterTab);
+    if (switchToReg) switchToReg.addEventListener('click', showRegisterTab);
+    if (switchToLogin) switchToLogin.addEventListener('click', showSignInTab);
+
+    // Login Form Submission
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail')?.value || 'dr.pavan@hospital.org';
+        const password = document.getElementById('loginPassword')?.value || 'iot@123';
+        try {
+          const user = AuthManager.login(email, password);
+          this.updateUserHeaderUI();
+          this.showToast(`Welcome back, ${user.name}! Authentication verified.`, 'success');
+          this.navigateTo('dashboard');
+        } catch (err) {
+          this.showToast(err.message, 'danger');
+        }
+      });
+    }
+
+    // Register Form Submission (New users with their own password)
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName')?.value;
+        const email = document.getElementById('regEmail')?.value;
+        const role = document.getElementById('regRole')?.value || 'Attending Physician';
+        const password = document.getElementById('regPassword')?.value;
+        const confirmPassword = document.getElementById('regConfirmPassword')?.value;
+
+        if (password !== confirmPassword) {
+          this.showToast('Passwords do not match. Please re-enter your password.', 'danger');
+          return;
+        }
+
+        try {
+          const user = AuthManager.register(name, email, password, role);
+          this.updateUserHeaderUI();
+          this.showToast(`Account created successfully! Welcome, ${user.name}.`, 'success');
+          registerForm.reset();
+          this.navigateTo('dashboard');
+        } catch (err) {
+          this.showToast(err.message, 'danger');
+        }
+      });
+    }
+
+    // Password Eye Visibility Toggle Buttons
+    document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        btn.innerHTML = isPassword ? '<i class="bi bi-eye-slash"></i>' : '<i class="bi bi-eye"></i>';
+      });
+    });
+
+    // Header Logout Button
+    const logoutBtn = document.getElementById('headerLogoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        AuthManager.logout();
+        this.updateUserHeaderUI();
+        this.showToast('You have been signed out.', 'info');
+        this.navigateTo('login');
       });
     }
 
@@ -714,15 +868,26 @@ const HealthGuardApp = {
     `;
   },
 
-  populateSimulatorPatientDropdown() {
-    const select = document.getElementById('simPatientSelect');
-    if (!select) return;
-
-    select.innerHTML = PatientManager.patients.map(p => `
+  populateAllPatientDropdowns() {
+    const patients = PatientManager.getAllPatients();
+    const optionsHtml = patients.map(p => `
       <option value="${p.id}" ${p.id === this.selectedPatientId ? 'selected' : ''}>
         ${p.name} (${p.code}) - ${p.room} [${p.status}]
       </option>
     `).join('');
+
+    const dashSelect = document.getElementById('dashPatientSelect');
+    if (dashSelect) dashSelect.innerHTML = optionsHtml;
+
+    const bedsideSelect = document.getElementById('bedsidePatientSelect');
+    if (bedsideSelect) bedsideSelect.innerHTML = optionsHtml;
+
+    const simSelect = document.getElementById('simPatientSelect');
+    if (simSelect) simSelect.innerHTML = optionsHtml;
+  },
+
+  populateSimulatorPatientDropdown() {
+    this.populateAllPatientDropdowns();
   },
 
   renderPatientsTable() {
@@ -860,30 +1025,49 @@ const HealthGuardApp = {
     }).join('');
   },
 
-  inspectPatient(patientId) {
-    this.selectedPatientId = patientId;
-    const p = PatientManager.getPatientById(patientId);
+  selectActivePatient(patientId, navigateView = null) {
+    this.selectedPatientId = Number(patientId);
+    const p = PatientManager.getPatientById(this.selectedPatientId);
     if (!p) return;
 
-    // Update Dashboard active card
+    // 1. Update Dashboard active card
     const nameEl = document.getElementById('dashPatientName');
     const codeEl = document.getElementById('dashPatientCode');
+    const statusEl = document.getElementById('dashPatientStatus');
     const roomEl = document.getElementById('dashPatientRoom');
+    const hrEl = document.getElementById('dashHR');
+    const spo2El = document.getElementById('dashSpO2');
+    const tempEl = document.getElementById('dashTemp');
+    const bpEl = document.getElementById('dashBP');
+
     if (nameEl) nameEl.innerText = p.name;
     if (codeEl) codeEl.innerText = p.code;
-    if (roomEl) roomEl.innerText = `Room: ${p.room} • Assigned: ESP32_NODE_0${p.id}`;
+    if (roomEl) roomEl.innerText = `Room: ${p.room} • Assigned: ${p.deviceId || 'ESP32_NODE_0' + p.id}`;
+    if (statusEl) {
+      statusEl.className = `badge badge-${p.status.toLowerCase()}`;
+      statusEl.innerText = p.status;
+    }
+    if (hrEl) hrEl.innerText = p.hr || 74;
+    if (spo2El) spo2El.innerText = `${p.spo2 || 98}%`;
+    if (tempEl) tempEl.innerText = `${p.temp || 36.7}°C`;
+    if (bpEl) bpEl.innerText = `${p.systolicBP || 118}/${p.diastolicBP || 78}`;
 
-    // Update Bedside Live Monitor Card
+    // 2. Update Bedside Live Monitor Card
     const liveName = document.getElementById('bedsidePatientName');
     const liveCode = document.getElementById('bedsidePatientCode');
     const liveRoom = document.getElementById('bedsidePatientRoom');
     const liveCondition = document.getElementById('bedsidePatientCondition');
+    const liveStatus = document.getElementById('bedsideStatusBadge');
     if (liveName) liveName.innerText = p.name;
     if (liveCode) liveCode.innerText = `${p.code} (${p.age} Yrs, ${p.gender})`;
     if (liveRoom) liveRoom.innerText = `Unit: ${p.room}`;
     if (liveCondition) liveCondition.innerText = `Diagnosis: ${p.condition}`;
+    if (liveStatus) {
+      liveStatus.className = `badge badge-${p.status.toLowerCase()} px-3 py-1.5`;
+      liveStatus.innerText = p.status;
+    }
 
-    // Update detail page
+    // 3. Update detail page
     const dName = document.getElementById('detailPatientName');
     const dCode = document.getElementById('detailPatientCode');
     const dAgeGen = document.getElementById('detailPatientAgeGender');
@@ -901,12 +1085,37 @@ const HealthGuardApp = {
       dBadge.innerText = p.status;
     }
 
-    // Set active in simulator patient select
+    // 4. Synchronize all select dropdowns
+    const dashSelect = document.getElementById('dashPatientSelect');
+    if (dashSelect && Number(dashSelect.value) !== this.selectedPatientId) {
+      dashSelect.value = this.selectedPatientId;
+    }
+    const bedsideSelect = document.getElementById('bedsidePatientSelect');
+    if (bedsideSelect && Number(bedsideSelect.value) !== this.selectedPatientId) {
+      bedsideSelect.value = this.selectedPatientId;
+    }
     const simSelect = document.getElementById('simPatientSelect');
-    if (simSelect) simSelect.value = patientId;
-    iotSimulator.activePatientId = patientId;
+    if (simSelect && Number(simSelect.value) !== this.selectedPatientId) {
+      simSelect.value = this.selectedPatientId;
+    }
 
-    this.navigateTo('live');
+    // 5. Update IoT Simulator target
+    if (window.iotSimulator) {
+      iotSimulator.activePatientId = this.selectedPatientId;
+      if (iotSimulator.sensors && iotSimulator.sensors.setBaseline) {
+        iotSimulator.sensors.setBaseline(p.hr || 74, p.spo2 || 98.4, p.temp || 36.7);
+      }
+    }
+
+    if (navigateView) {
+      this.navigateTo(navigateView);
+    } else {
+      this.showToast(`Switched active telemetry to ${p.name} (${p.code})`, 'info');
+    }
+  },
+
+  inspectPatient(patientId) {
+    this.selectActivePatient(patientId, 'live');
   },
 
   renderAlerts() {
@@ -1061,13 +1270,13 @@ const HealthGuardApp = {
 
         <div class="row g-2 mb-3">
           <div class="col-md-6">
-            <div class="p-2.5 rounded bg-light border h-100">
+            <div class="p-2.5 rounded bg-light border h-100 shadow-sm">
               <span class="text-muted small fw-bold d-block text-uppercase" style="font-size: 10px;">Input Data Contract</span>
               <div class="small font-monospace text-primary mt-1">${node.input}</div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="p-2.5 rounded bg-light border h-100">
+            <div class="p-2.5 rounded bg-light border h-100 shadow-sm">
               <span class="text-muted small fw-bold d-block text-uppercase" style="font-size: 10px;">Output Data Contract</span>
               <div class="small font-monospace text-success mt-1">${node.output}</div>
             </div>
@@ -1076,7 +1285,7 @@ const HealthGuardApp = {
 
         <div class="mb-3">
           <span class="text-muted small fw-bold d-block text-uppercase" style="font-size: 10px;">Processing Engine & Component</span>
-          <div class="p-2 rounded bg-light border small font-monospace text-dark"><code>${node.tech}</code></div>
+          <div class="p-2 rounded bg-light border small font-monospace text-body"><code>${node.tech}</code></div>
         </div>
 
         <div class="p-3 rounded-3 bg-primary-light border border-primary-subtle">

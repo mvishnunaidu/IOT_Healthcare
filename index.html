@@ -76,14 +76,20 @@
           </span>
         </a>
 
-        <!-- Doctor Avatar & Profile -->
+        <!-- Doctor Avatar & Profile with Logout Option -->
         <div class="d-flex align-items-center gap-2 border-start ps-2 ps-sm-3">
-          <a href="#" data-route="login" class="text-decoration-none d-flex align-items-center gap-2">
-            <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center shadow-sm" style="width: 32px; height: 32px; font-size: 13px;">
-              DR
+          <a href="#" data-route="login" class="text-decoration-none d-flex align-items-center gap-2" title="User Profile / Sign In">
+            <div id="userAvatarBadge" class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center shadow-sm" style="width: 32px; height: 32px; font-size: 13px;">
+              DP
             </div>
-            <span id="userDisplayName" class="small fw-semibold text-body d-none d-md-inline">Dr. Sameer Verma</span>
+            <div class="d-none d-md-block lh-1 text-start">
+              <span id="userDisplayName" class="small fw-semibold text-body d-block">Dr. Pavan</span>
+              <span id="userRoleBadge" class="text-muted" style="font-size: 10px;">Physician</span>
+            </div>
           </a>
+          <button id="headerLogoutBtn" class="btn btn-sm btn-outline-danger py-1 px-2 rounded-2" title="Sign Out / Logout" style="font-size: 11px;">
+            <i class="bi bi-box-arrow-right"></i> <span class="d-none d-sm-inline">Logout</span>
+          </button>
         </div>
       </div>
     </div>
@@ -186,9 +192,9 @@
           <div class="d-inline-flex p-2.5 rounded-3 mb-2 shadow-sm" style="background: rgba(37, 99, 235, 0.1); color: var(--primary-accent);">
             <i class="bi bi-cpu-fill fs-4"></i>
           </div>
-          <h5 class="fw-bold mb-2 text-primary" style="font-size: 1.18rem; letter-spacing: -0.01em;">Autonomous Multi-Node Edge Telemetry Infrastructure</h5>
-          <p class="text-muted col-md-9 mx-auto mb-3" style="font-size: 0.88rem; line-height: 1.55;">
-            Engineered for high-frequency biomedical signal acquisition (PPG, Dual-Wavelength Pulse Oximetry, and NTC Medical Thermistors) with near-sensor EMA filtering and deterministic abnormality classification. Standardized JSON contracts provide seamless plug-and-play compatibility with physical microcontrollers (ESP32 / Raspberry Pi) and hospital EHR pipelines.
+          <h4 class="fw-bold mb-2 text-primary" style="font-size: 1.4rem; letter-spacing: -0.01em;">Autonomous Multi-Node Edge Telemetry Infrastructure</h4>
+          <p class="text-muted col-md-8 mx-auto mb-3" style="font-size: 0.95rem; line-height: 1.5;">
+            Real-time vital signs monitoring with instant edge abnormality triage and seamless IoT microcontroller connectivity.
           </p>
           <div class="d-flex flex-wrap justify-content-center gap-2 pt-1">
             <span class="badge px-2.5 py-1.5 rounded-pill font-monospace" style="background: rgba(2, 132, 199, 0.1); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.25); font-size: 11px;">
@@ -208,35 +214,111 @@
       </div>
 
       <!-- ============================================================
-           2. LOGIN PAGE
+           2. LOGIN & REGISTRATION PAGE
            ============================================================ -->
       <div id="view-login" class="app-view d-none">
-        <div class="col-md-5 col-lg-4 mx-auto my-5">
-          <div class="saas-card p-4">
-            <div class="text-center mb-4">
+        <div class="col-md-6 col-lg-5 col-xl-4 mx-auto my-4">
+          <div class="saas-card p-4 shadow-sm">
+            <div class="text-center mb-3">
               <span class="p-2.5 rounded-3 bg-primary text-white d-inline-flex mb-2 shadow-sm">
                 <i class="bi bi-shield-lock-fill fs-4"></i>
               </span>
-              <h4 class="fw-bold mb-0">Clinical Staff Portal</h4>
-              <p class="text-muted small">Sign in to access patient telemetry and emergency triage</p>
+              <h4 class="fw-bold mb-0" id="authPortalHeading">Clinical Staff Portal</h4>
+              <p class="text-muted small mb-0" id="authPortalSubheading">Sign in or create account to access telemetry</p>
             </div>
 
-            <form id="loginForm">
-              <div class="mb-3">
-                <label class="form-label small fw-bold">Email Address</label>
-                <input type="email" id="loginEmail" class="form-control form-control-sm" value="doctor@hospital.org" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-label small fw-bold">Password</label>
-                <input type="password" id="loginPassword" class="form-control form-control-sm" value="doctor123" required>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 fw-bold mb-3">Sign In to Dashboard</button>
-            </form>
+            <!-- Auth Switch Tabs (Sign In / Create Account) -->
+            <ul class="nav nav-pills nav-fill mb-3 bg-light p-1 rounded-3 border" id="authNavTabs">
+              <li class="nav-item">
+                <button class="nav-link active py-1.5 fw-bold small rounded-2" id="tabSignInBtn" type="button">
+                  <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link py-1.5 fw-bold small rounded-2" id="tabRegisterBtn" type="button">
+                  <i class="bi bi-person-plus me-1"></i> Create Account
+                </button>
+              </li>
+            </ul>
 
-            <div class="p-2.5 rounded bg-light border text-muted small text-center">
-              <strong>Clinical Staff Demo Credentials:</strong><br>
-              <code>doctor@hospital.org</code> / <code>doctor123</code>
+            <!-- 1. Sign In Form -->
+            <div id="authLoginFormContainer">
+              <form id="loginForm">
+                <div class="mb-3">
+                  <label class="form-label small fw-bold">Email Address</label>
+                  <input type="email" id="loginEmail" class="form-control form-control-sm" value="dr.pavan@hospital.org" placeholder="e.g. dr.pavan@hospital.org" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label small fw-bold">Password</label>
+                  <div class="input-group input-group-sm">
+                    <input type="password" id="loginPassword" class="form-control" value="iot@123" placeholder="Enter password" required>
+                    <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="loginPassword" title="Show/Hide Password">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 fw-bold mb-3 shadow-sm">
+                  <i class="bi bi-box-arrow-in-right me-1"></i> Sign In to Dashboard
+                </button>
+              </form>
+
+              <div class="text-center pt-1">
+                <button type="button" class="btn btn-link btn-sm text-decoration-none p-0 text-primary" id="switchToRegisterLink">
+                  Don't have an account? <span class="fw-bold">Create Account →</span>
+                </button>
+              </div>
             </div>
+
+            <!-- 2. Create Account Form -->
+            <div id="authRegisterFormContainer" class="d-none">
+              <form id="registerForm">
+                <div class="mb-2.5">
+                  <label class="form-label small fw-bold">Full Name</label>
+                  <input type="text" id="regName" class="form-control form-control-sm" placeholder="e.g. Dr. Priya Nair" required>
+                </div>
+                <div class="mb-2.5">
+                  <label class="form-label small fw-bold">Healthcare Email</label>
+                  <input type="email" id="regEmail" class="form-control form-control-sm" placeholder="e.g. priya.nair@hospital.org" required>
+                </div>
+                <div class="mb-2.5">
+                  <label class="form-label small fw-bold">Clinical Role</label>
+                  <select id="regRole" class="form-select form-select-sm">
+                    <option value="Attending Physician">Doctor / Attending Physician</option>
+                    <option value="Staff Nurse">Staff Nurse / Ward In-charge</option>
+                    <option value="Clinical Specialist">Clinical Telemetry Specialist</option>
+                    <option value="IoT Administrator">IoT Systems Administrator</option>
+                  </select>
+                </div>
+                <div class="mb-2.5">
+                  <label class="form-label small fw-bold">Password</label>
+                  <div class="input-group input-group-sm">
+                    <input type="password" id="regPassword" class="form-control" placeholder="Enter password" required minlength="4">
+                    <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="regPassword" title="Show/Hide Password">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label small fw-bold">Confirm Password</label>
+                  <div class="input-group input-group-sm">
+                    <input type="password" id="regConfirmPassword" class="form-control" placeholder="Confirm password" required minlength="4">
+                    <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="regConfirmPassword" title="Show/Hide Password">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100 fw-bold mb-3 shadow-sm">
+                  <i class="bi bi-person-check me-1"></i> Create Account
+                </button>
+              </form>
+
+              <div class="text-center pt-1">
+                <button type="button" class="btn btn-link btn-sm text-decoration-none p-0 text-primary" id="switchToSignInLink">
+                  Already have an account? <span class="fw-bold">Sign In →</span>
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -326,15 +408,28 @@
 
         <!-- Active Patient Telemetry Card -->
         <div class="saas-card mb-4">
-          <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 border-bottom mb-3">
-            <div>
-              <div class="d-flex align-items-center gap-2">
-                <h5 class="fw-bold mb-0" id="dashPatientName">Rahul Kumar</h5>
-                <span class="badge bg-light text-dark border font-monospace" id="dashPatientCode">PT-1001</span>
-                <span class="badge badge-normal" id="dashPatientStatus">NORMAL</span>
+          <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 border-bottom mb-3 gap-3">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <div>
+                <div class="d-flex align-items-center gap-2">
+                  <h5 class="fw-bold mb-0" id="dashPatientName">Rahul Kumar</h5>
+                  <span class="badge bg-light text-dark border font-monospace" id="dashPatientCode">PT-1001</span>
+                  <span class="badge badge-normal" id="dashPatientStatus">NORMAL</span>
+                </div>
+                <span class="text-muted small" id="dashPatientRoom">Room: ICU-101 • Assigned: ESP32_NODE_01</span>
               </div>
-              <span class="text-muted small" id="dashPatientRoom">Room: ICU-102 • Assigned: ESP32_NODE_01</span>
+
+              <!-- Patient Changing Option Dropdown -->
+              <div class="d-flex align-items-center gap-2 bg-light p-1.5 rounded-3 border">
+                <label for="dashPatientSelect" class="small fw-bold text-muted mb-0 d-flex align-items-center gap-1" style="font-size: 11px; white-space: nowrap;">
+                  <i class="bi bi-people-fill text-primary"></i> Change Patient:
+                </label>
+                <select id="dashPatientSelect" class="form-select form-select-sm fw-semibold" style="min-width: 210px; max-width: 300px; font-size: 12px;" aria-label="Change Patient">
+                  <!-- Populated dynamically via JS -->
+                </select>
+              </div>
             </div>
+
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-primary" onclick="HealthGuardApp.inspectPatient(HealthGuardApp.selectedPatientId)">
                 <i class="bi bi-activity me-1"></i> Bedside Monitor
@@ -532,17 +627,25 @@
         <!-- Bedside Monitor Frame -->
         <div class="saas-card p-4 mb-4" style="background: #050a12; border: 1px solid #1e293b; color: #f8fafc;">
           <!-- Header info banner -->
-          <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 border-bottom border-secondary mb-3">
+          <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 border-bottom border-secondary mb-3 gap-2">
             <div class="d-flex align-items-center gap-3">
               <div class="p-2 rounded bg-success text-dark fw-bold font-monospace" style="font-size: 13px;">BED 01</div>
               <div>
                 <h5 class="fw-bold mb-0 text-light" id="bedsidePatientName">Rahul Kumar</h5>
                 <span class="small text-muted" id="bedsidePatientCode">PT-1001 (42 Yrs, Male)</span> • 
-                <span class="small text-muted" id="bedsidePatientRoom">Unit: ICU-102</span>
+                <span class="small text-muted" id="bedsidePatientRoom">Unit: ICU-101</span>
               </div>
             </div>
-            <div class="d-flex align-items-center gap-2">
-              <span id="bedsidePatientCondition" class="small text-secondary d-none d-md-inline">Diagnosis: Cardiac Recovery</span>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <div class="d-flex align-items-center gap-1.5 bg-dark p-1 rounded border border-secondary">
+                <label for="bedsidePatientSelect" class="small text-light mb-0 font-monospace" style="font-size: 11px;">
+                  <i class="bi bi-person-fill text-info"></i> PATIENT:
+                </label>
+                <select id="bedsidePatientSelect" class="form-select form-select-sm bg-black text-light border-secondary" style="max-width: 220px; font-size: 11px;">
+                  <!-- Populated dynamically via JS -->
+                </select>
+              </div>
+              <span id="bedsidePatientCondition" class="small text-secondary d-none d-lg-inline">Diagnosis: Cardiac Recovery</span>
               <span id="bedsideStatusBadge" class="badge badge-normal px-3 py-1.5">NORMAL</span>
             </div>
           </div>
