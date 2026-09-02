@@ -408,6 +408,14 @@ const HealthGuardApp = {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Re-render views dynamically on navigation
+    if (route === 'architecture') this.renderArchitecture();
+    if (route === 'history') this.renderHistoryTable();
+    if (route === 'alerts') this.renderAlerts();
+    if (route === 'patients') { this.renderPatientsTable(); this.renderPatientCards(); }
+    if (route === 'dashboard') { this.renderPatientCards(); this.updateStats(); }
+    if (route === 'landing') this.renderArchitecture();
+
     // If navigating to live monitor or dashboard, trigger chart/oscilloscope resizes
     if (route === 'live' && window.bedsideOscilloscope) {
       setTimeout(() => {
@@ -448,11 +456,17 @@ const HealthGuardApp = {
       const node = this.architectureNodes[currentStep];
       this.inspectArchNode(node.id);
 
-      // Flash node element
+      // Flash node elements
       const nodeEl = document.getElementById(`step-node-${node.id}`);
       if (nodeEl) {
         nodeEl.classList.add('flowing');
-        setTimeout(() => nodeEl.classList.remove('flowing'), 700);
+        setTimeout(() => nodeEl.classList.remove('flowing'), 800);
+      }
+
+      const trackNode = document.getElementById(`track-node-${node.id}`);
+      if (trackNode) {
+        trackNode.classList.add('flowing');
+        setTimeout(() => trackNode.classList.remove('flowing'), 800);
       }
 
       currentStep++;

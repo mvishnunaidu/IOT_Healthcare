@@ -1,58 +1,77 @@
 /**
- * Alerts Module
- * ==============
- * Manages clinical abnormality alerts triage lifecycle:
- * - Generation from Abnormality Engine
- * - Acknowledgment by Clinician
- * - Resolution with clinical notes
+ * HealthGuard IoT - Clinical Alert & Emergency Triage Engine
+ * ==========================================================
+ * Manages clinical abnormality alert lifecycle: ACTIVE -> ACKNOWLEDGED -> RESOLVED
  */
 
 const AlertManager = {
   alerts: [
-    { id: 101, patientId: 2, patientName: 'Priya Sharma', parameter: 'spo2', value: 93, severity: 'WARNING', title: 'SpO2 Desaturation Warning', message: 'SpO2 dropped to 93% (Below normal 95% threshold)', timestamp: new Date(Date.now() - 120000).toISOString(), timeFormatted: '2 mins ago', acknowledged: false, resolved: false },
-    { id: 102, patientId: 3, patientName: 'Arjun Reddy', parameter: 'heartRate', value: 106, severity: 'WARNING', title: 'Elevated Heart Rate', message: 'Heart rate exceeds 100 BPM target limit', timestamp: new Date(Date.now() - 840000).toISOString(), timeFormatted: '14 mins ago', acknowledged: true, resolved: false }
+    {
+      id: 'ALT-9041',
+      patientId: 3,
+      severity: 'CRITICAL',
+      status: 'ACTIVE',
+      title: 'Acute Desaturation & Hypoxia Emergency',
+      message: 'Arjun Reddy (PT-1003): SpO2 dropped to 84.2% with secondary tachycardia (138 BPM). Immediate oxygenation required.',
+      time: '2 mins ago',
+      timestamp: new Date(Date.now() - 120000).toISOString(),
+      vitalValues: { hr: 138, spo2: 84.2, temp: 39.2 }
+    },
+    {
+      id: 'ALT-9038',
+      patientId: 2,
+      severity: 'WARNING',
+      status: 'ACTIVE',
+      title: 'Observation: Borderline Tachycardia Alert',
+      message: 'Priya Sharma (PT-1002): Heart rate elevated to 108 BPM with mild temperature rise (37.8°C).',
+      time: '8 mins ago',
+      timestamp: new Date(Date.now() - 480000).toISOString(),
+      vitalValues: { hr: 108, spo2: 94.5, temp: 37.8 }
+    },
+    {
+      id: 'ALT-9022',
+      patientId: 4,
+      severity: 'CRITICAL',
+      status: 'ACKNOWLEDGED',
+      title: 'Bradycardia Event Acknowledged',
+      message: 'Sneha Rao (PT-1004): Heart rate dropped to 42 BPM. Bedside nurse alerted for atropine protocol review.',
+      time: '25 mins ago',
+      timestamp: new Date(Date.now() - 1500000).toISOString(),
+      vitalValues: { hr: 42, spo2: 97.2, temp: 36.4 }
+    }
   ],
 
   createAlert(alertData) {
     const newAlert = {
-      id: Date.now(),
-      patientId: alertData.patientId,
-      patientName: alertData.patientName,
-      parameter: alertData.parameter,
-      value: alertData.value,
-      severity: alertData.severity || 'WARNING',
-      title: alertData.title,
-      message: alertData.message,
+      id: `ALT-${Math.floor(1000 + Math.random() * 9000)}`,
+      patientId: alertData.patientId || 1,
+      severity: alertData.severity || 'CRITICAL',
+      status: 'ACTIVE',
+      title: alertData.title || `${alertData.severity} Clinical Alert`,
+      message: alertData.message || 'Abnormal vital parameters detected on bedside telemetry feed.',
+      time: 'Just now',
       timestamp: new Date().toISOString(),
-      timeFormatted: 'Just now',
-      acknowledged: false,
-      resolved: false
+      vitalValues: alertData.vitalValues || { hr: 74, spo2: 98, temp: 36.7 }
     };
     this.alerts.unshift(newAlert);
     return newAlert;
   },
 
-  acknowledge(alertId) {
-    const alert = this.alerts.find(a => a.id === alertId);
+  acknowledgeAlert(id) {
+    const alert = this.alerts.find(a => a.id === id);
     if (alert) {
-      alert.acknowledged = true;
-      alert.acknowledgedBy = 'Dr. Sameer Verma';
+      alert.status = 'ACKNOWLEDGED';
     }
   },
 
-  resolve(alertId) {
-    const alert = this.alerts.find(a => a.id === alertId);
+  resolveAlert(id) {
+    const alert = this.alerts.find(a => a.id === id);
     if (alert) {
-      alert.resolved = true;
-      alert.resolvedAt = new Date().toISOString();
+      alert.status = 'RESOLVED';
     }
   },
 
-  getActiveAlerts() {
-    return this.alerts.filter(a => !a.resolved);
-  },
-
-  getAllAlerts() {
-    return this.alerts;
+  getActiveCount() {
+    return this.alerts.filter(a => a.status === 'ACTIVE').length;
   }
 };
