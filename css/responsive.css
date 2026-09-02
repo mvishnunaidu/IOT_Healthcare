@@ -203,6 +203,10 @@ header.navbar {
     overflow-x: hidden !important;
   }
 
+  #headerPublicNav {
+    display: none !important;
+  }
+
   .brand-text {
     font-size: 0.95rem !important;
     letter-spacing: -0.015em;
