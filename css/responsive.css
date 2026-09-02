@@ -98,9 +98,11 @@ img, canvas, svg, video {
    2. Fluid Typography with CSS clamp()
    -------------------------------------------------------------------------- */
 h1, .hero-main-title {
-  font-size: clamp(1.35rem, 4.2vw, 2.35rem) !important;
-  line-height: 1.22 !important;
+  font-size: clamp(1.45rem, 5.5vw, 2.35rem) !important;
+  line-height: 1.35 !important;
   letter-spacing: -0.025em !important;
+  word-wrap: break-word;
+  padding: 0 0.5rem;
 }
 
 h2 {
@@ -574,6 +576,7 @@ header.navbar {
 
   .hero-sub-actions {
     display: flex;
+    flex-direction: column;
     gap: 0.45rem !important;
     width: 100%;
   }
