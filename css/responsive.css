@@ -1,45 +1,490 @@
 /* ==========================================================================
-   Responsive Adaptations & Layout Media Queries
+   HEALTHGUARD IoT - Mobile-First Responsive Design System
+   Optimized for Android & iPhone (Safari iOS & Chrome Android)
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. iOS Safe Areas, Touch Ergonomics & Base Mobile Resets
+   -------------------------------------------------------------------------- */
+:root {
+  --mobile-bottom-bar-height: 60px;
+  --mobile-header-height: 56px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 0;
+  padding-bottom: 0;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Prevent unwanted iOS Safari zoom on input focus */
+@media (max-width: 767.98px) {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  select.form-select,
+  textarea.form-control {
+    font-size: 16px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Top Glassmorphism Header Bar (Single-Row on Mobile)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  header.navbar {
+    padding-top: max(0.45rem, env(safe-area-inset-top)) !important;
+    padding-bottom: 0.45rem !important;
+    padding-left: max(0.75rem, env(safe-area-inset-left)) !important;
+    padding-right: max(0.75rem, env(safe-area-inset-right)) !important;
+    min-height: var(--mobile-header-height);
+  }
+
+  header.navbar .navbar-brand {
+    font-size: 0.95rem;
+  }
+
+  .brand-text {
+    font-size: 0.95rem !important;
+  }
+
+  .brand-icon {
+    width: 28px;
+    height: 28px;
+    padding: 0.25rem !important;
+  }
+
+  .brand-icon i {
+    font-size: 13px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Mobile Offcanvas Slide-Out Sidebar Drawer & Backdrop
+   -------------------------------------------------------------------------- */
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1050;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 @media (max-width: 991.98px) {
   .app-sidebar {
     position: fixed;
-    top: 65px;
-    left: -280px;
-    width: 280px;
-    z-index: 1040;
-    height: calc(100vh - 65px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(16px);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(310px, 86vw);
+    height: 100dvh;
+    height: 100vh;
+    z-index: 1060;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-subtle);
+    padding-top: max(1rem, env(safe-area-inset-top)) !important;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+    padding-left: max(1rem, env(safe-area-inset-left)) !important;
+    padding-right: 1rem !important;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: none;
   }
 
   .app-sidebar.show {
-    left: 0;
+    transform: translateX(0);
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Mobile Bottom Navigation Bar (iOS & Android Native Tab Bar)
+   -------------------------------------------------------------------------- */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1040;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-subtle);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+[data-bs-theme="dark"] .mobile-bottom-nav {
+  background: rgba(15, 23, 42, 0.92);
+  border-top-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-bottom-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: var(--mobile-bottom-bar-height);
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 0.25rem;
+}
+
+.mobile-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: all 0.18s ease;
+  position: relative;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0;
+}
+
+.mobile-nav-item:active {
+  transform: scale(0.92);
+}
+
+.mobile-nav-icon-wrap {
+  width: 32px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.mobile-nav-label {
+  line-height: 1;
+  transition: color 0.18s ease;
+}
+
+/* Active bottom tab state */
+.mobile-nav-item.active {
+  color: var(--primary-accent);
+}
+
+.mobile-nav-item.active .mobile-nav-icon-wrap {
+  color: var(--primary-accent);
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.mobile-nav-item.active .mobile-nav-label {
+  color: var(--primary-accent);
+  font-weight: 700;
+}
+
+/* Elevated Center Action Tab (Live Monitor) */
+.mobile-nav-item-center .center-pulse {
+  background: linear-gradient(135deg, var(--primary-accent), #3b82f6);
+  color: #ffffff !important;
+  width: 38px;
+  height: 30px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px var(--primary-glow);
+}
+
+.mobile-nav-item-center.active .center-pulse {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 3px 14px rgba(16, 185, 129, 0.45);
+}
+
+@media (min-width: 768px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Main Viewport Padding for Bottom Bar
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  main {
+    padding-left: max(0.85rem, env(safe-area-inset-left)) !important;
+    padding-right: max(0.85rem, env(safe-area-inset-right)) !important;
+    padding-bottom: calc(var(--mobile-bottom-bar-height) + env(safe-area-inset-bottom) + 1.25rem) !important;
+    min-height: calc(100vh - var(--mobile-header-height)) !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero & Landing Page Mobile Layout
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .hero-glow-bg {
+    padding-top: 1.75rem !important;
+    padding-bottom: 2rem !important;
   }
 
-  .sidebar-backdrop {
-    position: fixed;
-    top: 65px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 1035;
+  .hero-main-title {
+    font-size: 1.55rem !important;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.86rem !important;
+    line-height: 1.5;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .hero-glow-bg .d-flex {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem !important;
+  }
+
+  .hero-glow-bg .btn {
+    width: 100%;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.92rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Dashboard Mobile Layout (2x2 Stats, Squeeze-Free Vitals)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  /* Stat metric cards: clean 2x2 grid */
+  .saas-card {
+    padding: 0.95rem !important;
+    border-radius: 0.95rem;
+  }
+
+  .vital-val {
+    font-size: 1.55rem;
+  }
+
+  .vital-metric-val {
+    font-size: 1.65rem;
+  }
+
+  .vital-display-card {
+    padding: 0.85rem;
+    border-radius: 0.85rem;
+  }
+
+  /* Form select responsive width */
+  #dashPatientSelect {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 13px !important;
+  }
+
+  /* Multi-Parameter Waveform Chart container */
+  #liveWaveformChart {
+    max-height: 220px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Bedside Live Monitor (Stacked 100% Full-Width Oscilloscopes)
+   -------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  /* Bedside oscilloscopes stack to 100% full width */
+  .oscilloscope-box {
+    height: 135px !important;
+    width: 100% !important;
+  }
+
+  #bedsidePatientSelect {
+    max-width: 100% !important;
+    width: 100%;
   }
 }
 
 @media (max-width: 767.98px) {
-  .vital-val {
-    font-size: 1.6rem;
+  .oscilloscope-box {
+    height: 125px !important;
   }
 
-  .saas-card {
-    padding: 1.1rem;
+  /* Bedside vitals box styling */
+  #view-live .vital-val {
+    font-size: 1.85rem;
+  }
+}
+
+/* High contrast for dark telemetry boxes on all themes */
+.oscilloscope-box {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.oscilloscope-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(30, 41, 59, 0.5) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(30, 41, 59, 0.5) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. IoT Sensor Simulator Mobile Touch Controls
+   -------------------------------------------------------------------------- */
+.btn-sim-preset {
+  background: var(--bg-inner-box);
+  border: 1px solid var(--border-inner);
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.4rem 0.75rem;
+  font-size: 12px;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn-sim-preset:hover,
+.btn-sim-preset.active {
+  background: var(--primary-accent);
+  border-color: var(--primary-accent);
+  color: #ffffff;
+  box-shadow: 0 2px 8px var(--primary-glow);
+}
+
+@media (max-width: 767.98px) {
+  /* Preset chips wrapper with touch momentum scrolling */
+  .sim-presets-scroll {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+  .sim-presets-scroll::-webkit-scrollbar {
+    display: none;
   }
 
-  .display-5 {
-    font-size: 2rem;
+  /* Stack simulator action buttons with 48px touch targets */
+  #startSimBtn,
+  #pauseSimBtn,
+  #stopSimBtn,
+  #injectAnomalyBtn {
+    width: 100%;
+    min-height: 46px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
+  /* Sliders: large touch thumbs for phones */
+  input[type="range"].form-range {
+    height: 1.75rem;
+  }
+
+  input[type="range"].form-range::-webkit-slider-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--primary-accent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+
+  input[type="range"].form-range::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--primary-accent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Clinical Data Tables & Modals
+   -------------------------------------------------------------------------- */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.75rem;
+}
+
+@media (max-width: 767.98px) {
+  .table thead th {
+    font-size: 11px;
+    white-space: nowrap;
+    padding: 0.55rem 0.65rem;
+  }
+
+  .table tbody td {
+    padding: 0.65rem 0.65rem;
+    white-space: nowrap;
+  }
+
+  /* Full screen modals on small phones for native app feel */
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .modal-content {
+    border-radius: 1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Text Contrast & Dark Surface Fixes
+   -------------------------------------------------------------------------- */
+/* Bedside monitor dark surface text contrast */
+.saas-card[style*="#050a12"] .text-muted,
+.saas-card[style*="#050a12"] span.text-muted {
+  color: rgba(241, 245, 249, 0.7) !important;
+}
+
+.saas-card[style*="#050a12"] h5,
+.saas-card[style*="#050a12"] h6 {
+  color: #f8fafc !important;
+}
+
+/* Ensure patient cards and table have proper contrast in light mode */
+.saas-card h5,
+.saas-card h6 {
+  color: var(--text-primary);
+}
+
+.patient-name-title {
+  color: var(--text-primary) !important;
+  font-weight: 700;
 }

@@ -2,7 +2,12 @@
 <html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1329" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
   <title>Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</title>
   <meta name="description" content="Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection Platform - Autonomous Clinical Telemetry, Edge Computing &amp; Real-Time Abnormality Triage">
 
@@ -25,27 +30,30 @@
 <body>
 
   <!-- Top Glassmorphism Navbar -->
-  <header class="navbar navbar-expand-lg sticky-top px-3 px-md-4 py-2.5">
-    <div class="container-fluid px-0">
-      <!-- Mobile menu trigger -->
-      <button id="mobileNavToggle" class="btn btn-sm btn-outline-secondary d-md-none me-2" aria-label="Toggle navigation">
-        <i class="bi bi-list fs-5"></i>
-      </button>
+  <header class="navbar navbar-expand-lg sticky-top px-3 px-md-4 py-2">
+    <div class="container-fluid px-0 flex-nowrap justify-content-between">
+      <!-- Left side: Hamburger & Brand -->
+      <div class="d-flex align-items-center gap-2">
+        <!-- Mobile menu trigger -->
+        <button id="mobileNavToggle" class="btn btn-sm btn-outline-secondary d-md-none p-1.5 rounded-2 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" aria-label="Toggle navigation">
+          <i class="bi bi-list fs-5"></i>
+        </button>
 
-      <!-- Brand Logo -->
-      <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#" data-route="landing">
-        <span class="p-1.5 rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm">
-          <i class="bi bi-heart-pulse-fill heartbeat-icon"></i>
-        </span>
-        <span class="fw-bold fs-6 tracking-tight">HealthGuard <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace ms-1">IoT Telemetry</span></span>
-      </a>
+        <!-- Brand Logo -->
+        <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none m-0" href="#" data-route="landing">
+          <span class="p-1.5 rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm brand-icon">
+            <i class="bi bi-heart-pulse-fill heartbeat-icon"></i>
+          </span>
+          <span class="fw-bold fs-6 tracking-tight brand-text">HealthGuard <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace ms-1 d-none d-sm-inline-block">IoT Telemetry</span></span>
+        </a>
+      </div>
 
-      <!-- Right Controls & Status Bar -->
-      <div class="d-flex align-items-center gap-2 gap-sm-3">
-        <!-- Live System Status Beacon -->
-        <span class="badge badge-normal d-flex align-items-center gap-1.5 py-1 px-2.5 d-none d-sm-inline-flex">
+      <!-- Right Controls & Status Bar (Compact & Single-Row on Mobile) -->
+      <div class="d-flex align-items-center gap-1.5 gap-sm-2.5">
+        <!-- Live System Status Beacon (Pill on desktop, dot on mobile) -->
+        <span class="badge badge-normal d-inline-flex align-items-center gap-1.5 py-1 px-2" title="System Operational">
           <span class="live-beacon"></span>
-          <span>SYSTEM ONLINE</span>
+          <span class="d-none d-sm-inline">ONLINE</span>
         </span>
 
         <!-- Edge Gateway Latency Pill -->
@@ -53,31 +61,31 @@
           ⚡ 12 ms
         </span>
 
-        <!-- Audio Telemetry Sound Toggle -->
-        <button id="audioToggleBtn" class="btn btn-sm btn-outline-secondary rounded-3" title="Toggle Bedside Telemetry Beep (Muted)">
+        <!-- Audio Telemetry Sound Toggle (Desktop) -->
+        <button id="audioToggleBtn" class="btn btn-sm btn-outline-secondary rounded-3 d-none d-sm-inline-flex" title="Toggle Bedside Telemetry Beep (Muted)">
           <i class="bi bi-volume-mute text-muted"></i>
         </button>
 
         <!-- System Specifications & Protocols Button -->
         <button class="btn btn-sm btn-outline-primary rounded-3 fw-semibold d-none d-lg-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#systemSpecsModal">
-          <i class="bi bi-shield-check"></i> System Protocols
+          <i class="bi bi-shield-check"></i> Protocols
         </button>
 
         <!-- Theme Toggle -->
-        <button id="themeToggleBtn" class="btn btn-sm btn-outline-secondary rounded-3" title="Toggle Light/Dark Mode">
+        <button id="themeToggleBtn" class="btn btn-sm btn-outline-secondary rounded-3 d-flex align-items-center justify-content-center p-0" style="width: 34px; height: 34px;" title="Toggle Light/Dark Mode">
           <i class="bi bi-moon"></i>
         </button>
 
         <!-- Quick Alerts Trigger -->
-        <a href="#" data-route="alerts" class="btn btn-sm btn-outline-secondary rounded-3 position-relative" title="Clinical Alerts">
+        <a href="#" data-route="alerts" class="btn btn-sm btn-outline-secondary rounded-3 position-relative d-flex align-items-center justify-content-center p-0" style="width: 34px; height: 34px;" title="Clinical Alerts">
           <i class="bi bi-bell"></i>
           <span id="alertsBadgeCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 10px;">
             0
           </span>
         </a>
 
-        <!-- Doctor Avatar & Profile with Logout Option -->
-        <div class="d-flex align-items-center gap-2 border-start ps-2 ps-sm-3">
+        <!-- Doctor Avatar & Profile with Logout Option (Desktop & Tablets) -->
+        <div class="d-none d-sm-flex align-items-center gap-2 border-start ps-2 ps-sm-3">
           <a href="#" data-route="login" class="text-decoration-none d-flex align-items-center gap-2" title="User Profile / Sign In">
             <div id="userAvatarBadge" class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center shadow-sm" style="width: 32px; height: 32px; font-size: 13px;">
               DP
@@ -88,17 +96,57 @@
             </div>
           </a>
           <button id="headerLogoutBtn" class="btn btn-sm btn-outline-danger py-1 px-2 rounded-2" title="Sign Out / Logout" style="font-size: 11px;">
-            <i class="bi bi-box-arrow-right"></i> <span class="d-none d-sm-inline">Logout</span>
+            <i class="bi bi-box-arrow-right"></i> <span class="d-none d-md-inline">Logout</span>
           </button>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
   <div class="d-flex">
-    <!-- Desktop Sidebar Navigation -->
+    <!-- Desktop & Mobile Slide-Out Sidebar Navigation Drawer -->
     <aside class="app-sidebar p-3 d-flex flex-column justify-content-between">
       <div class="d-flex flex-column gap-1">
+        <!-- Mobile Drawer Header with Close Button -->
+        <div class="sidebar-mobile-header d-flex align-items-center justify-content-between pb-2.5 mb-2 border-bottom d-md-none">
+          <div class="d-flex align-items-center gap-2">
+            <span class="p-1.5 rounded-2 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 30px; height: 30px;">
+              <i class="bi bi-heart-pulse-fill" style="font-size: 14px;"></i>
+            </span>
+            <span class="fw-bold fs-6">HealthGuard IoT</span>
+          </div>
+          <button id="sidebarCloseBtn" class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" aria-label="Close menu">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Doctor Profile & Settings Card (Shown inside drawer on small screens) -->
+        <div class="p-2.5 rounded-3 bg-light border d-sm-none mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center shadow-sm" style="width: 34px; height: 34px; font-size: 13px;">
+                DP
+              </div>
+              <div class="lh-1">
+                <span class="small fw-semibold text-body d-block">Dr. Pavan</span>
+                <span class="text-muted" style="font-size: 10px;">Attending Physician</span>
+              </div>
+            </div>
+            <button id="mobileDrawerLogoutBtn" class="btn btn-xs btn-outline-danger py-1 px-2 rounded-2" style="font-size: 11px;" onclick="HealthGuardApp.logout()">
+              <i class="bi bi-box-arrow-right me-1"></i>Logout
+            </button>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-2 pt-2 border-top border-secondary-subtle">
+            <span class="small text-muted d-flex align-items-center gap-1" style="font-size: 11px;"><i class="bi bi-volume-up"></i> Bedside Alarm</span>
+            <button id="mobileAudioToggleBtn" class="btn btn-xs btn-outline-secondary py-0.5 px-2 rounded-pill" style="font-size: 10px;" title="Toggle Telemetry Beep">
+              🔇 Muted
+            </button>
+          </div>
+        </div>
+
         <span class="text-uppercase text-muted fw-bold px-2 mb-2" style="font-size: 10px; letter-spacing: 0.06em;">Clinical Telemetry</span>
         <a href="#" class="nav-link-custom" data-route="dashboard">
           <i class="bi bi-grid-1x2"></i> <span>Dashboard</span>
@@ -488,7 +536,7 @@
         <div class="saas-card mb-4">
           <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
             <div>
-              <h6 class="fw-bold mb-0 text-light">Multi-Parameter Telemetry Waveforms (Chart.js)</h6>
+              <h6 class="fw-bold mb-0">Multi-Parameter Telemetry Waveforms (Chart.js)</h6>
               <span class="text-muted small">Real-time synchronized vital streams with dynamic gradients</span>
             </div>
             <div class="d-flex align-items-center gap-2">
@@ -508,7 +556,7 @@
         <!-- Live Patient Monitoring Cards Matrix -->
         <div class="mb-4">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="fw-bold mb-0 text-light">Multi-Bed Ward Telemetry Matrix</h5>
+            <h5 class="fw-bold mb-0">Multi-Bed Ward Telemetry Matrix</h5>
             <span class="badge bg-secondary-subtle text-info border border-secondary-subtle font-monospace">20 Beds Online</span>
           </div>
           <div class="row g-3" id="livePatientCardsGrid"></div>
@@ -1259,6 +1307,45 @@
       </div>
     </div>
   </div>
+
+  <!-- Mobile Bottom Navigation Bar (iOS & Android Native Tab Bar) -->
+  <nav id="mobileBottomNav" class="mobile-bottom-nav d-md-none" aria-label="Mobile Navigation">
+    <div class="mobile-bottom-nav-inner">
+      <a href="#" class="mobile-nav-item" data-route="dashboard" id="bnav-dashboard" title="Dashboard">
+        <div class="mobile-nav-icon-wrap">
+          <i class="bi bi-grid-1x2"></i>
+        </div>
+        <span class="mobile-nav-label">Dashboard</span>
+      </a>
+      <a href="#" class="mobile-nav-item" data-route="patients" id="bnav-patients" title="Patients">
+        <div class="mobile-nav-icon-wrap">
+          <i class="bi bi-people"></i>
+        </div>
+        <span class="mobile-nav-label">Patients</span>
+      </a>
+      <a href="#" class="mobile-nav-item mobile-nav-item-center" data-route="live" id="bnav-live" title="Live Telemetry">
+        <div class="mobile-nav-icon-wrap center-pulse">
+          <i class="bi bi-activity"></i>
+        </div>
+        <span class="mobile-nav-label">Live Vitals</span>
+      </a>
+      <a href="#" class="mobile-nav-item" data-route="simulator" id="bnav-simulator" title="IoT Simulator">
+        <div class="mobile-nav-icon-wrap">
+          <i class="bi bi-cpu"></i>
+        </div>
+        <span class="mobile-nav-label">Simulator</span>
+      </a>
+      <a href="#" class="mobile-nav-item position-relative" data-route="alerts" id="bnav-alerts" title="Alerts Hub">
+        <div class="mobile-nav-icon-wrap">
+          <i class="bi bi-bell"></i>
+          <span id="bottomNavAlertsBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 9px; transform: translate(-30%, -20%) !important;">
+            0
+          </span>
+        </div>
+        <span class="mobile-nav-label">Alerts</span>
+      </a>
+    </div>
+  </nav>
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>

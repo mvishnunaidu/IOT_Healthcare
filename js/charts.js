@@ -98,10 +98,11 @@ class TelemetryCharts {
           legend: {
             position: 'top',
             labels: {
-              boxWidth: 12,
+              boxWidth: window.innerWidth < 768 ? 8 : 12,
               usePointStyle: true,
-              font: { family: 'Inter', size: 11, weight: '600' },
-              color: textColor
+              font: { family: 'Inter', size: window.innerWidth < 768 ? 10 : 11, weight: '600' },
+              color: textColor,
+              padding: window.innerWidth < 768 ? 6 : 10
             }
           },
           tooltip: {
@@ -115,7 +116,13 @@ class TelemetryCharts {
         scales: {
           x: {
             grid: { color: gridColor },
-            ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: textColor }
+            ticks: {
+              font: { family: 'JetBrains Mono', size: window.innerWidth < 768 ? 9 : 10 },
+              color: textColor,
+              maxTicksLimit: window.innerWidth < 768 ? 4 : 8,
+              maxRotation: 0,
+              autoSkip: true
+            }
           },
           y: {
             type: 'linear',

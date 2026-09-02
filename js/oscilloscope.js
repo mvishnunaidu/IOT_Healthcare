@@ -40,9 +40,14 @@ class BedsideOscilloscope {
       this.ppgPrevY = this.ppgCanvas.height / 2;
     }
 
-    window.addEventListener('resize', () => {
+    const handleResize = () => {
       if (this.ecgCanvas) this.resizeCanvas(this.ecgCanvas);
       if (this.ppgCanvas) this.resizeCanvas(this.ppgCanvas);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(handleResize, 150);
     });
 
     if (!this.animId) {

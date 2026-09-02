@@ -264,28 +264,96 @@ const HealthGuardApp = {
       });
     }
 
-    // Audio Mute/Unmute Toggle
+    // Audio Mute/Unmute Toggle (Desktop & Mobile Drawer)
     const audioBtn = document.getElementById('audioToggleBtn');
+    const mobileAudioBtn = document.getElementById('mobileAudioToggleBtn');
+
+    const updateAudioButtons = (isUnmuted) => {
+      if (audioBtn) {
+        audioBtn.innerHTML = isUnmuted
+          ? '<i class="bi bi-volume-up-fill text-success"></i>'
+          : '<i class="bi bi-volume-mute text-muted"></i>';
+        audioBtn.title = isUnmuted ? 'Audio Telemetry Sound: ON' : 'Audio Telemetry Sound: MUTED';
+      }
+      if (mobileAudioBtn) {
+        mobileAudioBtn.innerHTML = isUnmuted ? '🔊 Active' : '🔇 Muted';
+        mobileAudioBtn.className = isUnmuted
+          ? 'btn btn-xs btn-success py-0.5 px-2 rounded-pill'
+          : 'btn btn-xs btn-outline-secondary py-0.5 px-2 rounded-pill';
+      }
+    };
+
     if (audioBtn) {
       audioBtn.addEventListener('click', () => {
         if (window.telemetryAudio) {
           const isUnmuted = window.telemetryAudio.toggleMute();
-          audioBtn.innerHTML = isUnmuted
-            ? '<i class="bi bi-volume-up-fill text-success"></i>'
-            : '<i class="bi bi-volume-mute text-muted"></i>';
-          audioBtn.title = isUnmuted ? 'Audio Telemetry Sound: ON' : 'Audio Telemetry Sound: MUTED';
+          updateAudioButtons(isUnmuted);
           this.showToast(isUnmuted ? '🔊 Bedside Audio Telemetry Enabled' : '🔇 Audio Telemetry Muted', 'info');
         }
       });
     }
 
-    // Sidebar Mobile Toggle
-    const mobileNavBtn = document.getElementById('mobileNavToggle');
-    const sidebar = document.querySelector('.app-sidebar');
-    if (mobileNavBtn && sidebar) {
-      mobileNavBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('show');
+    if (mobileAudioBtn) {
+      mobileAudioBtn.addEventListener('click', () => {
+        if (window.telemetryAudio) {
+          const isUnmuted = window.telemetryAudio.toggleMute();
+          updateAudioButtons(isUnmuted);
+          this.showToast(isUnmuted ? '🔊 Bedside Audio Telemetry Enabled' : '🔇 Audio Telemetry Muted', 'info');
+        }
       });
+    }
+
+    // Sidebar Mobile Drawer Toggle, Close Button & Backdrop
+    const mobileNavBtn = document.getElementById('mobileNavToggle');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    const sidebar = document.querySelector('.app-sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+
+    const openDrawer = () => {
+      if (sidebar) sidebar.classList.add('show');
+      if (backdrop) backdrop.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeDrawer = () => {
+      if (sidebar) sidebar.classList.remove('show');
+      if (backdrop) backdrop.classList.remove('show');
+      document.body.style.overflow = '';
+    };
+
+    if (mobileNavBtn) {
+      mobileNavBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (sidebar && sidebar.classList.contains('show')) {
+          closeDrawer();
+        } else {
+          openDrawer();
+        }
+      });
+    }
+
+    if (sidebarCloseBtn) {
+      sidebarCloseBtn.addEventListener('click', closeDrawer);
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener('click', closeDrawer);
+    }
+
+    // Swipe-to-close touch gesture on mobile sidebar
+    let touchStartX = 0;
+    let touchEndX = 0;
+    if (sidebar) {
+      sidebar.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      sidebar.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) {
+          closeDrawer();
+        }
+      }, { passive: true });
     }
 
     // Simulator Scenario Preset Buttons
@@ -557,12 +625,21 @@ const HealthGuardApp = {
   navigateTo(route) {
     this.currentView = route;
 
-    // Update active nav link
+    // Update active desktop nav link
     document.querySelectorAll('.nav-link-custom').forEach(link => {
       if (link.getAttribute('data-route') === route) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
+      }
+    });
+
+    // Update active mobile bottom nav tab
+    document.querySelectorAll('.mobile-nav-item').forEach(item => {
+      if (item.getAttribute('data-route') === route) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
       }
     });
 
@@ -597,9 +674,12 @@ const HealthGuardApp = {
       }, 100);
     }
 
-    // Close mobile sidebar if open
+    // Close mobile sidebar and backdrop if open
     const sidebar = document.querySelector('.app-sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
     if (sidebar) sidebar.classList.remove('show');
+    if (backdrop) backdrop.classList.remove('show');
+    document.body.style.overflow = '';
   },
 
   /**
@@ -905,11 +985,11 @@ const HealthGuardApp = {
         <tr>
           <td class="font-monospace fw-bold text-info">${p.code}</td>
           <td>
-            <div class="fw-bold text-light">${p.name}</div>
+            <div class="fw-bold text-body">${p.name}</div>
             <span class="text-muted small">${p.condition}</span>
           </td>
           <td>${p.age} Yrs / ${p.gender}</td>
-          <td><span class="badge bg-secondary-subtle text-light border border-secondary-subtle font-monospace">${p.room}</span></td>
+          <td><span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">${p.room}</span></td>
           <td class="font-monospace fw-bold" style="color: var(--color-hr);">${hr} BPM</td>
           <td class="font-monospace fw-bold" style="color: var(--color-spo2);">${spo2}%</td>
           <td class="font-monospace fw-bold" style="color: var(--color-temp);">${temp}°C</td>
@@ -940,7 +1020,7 @@ const HealthGuardApp = {
           <div class="saas-card saas-card-interactive h-100 ${isSelected ? 'border-info shadow-sm' : ''}" onclick="HealthGuardApp.inspectPatient(${p.id})">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <div>
-                <h6 class="fw-bold mb-0 text-light">${p.name}</h6>
+                <h6 class="fw-bold mb-0 text-body">${p.name}</h6>
                 <span class="text-muted small font-monospace">${p.code} • ${p.room}</span>
               </div>
               <span class="badge badge-${status.toLowerCase()}">${status}</span>
@@ -986,8 +1066,8 @@ const HealthGuardApp = {
               <div>
                 <div class="d-flex align-items-center gap-2">
                   <span class="live-beacon"></span>
-                  <h6 class="fw-bold mb-0 text-light">${p.name}</h6>
-                  <span class="badge bg-secondary-subtle text-light border border-secondary-subtle font-monospace">${p.code}</span>
+                  <h6 class="fw-bold mb-0 text-body">${p.name}</h6>
+                  <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">${p.code}</span>
                 </div>
                 <span class="text-muted small">${p.room} • ${p.condition}</span>
               </div>
@@ -995,19 +1075,19 @@ const HealthGuardApp = {
             </div>
             <div class="row g-2 text-center mb-3">
               <div class="col-4">
-                <div class="p-2 rounded bg-dark border border-secondary-subtle">
+                <div class="p-2 rounded bg-inner-box border border-secondary-subtle">
                   <span class="text-muted small d-block" style="font-size: 11px;">HR (BPM)</span>
                   <span class="vital-val d-block fs-4 fw-bold font-monospace" style="color: var(--color-hr);">${hr}</span>
                 </div>
               </div>
               <div class="col-4">
-                <div class="p-2 rounded bg-dark border border-secondary-subtle">
+                <div class="p-2 rounded bg-inner-box border border-secondary-subtle">
                   <span class="text-muted small d-block" style="font-size: 11px;">SpO2 (%)</span>
                   <span class="vital-val d-block fs-4 fw-bold font-monospace" style="color: var(--color-spo2);">${spo2}</span>
                 </div>
               </div>
               <div class="col-4">
-                <div class="p-2 rounded bg-dark border border-secondary-subtle">
+                <div class="p-2 rounded bg-inner-box border border-secondary-subtle">
                   <span class="text-muted small d-block" style="font-size: 11px;">TEMP (°C)</span>
                   <span class="vital-val d-block fs-4 fw-bold font-monospace" style="color: var(--color-temp);">${temp}</span>
                 </div>
@@ -1342,6 +1422,12 @@ const HealthGuardApp = {
       navBadge.innerText = activeAlerts;
       navBadge.style.display = activeAlerts > 0 ? 'inline-block' : 'none';
     }
+
+    const bNavBadge = document.getElementById('bottomNavAlertsBadge');
+    if (bNavBadge) {
+      bNavBadge.innerText = activeAlerts;
+      bNavBadge.style.display = activeAlerts > 0 ? 'inline-block' : 'none';
+    }
   },
 
   exportCSV() {
@@ -1354,9 +1440,12 @@ const HealthGuardApp = {
     if (!container) {
       container = document.createElement('div');
       container.id = 'appToastContainer';
-      container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+      container.className = 'toast-container position-fixed end-0 p-3';
+      container.style.bottom = window.innerWidth < 768 ? 'calc(var(--mobile-bottom-bar-height) + 10px)' : '0';
       container.style.zIndex = '1090';
       document.body.appendChild(container);
+    } else {
+      container.style.bottom = window.innerWidth < 768 ? 'calc(var(--mobile-bottom-bar-height) + 10px)' : '0';
     }
 
     const toastEl = document.createElement('div');
