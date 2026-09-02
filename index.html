@@ -44,23 +44,23 @@
           <span class="p-1.5 rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm brand-icon flex-shrink-0">
             <i class="bi bi-heart-pulse-fill heartbeat-icon"></i>
           </span>
-          <span class="fw-bold fs-6 tracking-tight brand-text text-truncate">HealthGuard <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace ms-1 d-none d-sm-inline-block">IoT Telemetry</span></span>
+          <span class="fw-bold fs-6 tracking-tight brand-text text-truncate">HealthGuard <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace ms-1 d-none d-sm-inline-block rounded-pill">IoT Telemetry</span></span>
         </a>
       </div>
 
       <!-- Public Navigation Links (Visible when logged out on desktop) -->
       <nav id="headerPublicNav" class="d-none d-lg-flex align-items-center gap-1 ms-3">
         <a href="#landing-features" class="public-nav-link" onclick="HealthGuardApp.navigateTo('landing'); document.getElementById('landing-features')?.scrollIntoView({behavior: 'smooth'});">
-          <i class="bi bi-grid me-1"></i> Capabilities
+          <i class="bi bi-grid text-primary me-1"></i> Capabilities
         </a>
         <a href="#landing-architecture" class="public-nav-link" onclick="HealthGuardApp.navigateTo('landing'); document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'});">
-          <i class="bi bi-diagram-3 me-1"></i> 8-Stage Pipeline
+          <i class="bi bi-diagram-3 text-primary me-1"></i> 8-Stage Pipeline
         </a>
         <a href="#landing-sensors" class="public-nav-link" onclick="HealthGuardApp.navigateTo('landing'); document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'});">
-          <i class="bi bi-cpu me-1"></i> Sensors
+          <i class="bi bi-cpu text-primary me-1"></i> Sensors
         </a>
         <a href="#" class="public-nav-link" data-bs-toggle="modal" data-bs-target="#systemSpecsModal">
-          <i class="bi bi-shield-check me-1"></i> Protocols
+          <i class="bi bi-shield-check text-primary me-1"></i> Protocols
         </a>
       </nav>
 
@@ -239,31 +239,30 @@
            ============================================================ -->
       <div id="view-landing" class="app-view">
         <!-- Hero Section -->
-        <div class="text-center py-5 hero-glow-bg">
-          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 shadow-sm hero-badge">
+        <div class="text-center py-5 hero-glow-bg" style="background-image: url('img/healthcare-bg.jpg'); background-size: cover; background-position: center; border-radius: 20px; position: relative;">
+          <span class="badge px-3 py-1.5 rounded-pill mb-3 shadow-sm hero-badge" style="background-color: #0f172a; color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4);">
             <i class="bi bi-shield-check me-1"></i> Autonomous Clinical Telemetry &amp; Edge Intelligence Platform
           </span>
-          <h1 class="hero-main-title mb-3">Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</h1>
-          <p class="hero-subtitle text-muted col-md-9 mx-auto mb-4" style="font-size: 1.1rem; line-height: 1.6;">
+          <h1 class="hero-main-title mb-3 text-dark">Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</h1>
+          <p class="hero-subtitle text-light col-md-9 mx-auto mb-4" style="font-size: 1.1rem; line-height: 1.6;">
             Continuous hospital-grade physiological vital signs telemetry, sub-15ms edge signal conditioning, and automated clinical abnormality triage across multi-patient ICU wards.
           </p>
-          <div class="hero-actions-container d-flex justify-content-center align-items-center flex-wrap gap-2.5 mb-3">
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow hero-btn-main auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
+          <div class="hero-actions-container d-flex flex-column align-items-center gap-3 mb-3">
+            <button class="btn btn-primary px-4 py-2.5 rounded-pill fw-bold shadow hero-btn-main auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
               <i class="bi bi-box-arrow-in-right me-1.5"></i> Access Clinical Workstation <i class="bi bi-arrow-right ms-1"></i>
             </button>
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow hero-btn-main auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
+            <button class="btn btn-primary px-4 py-2.5 rounded-pill fw-bold shadow hero-btn-main auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
               <i class="bi bi-display me-1.5"></i> Open Clinical Dashboard <i class="bi bi-arrow-right ms-1"></i>
             </button>
             <div class="hero-sub-actions d-flex gap-2">
-              <button class="btn btn-outline-primary px-3.5 py-2.5 rounded-3 fw-semibold hero-btn-sub" onclick="document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'})">
+              <button class="btn btn-light px-3.5 py-2.5 rounded-pill fw-semibold hero-btn-sub text-muted" onclick="document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'})">
                 <i class="bi bi-diagram-3 me-1.5"></i> 8-Stage Pipeline
               </button>
-              <button class="btn btn-outline-secondary px-3.5 py-2.5 rounded-3 fw-semibold hero-btn-sub" onclick="document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'})">
+              <button class="btn btn-light px-3.5 py-2.5 rounded-pill fw-semibold hero-btn-sub text-muted" onclick="document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'})">
                 <i class="bi bi-cpu me-1.5"></i> Hardware Sensors
               </button>
             </div>
           </div>
-
         </div>
 
         <!-- Section 1: Core System Capabilities Grid -->
