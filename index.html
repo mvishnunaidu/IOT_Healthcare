@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0b1329" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,8 +24,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Custom Cyber-Medical Design System CSS -->
-  <link rel="stylesheet" href="css/style.css?v=2.2">
-  <link rel="stylesheet" href="css/responsive.css?v=2.2">
+  <link rel="stylesheet" href="css/style.css?v=2.3">
+  <link rel="stylesheet" href="css/responsive.css?v=2.3">
 </head>
 <body>
 
@@ -201,32 +201,34 @@
            ============================================================ -->
       <div id="view-landing" class="app-view">
         <div class="text-center py-5 hero-glow-bg">
-          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 shadow-sm">
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 shadow-sm hero-badge">
             <i class="bi bi-shield-check me-1"></i> Autonomous Clinical Telemetry &amp; Edge Intelligence Platform
           </span>
           <h1 class="hero-main-title mb-3">Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</h1>
           <p class="hero-subtitle text-muted col-md-8 mx-auto mb-4">
             Real-time vital signs telemetry, edge signal sanitization, and automated abnormality triage powered by an end-to-end 8-stage clinical IoT dataflow.
           </p>
-          <div class="d-flex justify-content-center flex-wrap gap-3">
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow-sm" onclick="HealthGuardApp.navigateTo('dashboard')">
+          <div class="hero-actions-container d-flex justify-content-center align-items-center flex-wrap gap-2">
+            <button class="btn btn-primary px-4 py-2 rounded-3 fw-bold shadow-sm hero-btn-main" onclick="HealthGuardApp.navigateTo('dashboard')">
               Launch Clinical Dashboard <i class="bi bi-arrow-right ms-1"></i>
             </button>
-            <button class="btn btn-outline-secondary px-4 py-2.5 rounded-3 fw-semibold" onclick="HealthGuardApp.navigateTo('live')">
-              <i class="bi bi-activity me-1"></i> Bedside Monitor
-            </button>
-            <button class="btn btn-outline-primary px-4 py-2.5 rounded-3 fw-semibold" onclick="HealthGuardApp.navigateTo('architecture')">
-              <i class="bi bi-diagram-3 me-1"></i> Architecture Pipeline Flow
-            </button>
+            <div class="hero-sub-actions d-flex gap-2">
+              <button class="btn btn-outline-secondary px-3 py-2 rounded-3 fw-semibold hero-btn-sub" onclick="HealthGuardApp.navigateTo('live')">
+                <i class="bi bi-activity me-1"></i> Bedside Monitor
+              </button>
+              <button class="btn btn-outline-primary px-3 py-2 rounded-3 fw-semibold hero-btn-sub" onclick="HealthGuardApp.navigateTo('architecture')">
+                <i class="bi bi-diagram-3 me-1"></i> Architecture Flow
+              </button>
+            </div>
           </div>
         </div>
 
         <!-- 8-Stage Architecture Pipeline Grid -->
-        <div class="my-5">
+        <div class="my-4">
           <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
             <div>
               <h4 class="fw-bold mb-0">8-Stage Healthcare IoT Data Pipeline</h4>
-              <p class="text-muted small mb-0 font-monospace text-primary">Patient → Sensors → IoT Device → Edge Processing → Abnormality Detection → Database/Cloud → Healthcare Dashboard → Alert</p>
+              <p class="text-muted small mb-0 font-monospace text-primary text-break" style="word-break: break-word;">Patient → Sensors → IoT Device → Edge Processing → Abnormality Detection → Database/Cloud → Healthcare Dashboard → Alert</p>
             </div>
             <button class="btn btn-sm btn-outline-primary fw-bold" onclick="HealthGuardApp.navigateTo('architecture')">
               Open Interactive Flow <i class="bi bi-arrow-right"></i>
@@ -1395,18 +1397,18 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Modular Vanilla JavaScript Simulation Engine -->
-  <script src="js/audio.js?v=2.2"></script>
-  <script src="js/sensors.js?v=2.2"></script>
-  <script src="js/edge-processing.js?v=2.2"></script>
-  <script src="js/abnormality-detection.js?v=2.2"></script>
-  <script src="js/oscilloscope.js?v=2.2"></script>
-  <script src="js/charts.js?v=2.2"></script>
-  <script src="js/simulator.js?v=2.2"></script>
-  <script src="js/patients.js?v=2.2"></script>
-  <script src="js/alerts.js?v=2.2"></script>
-  <script src="js/history.js?v=2.2"></script>
-  <script src="js/auth.js?v=2.2"></script>
-  <script src="js/firebase-config.js?v=2.2"></script>
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/audio.js?v=2.3"></script>
+  <script src="js/sensors.js?v=2.3"></script>
+  <script src="js/edge-processing.js?v=2.3"></script>
+  <script src="js/abnormality-detection.js?v=2.3"></script>
+  <script src="js/oscilloscope.js?v=2.3"></script>
+  <script src="js/charts.js?v=2.3"></script>
+  <script src="js/simulator.js?v=2.3"></script>
+  <script src="js/patients.js?v=2.3"></script>
+  <script src="js/alerts.js?v=2.3"></script>
+  <script src="js/history.js?v=2.3"></script>
+  <script src="js/auth.js?v=2.3"></script>
+  <script src="js/firebase-config.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
 </body>
 </html>
