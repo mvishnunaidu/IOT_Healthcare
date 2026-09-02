@@ -537,8 +537,11 @@ header.navbar {
 
 @media (max-width: 767.98px) {
   .hero-glow-bg {
-    padding-top: 1.2rem !important;
-    padding-bottom: 1.5rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1.2rem !important;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    border-radius: 0.5rem !important;
   }
 
   .hero-badge {
@@ -592,11 +595,11 @@ header.navbar {
 /* Mobile (<768px): 2x2 grid with tight numbers */
 @media (max-width: 767.98px) {
   .col-6.col-lg .saas-card {
-    padding: 0.65rem 0.75rem !important;
+    padding: 0.5rem 0.6rem !important;
   }
 
   .col-6.col-lg h3 {
-    font-size: 1.35rem !important;
+    font-size: 1.15rem !important;
     margin-bottom: 0.15rem !important;
   }
 

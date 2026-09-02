@@ -109,8 +109,8 @@
                 <span id="userRoleBadge" class="text-muted fw-medium" style="font-size: 10px; line-height: 1.2; margin-top: 2px;">Physician</span>
               </div>
             </a>
-            <button id="headerLogoutBtn" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center justify-content-center gap-1.5" title="Sign Out / Logout" style="height: 32px; padding: 0 12px; border-radius: 6px; font-weight: 600; font-size: 11.5px;">
-              <i class="bi bi-box-arrow-right" style="font-size: 12px;"></i> <span>Logout</span>
+            <button id="headerLogoutBtn" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center justify-content-center gap-1.5 px-2 px-sm-3" title="Sign Out / Logout" style="height: 32px; border-radius: 6px; font-weight: 600; font-size: 11.5px;">
+              <i class="bi bi-box-arrow-right" style="font-size: 12px;"></i> <span class="d-none d-sm-inline">Logout</span>
             </button>
           </div>
 
@@ -548,19 +548,19 @@
            3. DASHBOARD
            ============================================================ -->
       <div id="view-dashboard" class="app-view d-none">
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center align-items-start gap-2 gap-md-3 mb-3">
           <div>
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex flex-wrap align-items-center gap-2">
               <h3 class="fw-bold mb-0">Clinical Telemetry Workstation</h3>
               <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace">ICU Station 04</span>
             </div>
-            <p class="text-muted small mb-0">Real-time vital signs monitoring, edge smoothing, and emergency triage oversight.</p>
+            <p class="text-muted small mb-0 mt-1">Real-time vital signs monitoring, edge smoothing, and emergency triage oversight.</p>
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm rounded-3 fw-semibold" onclick="HealthGuardApp.navigateTo('live')">
+          <div class="d-flex w-100 w-md-auto gap-2 mt-2 mt-md-0">
+            <button class="btn btn-outline-secondary btn-sm rounded-3 fw-semibold flex-grow-1 flex-md-grow-0" onclick="HealthGuardApp.navigateTo('live')">
               <i class="bi bi-activity me-1"></i> Bedside View
             </button>
-            <button class="btn btn-primary btn-sm rounded-3 fw-bold" onclick="HealthGuardApp.navigateTo('simulator')">
+            <button class="btn btn-primary btn-sm rounded-3 fw-bold flex-grow-1 flex-md-grow-0" onclick="HealthGuardApp.navigateTo('simulator')">
               <i class="bi bi-cpu me-1"></i> Hardware Simulator
             </button>
           </div>
