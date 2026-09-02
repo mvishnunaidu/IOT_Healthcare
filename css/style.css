@@ -1,0 +1,420 @@
+/* ==========================================================================
+   HEALTHGUARD IoT - Enterprise Cyber-Medical SaaS Design System
+   ========================================================================== */
+
+:root {
+  --bg-app: #f3f6fa;
+  --bg-card: #ffffff;
+  --bg-surface: #f8fafc;
+  --bg-glass: rgba(255, 255, 255, 0.90);
+  --border-subtle: #e2e8f0;
+  --border-focus: #0284c7;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --primary-accent: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-light: #e0f2fe;
+  --primary-glow: rgba(2, 132, 199, 0.28);
+  
+  --success-color: #10b981;
+  --success-light: #ecfdf5;
+  --success-border: #a7f3d0;
+  
+  --warning-color: #f59e0b;
+  --warning-light: #fffbeb;
+  --warning-border: #fde68a;
+  
+  --danger-color: #ef4444;
+  --danger-light: #fef2f2;
+  --danger-border: #fecaca;
+  
+  --info-color: #06b6d4;
+  --info-light: #ecfeff;
+  --info-border: #a5f3fc;
+
+  --purple-accent: #8b5cf6;
+  --purple-light: #f5f3ff;
+  
+  --card-radius: 1.15rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 18px 40px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 0 25px rgba(2, 132, 199, 0.25);
+}
+
+[data-bs-theme="dark"] {
+  --bg-app: #060a12;
+  --bg-card: #0c1322;
+  --bg-surface: #101a30;
+  --bg-glass: rgba(12, 19, 34, 0.90);
+  --border-subtle: #1e293b;
+  --border-focus: #38bdf8;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --primary-accent: #38bdf8;
+  --primary-hover: #0ea5e9;
+  --primary-light: rgba(56, 189, 248, 0.15);
+  --primary-glow: rgba(56, 189, 248, 0.45);
+  
+  --success-color: #34d399;
+  --success-light: rgba(16, 185, 129, 0.15);
+  --success-border: rgba(16, 185, 129, 0.35);
+  
+  --warning-color: #fbbf24;
+  --warning-light: rgba(245, 158, 11, 0.15);
+  --warning-border: rgba(245, 158, 11, 0.35);
+  
+  --danger-color: #f87171;
+  --danger-light: rgba(239, 68, 68, 0.15);
+  --danger-border: rgba(239, 68, 68, 0.35);
+  
+  --info-color: #22d3ee;
+  --info-light: rgba(6, 182, 212, 0.15);
+  --info-border: rgba(6, 182, 212, 0.35);
+
+  --purple-accent: #a78bfa;
+  --purple-light: rgba(139, 92, 246, 0.15);
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 35px rgba(56, 189, 248, 0.35);
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Top Navbar */
+header.navbar {
+  background-color: var(--bg-glass) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-subtle) !important;
+  z-index: 1030;
+  transition: all 0.3s ease;
+}
+
+/* Sidebar Layout */
+.app-sidebar {
+  width: 265px;
+  background-color: var(--bg-card);
+  border-right: 1px solid var(--border-subtle);
+  min-height: calc(100vh - 65px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: sticky;
+  top: 65px;
+}
+
+.nav-link-custom {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.72rem 0.95rem;
+  border-radius: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.nav-link-custom:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-accent);
+  transform: translateX(4px);
+}
+
+.nav-link-custom.active {
+  background-color: var(--primary-light);
+  color: var(--primary-accent);
+  border-color: rgba(2, 132, 199, 0.3);
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* Modern SaaS Interactive Cards */
+.saas-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+}
+
+.saas-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(2, 132, 199, 0.35);
+}
+
+.saas-card-interactive {
+  cursor: pointer;
+}
+.saas-card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-accent);
+}
+
+/* Glowing Neon Header Accents */
+.hero-glow-bg {
+  position: relative;
+}
+.hero-glow-bg::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 280px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, rgba(6, 182, 212, 0.1) 45%, transparent 70%);
+  filter: blur(45px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Medical Status Badges */
+.badge-normal {
+  background-color: var(--success-light);
+  color: var(--success-color);
+  border: 1px solid var(--success-border);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badge-warning {
+  background-color: var(--warning-light);
+  color: var(--warning-color);
+  border: 1px solid var(--warning-border);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badge-critical {
+  background-color: var(--danger-light);
+  color: var(--danger-color);
+  border: 1px solid var(--danger-border);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  animation: pulse-critical 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-critical {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+  70% { box-shadow: 0 0 0 9px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* Vital Value Typography */
+.vital-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* Live Pulse Beacon */
+.live-beacon {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 0 rgba(16, 185, 129, 0.6);
+  animation: pulse-beacon 2s infinite;
+}
+
+@keyframes pulse-beacon {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.8); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Heartbeat Icon Animation */
+.heartbeat-icon {
+  display: inline-block;
+  animation: heartbeat-anim 1.2s infinite ease-in-out;
+}
+
+@keyframes heartbeat-anim {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.28); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.22); }
+  70% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   INTERACTIVE 8-STAGE ARCHITECTURE PIPELINE FLOW (Patient → Sensors → IoT...)
+   ========================================================================== */
+
+.pipeline-flow-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 1rem 0;
+  overflow-x: auto;
+  gap: 0.5rem;
+}
+
+.pipeline-step-node {
+  flex: 1;
+  min-width: 130px;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: 0.95rem;
+  padding: 0.85rem 0.6rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.pipeline-step-node:hover {
+  border-color: var(--primary-accent);
+  background: var(--primary-light);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.pipeline-step-node.active {
+  border-color: var(--primary-accent);
+  background: var(--primary-light);
+  box-shadow: 0 0 20px var(--primary-glow);
+  transform: translateY(-5px);
+}
+
+.pipeline-step-node.flowing {
+  animation: pulse-node-flow 0.8s ease-in-out;
+  border-color: var(--success-color);
+  background: var(--success-light);
+}
+
+@keyframes pulse-node-flow {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.8); }
+  50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(16, 185, 129, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.pipeline-arrow {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  z-index: 1;
+  opacity: 0.7;
+  animation: float-arrow 2s infinite ease-in-out;
+}
+
+@keyframes float-arrow {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(3px); opacity: 1; color: var(--primary-accent); }
+}
+
+/* Architecture Node Card */
+.arch-node-card {
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-card);
+  border-radius: 0.95rem;
+  padding: 1.1rem 0.85rem;
+  text-align: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.arch-node-card:hover {
+  border-color: var(--primary-accent);
+  background-color: var(--primary-light);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.arch-node-card.active {
+  border-color: var(--primary-accent);
+  background-color: var(--primary-light);
+  box-shadow: 0 0 20px var(--primary-glow);
+  transform: translateY(-4px);
+}
+
+/* Telemetry Oscilloscope Canvas Container */
+.oscilloscope-box {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 0.85rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+.oscilloscope-grid {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+  pointer-events: none;
+}
+
+/* JSON Code Inspector */
+pre.json-inspector {
+  background: #070c18;
+  color: #38bdf8;
+  border: 1px solid #1e293b;
+  border-radius: 0.75rem;
+  padding: 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84rem;
+  max-height: 270px;
+  overflow-y: auto;
+}
+
+/* Custom Sliders */
+.form-range::-webkit-slider-thumb {
+  background: var(--primary-accent);
+  box-shadow: 0 0 10px var(--primary-glow);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.form-range::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.65);
+}
