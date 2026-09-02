@@ -71,6 +71,7 @@ body {
    3. Mobile Offcanvas Slide-Out Sidebar Drawer & Backdrop
    -------------------------------------------------------------------------- */
 .sidebar-backdrop {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -88,6 +89,7 @@ body {
 }
 
 .sidebar-backdrop.show {
+  display: block;
   opacity: 1;
   pointer-events: auto;
 }

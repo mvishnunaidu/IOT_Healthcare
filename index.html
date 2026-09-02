@@ -24,8 +24,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Custom Cyber-Medical Design System CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/style.css?v=2.1">
+  <link rel="stylesheet" href="css/responsive.css?v=2.1">
 </head>
 <body>
 
@@ -104,7 +104,7 @@
   </header>
 
   <!-- Mobile Sidebar Backdrop Overlay -->
-  <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+  <div id="sidebarBackdrop" class="sidebar-backdrop d-none" aria-hidden="true"></div>
 
   <div class="d-flex">
     <!-- Desktop & Mobile Slide-Out Sidebar Navigation Drawer -->
@@ -472,8 +472,27 @@
                 <label for="dashPatientSelect" class="small fw-bold text-muted mb-0 d-flex align-items-center gap-1" style="font-size: 11px; white-space: nowrap;">
                   <i class="bi bi-people-fill text-primary"></i> Change Patient:
                 </label>
-                <select id="dashPatientSelect" class="form-select form-select-sm fw-semibold" style="min-width: 210px; max-width: 300px; font-size: 12px;" aria-label="Change Patient">
-                  <!-- Populated dynamically via JS -->
+                <select id="dashPatientSelect" class="form-select form-select-sm fw-semibold" style="min-width: 210px; max-width: 300px; font-size: 12px; color: var(--text-primary); background-color: var(--bg-card);" aria-label="Change Patient">
+                  <option value="1" selected>Rahul Kumar (PT-1001) - ICU-101 [NORMAL]</option>
+                  <option value="2">Priya Sharma (PT-1002) - W-204 [WARNING]</option>
+                  <option value="3">Arjun Reddy (PT-1003) - CCU-05 [CRITICAL]</option>
+                  <option value="4">Sneha Rao (PT-1004) - W-108 [CRITICAL]</option>
+                  <option value="5">Kiran Patel (PT-1005) - ICU-105 [WARNING]</option>
+                  <option value="6">Ananya Deshmukh (PT-1006) - ICU-103 [CRITICAL]</option>
+                  <option value="7">Vikram Malhotra (PT-1007) - CCU-02 [NORMAL]</option>
+                  <option value="8">Meera Nambiar (PT-1008) - ER-04 [CRITICAL]</option>
+                  <option value="9">Sanjay Gupta (PT-1009) - W-312 [NORMAL]</option>
+                  <option value="10">Pooja Hegde (PT-1010) - W-210 [NORMAL]</option>
+                  <option value="11">Rohan Joshi (PT-1011) - ICU-107 [CRITICAL]</option>
+                  <option value="12">Kavita Menon (PT-1012) - CCU-08 [WARNING]</option>
+                  <option value="13">Deepak Chopra (PT-1013) - ICU-108 [WARNING]</option>
+                  <option value="14">Sunita Roy (PT-1014) - W-115 [WARNING]</option>
+                  <option value="15">Amitabh Sen (PT-1015) - ER-09 [NORMAL]</option>
+                  <option value="16">Geeta Nair (PT-1016) - W-305 [NORMAL]</option>
+                  <option value="17">Farhan Ali (PT-1017) - ICU-106 [CRITICAL]</option>
+                  <option value="18">Divya Iyer (PT-1018) - W-215 [WARNING]</option>
+                  <option value="19">Rajesh Khanna (PT-1019) - CCU-04 [NORMAL]</option>
+                  <option value="20">Shalini Verma (PT-1020) - W-102 [NORMAL]</option>
                 </select>
               </div>
             </div>
@@ -694,7 +713,26 @@
                   <i class="bi bi-person-fill text-info"></i> PATIENT:
                 </label>
                 <select id="bedsidePatientSelect" class="form-select form-select-sm bg-black text-light border-secondary" style="max-width: 220px; font-size: 11px;">
-                  <!-- Populated dynamically via JS -->
+                  <option value="1" selected>Rahul Kumar (PT-1001) - ICU-101 [NORMAL]</option>
+                  <option value="2">Priya Sharma (PT-1002) - W-204 [WARNING]</option>
+                  <option value="3">Arjun Reddy (PT-1003) - CCU-05 [CRITICAL]</option>
+                  <option value="4">Sneha Rao (PT-1004) - W-108 [CRITICAL]</option>
+                  <option value="5">Kiran Patel (PT-1005) - ICU-105 [WARNING]</option>
+                  <option value="6">Ananya Deshmukh (PT-1006) - ICU-103 [CRITICAL]</option>
+                  <option value="7">Vikram Malhotra (PT-1007) - CCU-02 [NORMAL]</option>
+                  <option value="8">Meera Nambiar (PT-1008) - ER-04 [CRITICAL]</option>
+                  <option value="9">Sanjay Gupta (PT-1009) - W-312 [NORMAL]</option>
+                  <option value="10">Pooja Hegde (PT-1010) - W-210 [NORMAL]</option>
+                  <option value="11">Rohan Joshi (PT-1011) - ICU-107 [CRITICAL]</option>
+                  <option value="12">Kavita Menon (PT-1012) - CCU-08 [WARNING]</option>
+                  <option value="13">Deepak Chopra (PT-1013) - ICU-108 [WARNING]</option>
+                  <option value="14">Sunita Roy (PT-1014) - W-115 [WARNING]</option>
+                  <option value="15">Amitabh Sen (PT-1015) - ER-09 [NORMAL]</option>
+                  <option value="16">Geeta Nair (PT-1016) - W-305 [NORMAL]</option>
+                  <option value="17">Farhan Ali (PT-1017) - ICU-106 [CRITICAL]</option>
+                  <option value="18">Divya Iyer (PT-1018) - W-215 [WARNING]</option>
+                  <option value="19">Rajesh Khanna (PT-1019) - CCU-04 [NORMAL]</option>
+                  <option value="20">Shalini Verma (PT-1020) - W-102 [NORMAL]</option>
                 </select>
               </div>
               <span id="bedsidePatientCondition" class="small text-secondary d-none d-lg-inline">Diagnosis: Cardiac Recovery</span>
@@ -1357,18 +1395,18 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Modular Vanilla JavaScript Simulation Engine -->
-  <script src="js/audio.js"></script>
-  <script src="js/sensors.js"></script>
-  <script src="js/edge-processing.js"></script>
-  <script src="js/abnormality-detection.js"></script>
-  <script src="js/oscilloscope.js"></script>
-  <script src="js/charts.js"></script>
-  <script src="js/simulator.js"></script>
-  <script src="js/patients.js"></script>
-  <script src="js/alerts.js"></script>
-  <script src="js/history.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/firebase-config.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/audio.js?v=2.1"></script>
+  <script src="js/sensors.js?v=2.1"></script>
+  <script src="js/edge-processing.js?v=2.1"></script>
+  <script src="js/abnormality-detection.js?v=2.1"></script>
+  <script src="js/oscilloscope.js?v=2.1"></script>
+  <script src="js/charts.js?v=2.1"></script>
+  <script src="js/simulator.js?v=2.1"></script>
+  <script src="js/patients.js?v=2.1"></script>
+  <script src="js/alerts.js?v=2.1"></script>
+  <script src="js/history.js?v=2.1"></script>
+  <script src="js/auth.js?v=2.1"></script>
+  <script src="js/firebase-config.js?v=2.1"></script>
+  <script src="js/app.js?v=2.1"></script>
 </body>
 </html>

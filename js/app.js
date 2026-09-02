@@ -311,13 +311,19 @@ const HealthGuardApp = {
 
     const openDrawer = () => {
       if (sidebar) sidebar.classList.add('show');
-      if (backdrop) backdrop.classList.add('show');
+      if (backdrop) {
+        backdrop.classList.remove('d-none');
+        backdrop.classList.add('show');
+      }
       document.body.style.overflow = 'hidden';
     };
 
     const closeDrawer = () => {
       if (sidebar) sidebar.classList.remove('show');
-      if (backdrop) backdrop.classList.remove('show');
+      if (backdrop) {
+        backdrop.classList.remove('show');
+        backdrop.classList.add('d-none');
+      }
       document.body.style.overflow = '';
     };
 
@@ -685,7 +691,10 @@ const HealthGuardApp = {
     const sidebar = document.querySelector('.app-sidebar');
     const backdrop = document.getElementById('sidebarBackdrop');
     if (sidebar) sidebar.classList.remove('show');
-    if (backdrop) backdrop.classList.remove('show');
+    if (backdrop) {
+      backdrop.classList.remove('show');
+      backdrop.classList.add('d-none');
+    }
     document.body.style.overflow = '';
   },
 
@@ -958,19 +967,28 @@ const HealthGuardApp = {
   populateAllPatientDropdowns() {
     const patients = PatientManager.getAllPatients();
     const optionsHtml = patients.map(p => `
-      <option value="${p.id}" ${p.id === this.selectedPatientId ? 'selected' : ''}>
+      <option value="${p.id}" ${Number(p.id) === Number(this.selectedPatientId) ? 'selected' : ''}>
         ${p.name} (${p.code}) - ${p.room} [${p.status}]
       </option>
     `).join('');
 
     const dashSelect = document.getElementById('dashPatientSelect');
-    if (dashSelect) dashSelect.innerHTML = optionsHtml;
+    if (dashSelect) {
+      dashSelect.innerHTML = optionsHtml;
+      dashSelect.value = String(this.selectedPatientId);
+    }
 
     const bedsideSelect = document.getElementById('bedsidePatientSelect');
-    if (bedsideSelect) bedsideSelect.innerHTML = optionsHtml;
+    if (bedsideSelect) {
+      bedsideSelect.innerHTML = optionsHtml;
+      bedsideSelect.value = String(this.selectedPatientId);
+    }
 
     const simSelect = document.getElementById('simPatientSelect');
-    if (simSelect) simSelect.innerHTML = optionsHtml;
+    if (simSelect) {
+      simSelect.innerHTML = optionsHtml;
+      simSelect.value = String(this.selectedPatientId);
+    }
   },
 
   populateSimulatorPatientDropdown() {
@@ -1528,7 +1546,11 @@ const HealthGuardApp = {
   }
 };
 
-// Start application on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
+// Start application reliably whether DOM is loading or already interactive/complete
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    HealthGuardApp.init();
+  });
+} else {
   HealthGuardApp.init();
-});
+}
