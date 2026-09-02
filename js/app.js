@@ -622,6 +622,13 @@ const HealthGuardApp = {
     });
   },
 
+  logout() {
+    AuthManager.logout();
+    this.updateUserHeaderUI();
+    this.showToast('You have been signed out.', 'info');
+    this.navigateTo('login');
+  },
+
   navigateTo(route) {
     this.currentView = route;
 
@@ -972,36 +979,87 @@ const HealthGuardApp = {
 
   renderPatientsTable() {
     const tbody = document.getElementById('patientsTableBody');
-    if (!tbody) return;
+    const mobileList = document.getElementById('patientsMobileCardList');
 
-    tbody.innerHTML = PatientManager.patients.map(p => {
-      const hr = p.hr || 74;
-      const spo2 = p.spo2 || 98;
-      const temp = p.temp || 36.7;
-      const status = p.status || 'NORMAL';
-      const badgeClass = `badge badge-${status.toLowerCase()}`;
+    if (tbody) {
+      tbody.innerHTML = PatientManager.patients.map(p => {
+        const hr = p.hr || 74;
+        const spo2 = p.spo2 || 98;
+        const temp = p.temp || 36.7;
+        const status = p.status || 'NORMAL';
+        const badgeClass = `badge badge-${status.toLowerCase()}`;
 
-      return `
-        <tr>
-          <td class="font-monospace fw-bold text-info">${p.code}</td>
-          <td>
-            <div class="fw-bold text-body">${p.name}</div>
-            <span class="text-muted small">${p.condition}</span>
-          </td>
-          <td>${p.age} Yrs / ${p.gender}</td>
-          <td><span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">${p.room}</span></td>
-          <td class="font-monospace fw-bold" style="color: var(--color-hr);">${hr} BPM</td>
-          <td class="font-monospace fw-bold" style="color: var(--color-spo2);">${spo2}%</td>
-          <td class="font-monospace fw-bold" style="color: var(--color-temp);">${temp}°C</td>
-          <td><span class="${badgeClass}">${status}</span></td>
-          <td class="text-end">
-            <button class="btn btn-sm btn-outline-info py-1 px-2.5" onclick="HealthGuardApp.inspectPatient(${p.id})">
-              <i class="bi bi-activity me-1"></i> Monitor
+        return `
+          <tr>
+            <td class="font-monospace fw-bold text-info">${p.code}</td>
+            <td>
+              <div class="fw-bold text-body">${p.name}</div>
+              <span class="text-muted small">${p.condition}</span>
+            </td>
+            <td>${p.age} Yrs / ${p.gender}</td>
+            <td><span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">${p.room}</span></td>
+            <td class="font-monospace fw-bold" style="color: var(--color-hr);">${hr} BPM</td>
+            <td class="font-monospace fw-bold" style="color: var(--color-spo2);">${spo2}%</td>
+            <td class="font-monospace fw-bold" style="color: var(--color-temp);">${temp}°C</td>
+            <td><span class="${badgeClass}">${status}</span></td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-info py-1 px-2.5" onclick="HealthGuardApp.inspectPatient(${p.id})">
+                <i class="bi bi-activity me-1"></i> Monitor
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    if (mobileList) {
+      mobileList.innerHTML = PatientManager.patients.map(p => {
+        const hr = p.hr || 74;
+        const spo2 = p.spo2 || 98;
+        const temp = p.temp || 36.7;
+        const status = p.status || 'NORMAL';
+        const badgeClass = `badge badge-${status.toLowerCase()}`;
+
+        return `
+          <div class="saas-card mb-3 p-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="d-flex align-items-center gap-2">
+                  <h6 class="fw-bold mb-0 text-body">${p.name}</h6>
+                  <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">${p.code}</span>
+                </div>
+                <span class="text-muted small">${p.room} • ${p.age} Yrs / ${p.gender}</span>
+              </div>
+              <span class="${badgeClass}">${status}</span>
+            </div>
+            <p class="text-muted small mb-2">${p.condition}</p>
+            <div class="row g-2 text-center mb-3">
+              <div class="col-4">
+                <div class="p-2 rounded bg-inner-box border border-secondary-subtle">
+                  <span class="text-muted small d-block" style="font-size: 10px;">HR</span>
+                  <span class="fw-bold font-monospace" style="color: var(--color-hr);">${hr} BPM</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 rounded bg-inner-box border border-secondary-subtle">
+                  <span class="text-muted small d-block" style="font-size: 10px;">SpO2</span>
+                  <span class="fw-bold font-monospace" style="color: var(--color-spo2);">${spo2}%</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 rounded bg-inner-box border border-secondary-subtle">
+                  <span class="text-muted small d-block" style="font-size: 10px;">TEMP</span>
+                  <span class="fw-bold font-monospace" style="color: var(--color-temp);">${temp}°C</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-outline-info w-100 py-2 fw-semibold" onclick="HealthGuardApp.inspectPatient(${p.id})">
+              <i class="bi bi-activity me-1"></i> Open Bedside Telemetry
             </button>
-          </td>
-        </tr>
-      `;
-    }).join('');
+          </div>
+        `;
+      }).join('');
+    }
   },
 
   renderPatientCards() {

@@ -173,6 +173,11 @@ body {
   position: relative;
   border-radius: 0.5rem;
   padding: 0.2rem 0;
+  cursor: pointer;
+}
+
+.mobile-nav-item * {
+  pointer-events: none;
 }
 
 .mobile-nav-item:active {
