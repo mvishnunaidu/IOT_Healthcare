@@ -1,214 +1,296 @@
-# Intelligent IoT Healthcare Monitoring & Abnormality Detection
+<div align="center">
 
-**HealthGuard IoT** is an enterprise-grade patient vital signs telemetry and automated abnormality triage platform. It integrates biomedical sensor signal acquisition, low-latency edge computing sanitization, multi-tier deterministic clinical triage, 60 FPS real-time hospital oscilloscopes, and automated audio-visual emergency dispatch.
+# 🩺 HealthGuard IoT
+### **Autonomous Multi-Node Edge Telemetry & Clinical Abnormality Detection Platform**
 
----
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Python](https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![HTML5_Canvas](https://img.shields.io/badge/HTML5_Canvas_60FPS-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap_5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## 📋 Table of Contents
-1. [Overview](#1-overview)
-2. [Problem Statement & Solution](#2-problem-statement--solution)
-3. [Key Architecture Capabilities](#3-key-architecture-capabilities)
-4. [System Architecture Dataflow](#4-system-architecture-dataflow)
-5. [Biomedical Sensor Acquisition & Simulation Layer](#5-biomedical-sensor-acquisition--simulation-layer)
-6. [Edge Gateway Sanitization & Noise Filtering](#6-edge-gateway-sanitization--noise-filtering)
-7. [Deterministic Abnormality Detection Rules Matrix](#7-deterministic-abnormality-detection-rules-matrix)
-8. [Bedside Oscilloscopes & Multi-Parameter Waveforms](#8-bedside-oscilloscopes--multi-parameter-waveforms)
-9. [Web Audio Telemetry Sound Synthesizer](#9-web-audio-telemetry-sound-synthesizer)
-10. [Clinical Workstation Dashboard & Multi-Bed Oversight](#10-clinical-workstation-dashboard--multi-bed-oversight)
-11. [Clinical Alert Triage & Emergency Response](#11-clinical-alert-triage--emergency-response)
-12. [Technology Stack](#12-technology-stack)
-13. [Repository Structure](#13-repository-structure)
-14. [Installation & Running Locally](#14-installation--running-locally)
-15. [Physical Microcontroller Hardware Bridge Blueprint](#15-physical-microcontroller-hardware-bridge-blueprint)
-16. [License & Medical Disclaimer](#16-license--medical-disclaimer)
+<br/>
 
----
-
-## 1. Overview
-In intensive care units (ICU) and acute care wards, continuous multi-parameter vital signs monitoring is critical for early detection of clinical deterioration. **HealthGuard IoT** models the end-to-end telemetry pipeline: from biomedical sensor acquisition to edge-gateway sanitization, multi-tier abnormality classification, real-time Lead-II ECG and Plethysmograph canvas oscilloscopes, synchronized Chart.js waveforms, and automated audio-visual emergency dispatching.
-
----
-
-## 2. Problem Statement & Solution
-Traditional hospital telemetry monitors are expensive, closed-source, and isolated from modern cloud analytics pipelines. Furthermore, validating acute emergency scenarios (such as severe hypoxia with $\text{SpO}_2 < 85\%$ or acute ventricular arrhythmias) requires safe, deterministic, high-fidelity testing infrastructure.
-
-**HealthGuard IoT** bridges this gap with an autonomous, decoupled IoT telemetry engine that models realistic physiological stochastic micro-variations, edge EMA smoothing, and multi-tier clinical boundary enforcement, while remaining 100% data contract compatible with physical microcontrollers.
-
----
-
-## 3. Key Architecture Capabilities
-- **High-Fidelity Telemetry Engine:** Emulate PPG, dual-wavelength pulse oximetry, and clinical thermistors with stochastic micro-variations.
-- **Autonomous Edge Gateway Computing:** Near-sensor physiological boundary enforcement ($25 \le \text{HR} \le 260\text{ BPM}$) and Exponential Moving Average (EMA) smoothing ($\alpha = 0.3$).
-- **Multi-Tier Deterministic Triage:** Classify vitals hierarchically into `NORMAL`, `WARNING`, and `CRITICAL` states with contextual clinical recommendations.
-- **60 FPS Sweeping Canvas Oscilloscopes:** Lead-II ECG and SpO2 Plethysmograph waveforms dynamically synchronized with current heart rates.
-- **Web Audio Telemetry Feedback:** Synthesizes realistic cardiac pulse tones (frequency modulated by $\text{SpO}_2$) and two-tone emergency alarm chimes.
-- **Zero-Dependency Standalone Web App:** Pure HTML5/CSS3/Vanilla JS web app ready for instant deployment on Netlify or any static web host.
-
----
-
-## 4. System Architecture Dataflow
-
-$$\text{Patient} \longrightarrow \text{Biomedical Sensors} \longrightarrow \text{IoT Gateway (ESP32)} \longrightarrow \text{Edge Sanitization} \longrightarrow \text{Rule Engine} \longrightarrow \text{Cloud DB} \longrightarrow \text{Workstation} \longrightarrow \text{Emergency Triage}$$
-
-1. **Patient Profile:** Clinical subject demographic records, vital baseline, and active admission profile.
-2. **Biomedical Sensors:** Mathematical generators producing heart rate, $\text{SpO}_2$, temperature, blood pressure, and respiration rate.
-3. **IoT Gateway (ESP32):** Packages data into standardized JSON packets with sequence ID and hardware node IDs (e.g. `ESP32_NODE_01`).
-4. **Edge Processing:** Validates payload structure, enforces biological bounds, applies EMA smoothing, and measures gateway latency.
-5. **Abnormality Detection:** Multi-tier deterministic rule matrix classifying telemetry into Normal, Warning, and Critical states.
-6. **Persistence Layer:** Time-series storage for historical telemetry logs and audit trails.
-7. **Healthcare Dashboard:** Real-time Chart.js multi-axis waveforms and bedside canvas oscilloscopes.
-8. **Clinical Alert Hub:** Emergency notification dispatch, audio alarm chimes, and triage audit workflows.
-
----
-
-## 5. Biomedical Sensor Acquisition & Simulation Layer
-Located in [`js/sensors.js`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/js/sensors.js):
-- **NORMAL Rest:** Heart Rate $74 \pm 2.5\text{ BPM}$, $\text{SpO}_2\ 98.4 \pm 0.6\%$, Temp $36.7 \pm 0.12^\circ\text{C}$.
-- **TACHYCARDIA:** Heart Rate $146 \pm 4\text{ BPM}$, $\text{SpO}_2\ 95.5 \pm 0.8\%$, Temp $37.2 \pm 0.15^\circ\text{C}$.
-- **HYPOXIA:** Heart Rate $105 \pm 4\text{ BPM}$, $\text{SpO}_2\ 84.2 \pm 1.1\%$, Temp $36.6 \pm 0.15^\circ\text{C}$.
-- **HIGH FEVER:** Heart Rate $118 \pm 4\text{ BPM}$, $\text{SpO}_2\ 93.5 \pm 0.8\%$, Temp $39.5 \pm 0.2^\circ\text{C}$.
-- **BRADYCARDIA:** Heart Rate $42 \pm 2\text{ BPM}$, $\text{SpO}_2\ 97.2 \pm 0.5\%$, Temp $36.4 \pm 0.1^\circ\text{C}$.
-- **WAVE Mode:** Continuous harmonic sinusoidal oscillation $f(t) = A \sin(\omega t) + \text{noise}$.
-- **MULTI-ORGAN DISTRESS:** Combined tachycardia, desaturation ($82\%$), and hyperthermia ($39.8^\circ\text{C}$).
-
----
-
-## 6. Edge Gateway Sanitization & Noise Filtering
-Located in [`js/edge-processing.js`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/js/edge-processing.js):
-- Enforces strict human biological boundaries ($25 \le \text{HR} \le 260\text{ BPM}$, $40 \le \text{SpO}_2 \le 100\%$, $28 \le \text{Temp} \le 45^\circ\text{C}$).
-- Mitigates optical motion artifacts using an Exponential Moving Average (EMA) filter:
-  $$\text{EMA}_t = \alpha \cdot X_t + (1 - \alpha) \cdot \text{EMA}_{t-1} \quad (\alpha = 0.3)$$
-- Computes gateway latency ($\text{ms}$) and signal quality index ($0 - 100\%$).
-
----
-
-## 7. Deterministic Abnormality Detection Rules Matrix
-Located in [`js/abnormality-detection.js`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/js/abnormality-detection.js):
-
-| Vital Parameter | Nominal (NORMAL) | Observation (WARNING) | Emergency (CRITICAL) |
-| :--- | :--- | :--- | :--- |
-| **Heart Rate** | $60 - 100\text{ BPM}$ | $101 - 130\text{ BPM}$ | $> 130\text{ or } < 45\text{ BPM}$ |
-| **Oxygen Saturation ($\text{SpO}_2$)** | $95 - 100\%$ | $90 - 94.9\%$ | $\le 89.9\%$ |
-| **Body Temperature** | $36.5 - 37.5^\circ\text{C}$ | $37.6 - 38.7^\circ\text{C}$ | $\ge 38.8^\circ\text{C}$ |
-
----
-
-## 8. Bedside Oscilloscopes & Multi-Parameter Waveforms
-Located in [`js/oscilloscope.js`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/js/oscilloscope.js):
-- **Lead-II ECG Oscilloscope:** Real-time 60 FPS HTML5 Canvas animation generating mathematical P-Q-R-S-T vectors dynamically synchronized with the patient's heart rate.
-- **Plethysmograph Waveform:** Generates real-time optical dicrotic notch pulse wave simulating a clinical pulse oximeter.
-- **Chart.js Multi-Axis Waveform:** Synchronized time-series chart with time-range window filters (15s, 30s, 60s).
-
----
-
-## 9. Web Audio Telemetry Sound Synthesizer
-Located in [`js/audio.js`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/js/audio.js):
-- Generates realistic acoustic cardiac pulse tones (frequency modulated by $\text{SpO}_2$ level) and two-tone critical alarm chimes without external audio dependencies.
-- Toggleable audio mute/unmute control in the top navigation bar.
-
----
-
-## 10. Clinical Workstation Dashboard & Multi-Bed Oversight
-Located in [`index.html`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/index.html):
-- **Status Bar:** Real-time system beacon, edge gateway latency badge ($\approx 12\text{ ms}$), audio toggle, system protocols modal, and theme switcher.
-- **5 Metric Summary Cards:** Total Monitored, Normal, Warning, Critical, and Active Alerts.
-- **Live Vitals Matrix:** Multi-bed ward status grid with instant patient switcher.
-
----
-
-## 11. Clinical Alert Triage & Emergency Response
-Located in [`js/alerts.js`](file:///c:/Users/VISHNU/Desktop/IOT_Healthcare/js/alerts.js):
-- Full alert lifecycle: `ACTIVE` $\longrightarrow$ `ACKNOWLEDGED` $\longrightarrow$ `RESOLVED`.
-- Audio alarm chime and emergency banner on critical triggers.
-- Time-stamped clinical triage audit log with one-click resolution.
-
----
-
-## 12. Technology Stack
-- **Standalone Web App:** HTML5 Canvas, Vanilla JavaScript (ES6+), CSS3 (Cyber-Medical Glassmorphic Design System), Bootstrap 5.3, Chart.js 4.4, Web Audio API.
-- **Backend API (Optional):** Python 3.10+, FastAPI, Pydantic v2, SQLite, Pytest, WebSockets.
-- **React Frontend (Optional):** React 18, TypeScript, Vite, TailwindCSS, Lucide Icons.
-
----
-
-## 13. Repository Structure
 ```
-IOT_Healthcare/
-├── index.html               # Standalone Zero-Dependency Web App (Netlify & GitHub Ready)
-├── css/
-│   ├── style.css            # Cyber-Medical Glassmorphism Design System
-│   └── responsive.css       # Mobile & Tablet Layout Adaptations
-├── js/
-│   ├── app.js               # Master Application Controller
-│   ├── audio.js             # Web Audio Telemetry Synthesizer
-│   ├── sensors.js           # Virtual Sensors & Stochastic Engine
-│   ├── edge-processing.js   # Edge Boundary & EMA Smoothing
-│   ├── abnormality-detection.js # Multi-Tier Clinical Classifier
-│   ├── oscilloscope.js      # 60 FPS Lead-II ECG & PPG Canvas Oscilloscope
-│   ├── charts.js            # Chart.js Waveform Telemetry
-│   ├── simulator.js         # Virtual IoT Hardware Transmitter
-│   ├── patients.js          # Patient Data Model & Baselines
-│   ├── alerts.js            # Emergency Alarm Triage Engine
-│   ├── history.js           # Time-Series Store & CSV Exporter
-│   ├── auth.js              # Authentication State Manager
-│   └── firebase-config.js   # Cloud Integration Stub
-├── backend/                 # Python FastAPI REST & WebSocket Backend
-│   ├── app/
-│   │   ├── main.py
-│   │   ├── models/
-│   │   ├── routers/
-│   │   ├── schemas/
-│   │   ├── services/
-│   │   └── tests/
-│   └── requirements.txt
-├── frontend/                # React + Vite + TypeScript Frontend
-├── docs/                    # Architectural & API Documentation
-├── netlify.toml             # Netlify Deployment Configuration
-├── .gitignore               # Comprehensive Git Ignore Rules
-├── .env.example             # Configuration Template
-└── README.md                # Project Documentation
+  ⚡ < 15ms Edge Latency   |   🩺 MAX30102 PPG & SpO2   |   🌡️ DS18B20 Digital Thermistor   |   🔌 ESP32 Wi-Fi / REST / WSS
 ```
 
+<p align="center">
+  <b>An enterprise-grade, edge-computed biomedical vital signs monitoring ecosystem with 60 FPS CRT canvas oscilloscopes, multi-tier deterministic clinical anomaly triage, audio-visual alarm synthesis, and seamless ESP32 hardware compatibility.</b>
+</p>
+
+[✨ Live Demo](#-quick-start) • [📐 System Architecture](#-8-stage-telemetry-architecture) • [🎛️ Clinical Rules Engine](#-clinical-boundary-matrix) • [🔌 Hardware Wiring](#-hardware-bridge--esp32-blueprint) • [🚀 API Reference](#-api--websocket-contracts)
+
+</div>
+
 ---
 
-## 14. Installation & Running Locally
+## 🌟 Key Highlights & Innovations
 
-### Option A: Standalone Web Application (Instant, Zero Setup)
-1. Open `index.html` directly in any web browser, or start a lightweight local server:
-   ```bash
-   npx serve .
-   # or
-   python -m http.server 8080
-   ```
-2. Navigate to `http://localhost:8080`.
+```mermaid
+graph LR
+    A[👤 Patient Baseline] --> B[🔬 Multi-Sensor Hub]
+    B --> C[⚡ ESP32 Gateway Node]
+    C --> D[⚙️ Edge EMA Filter]
+    D --> E[🚨 3-Tier Clinical Triage]
+    E --> F[📊 60 FPS Oscilloscope]
+    E --> G[🔊 Web Audio Synthesizer]
+    E --> H[🔔 Emergency Dispatch]
 
-### Option B: Python FastAPI Backend
+    style A fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
+    style B fill:#0f172a,stroke:#818cf8,stroke-width:2px,color:#fff
+    style C fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#fff
+    style D fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#fff
+    style E fill:#0f172a,stroke:#f43f5e,stroke-width:2px,color:#fff
+    style F fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
+    style G fill:#0f172a,stroke:#fbbf24,stroke-width:2px,color:#fff
+    style H fill:#0f172a,stroke:#f43f5e,stroke-width:2px,color:#fff
+```
+
+* 📈 **60 FPS Bedside CRT Oscilloscopes:** Pure HTML5 Canvas Lead-II ECG and Plethysmograph waveforms with synchronized P-Q-R-S-T vector generation and optical dicrotic notch rendering.
+* ⚡ **Near-Sensor Edge Computing:** Exponential Moving Average ($\text{EMA}_\alpha = 0.3$) filtering with strict physiological boundary clamping ($25 \le \text{HR} \le 260\text{ BPM}$) ensuring sub-15ms processing latency.
+* 🚨 **Deterministic 3-Tier Clinical Triage:** Hierarchical rule engine classifying vital signs into `NORMAL`, `WARNING`, and `CRITICAL` states with automatic emergency broadcast dispatch.
+* 🔊 **Synthesized Web Audio Engine:** Acoustic pulse beeps dynamically pitched to current $\text{SpO}_2$ oxygen saturation, paired with two-tone critical alarm chimes.
+* 👤 **Multi-User Clinical Auth Portal:** Pre-configured practitioner profiles (**Dr. Pavan** / `iot@123`), password visibility toggles, and custom staff registration.
+* 🔄 **Dynamic Patient Ward Switching:** Instant vitals and telemetry state synchronization across multiple patient beds without page reloads.
+* 🌙 **Zero-Glare Cyber-Medical Theme:** High-contrast clinical dark and light themes designed for ICU lighting conditions.
+
+---
+
+## 📐 8-Stage Telemetry Architecture
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│  01. PATIENT │ ──> │  02. SENSORS │ ──> │03. IOT DEVICE│ ──> │04. EDGE PROC │
+│ Human Vitals │     │ PPG / Temp   │     │ESP32 Gateway │     │ EMA Filter   │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+       │                                                              │
+       ▼                                                              ▼
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│08. ALERT HUB │ <── │07. DASHBOARD │ <── │06. CLOUD DB  │ <── │05. ANOMALY DT│
+│Audio & Triage│     │60FPS CRT Mon │     │Time-Series   │     │3-Tier Rules  │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+```
+
+| Stage | Node Name | Component & Engine | Technical Responsibility |
+| :---: | :--- | :--- | :--- |
+| **01** | **Patient Entity** | `patients.js` | Demographic records, clinical history, and physiological baseline parameters. |
+| **02** | **Biomedical Sensors** | `sensors.js` | Dual-wavelength photoplethysmography (PPG) and NTC thermistor data acquisition. |
+| **03** | **IoT Gateway Device** | `simulator.js` / ESP32 | High-frequency JSON packetization, sequence numbering, and hardware node tagging. |
+| **04** | **Edge Processing** | `edge-processing.js` | Biological boundary clamping, EMA smoothing ($\alpha=0.3$), and latency tracking. |
+| **05** | **Abnormality Classifier** | `abnormality-detection.js` | Deterministic 3-tier clinical rule matrices for real-time abnormality classification. |
+| **06** | **Cloud & Database** | FastAPI / SQLite / Firebase | Time-series telemetry persistence, audit trails, and historical telemetry logging. |
+| **07** | **Healthcare Dashboard** | `oscilloscope.js` / `charts.js` | 60 FPS CRT vector oscilloscopes and synchronized Chart.js multi-axis trends. |
+| **08** | **Clinical Alert Hub** | `alerts.js` / `audio.js` | Emergency alarm chimes, toast notifications, and practitioner triage workflows. |
+
+---
+
+## 🎛️ Clinical Boundary Matrix
+
+The platform executes deterministic rule-based triage on incoming vitals at every edge cycle:
+
+```
+                  CRITICAL ZONE (HR > 130 or < 45 | SpO2 < 90% | Temp ≥ 38.8°C)
+                                        ▲
+                                        │
+                 WARNING ZONE (HR 101-130 | SpO2 90-94% | Temp 37.6-38.7°C)
+                                        ▲
+                                        │
+                   NOMINAL ZONE (HR 60-100 | SpO2 95-100% | Temp 36.5-37.5°C)
+```
+
+| Parameter | Nominal (NORMAL) | Observation (WARNING) | Emergency (CRITICAL) | Diagnostic Trigger |
+| :--- | :---: | :---: | :---: | :--- |
+| **Heart Rate (HR)** | `60 - 100 BPM` | `101 - 130 BPM` | `> 130` or `< 45 BPM` | Tachycardia / Severe Bradycardia |
+| **Oxygen Saturation ($\text{SpO}_2$)** | `95 - 100 %` | `90 - 94.9 %` | `≤ 89.9 %` | Hypoxemia / Respiratory Distress |
+| **Body Temperature** | `36.5 - 37.5 °C` | `37.6 - 38.7 °C` | `≥ 38.8 °C` | Hyperthermia / High Fever |
+| **Blood Pressure (BP)** | `120/80 mmHg` | `130-139 / 85-89` | `≥ 140 / ≥ 90` | Hypertensive Crisis |
+| **Respiration Rate** | `12 - 20 rpm` | `21 - 24 rpm` | `> 24` or `< 10 rpm` | Tachypnea / Respiratory Failure |
+
+---
+
+## ⚡ Mathematical Modeling & Signal Processing
+
+### 1. Exponential Moving Average (EMA) Filter
+$$\text{EMA}_t = \alpha \cdot X_t + (1 - \alpha) \cdot \text{EMA}_{t-1}$$
+*Where $\alpha = 0.3$, dampening high-frequency sensor motion artifacts while preserving instantaneous spike detection.*
+
+### 2. Lead-II Synthetic ECG Vector Equation
+$$V_{\text{ECG}}(t) = V_{\text{baseline}} + P(t) - Q(t) + R(t) - S(t) + T(t)$$
+*Dynamic P-Q-R-S-T waveforms generated on HTML5 Canvas at 60 FPS, frequency-locked to the patient's instantaneous heart rate.*
+
+### 3. Acoustic Pitch Modulation
+$$f_{\text{beep}} = f_{\text{base}} + (\text{SpO}_2 - 90) \times 18\text{ Hz}$$
+*Web Audio synthesizer dynamically modulates the frequency of cardiac beeps based on blood oxygenation.*
+
+---
+
+## 🔌 Hardware Bridge & ESP32 Blueprint
+
+```
+ ┌────────────────┐               ┌───────────────┐
+ │ ESP32-WROOM-32 │               │ MAX30102 PPG  │
+ │                │─── I2C SDA ──>│ SDA (GPIO 21) │
+ │                │─── I2C SCL ──>│ SCL (GPIO 22) │
+ │                │               │ 3.3V & GND    │
+ │                │               └───────────────┘
+ │                │               ┌───────────────┐
+ │                │               │ DS18B20 Temp  │
+ │                │─── 1-Wire ───>│ DQ (GPIO 4)   │
+ │                │               │ 4.7kΩ Pull-up │
+ └────────────────┘               └───────────────┘
+         │
+         ▼  (Wi-Fi / REST / WebSocket)
+ ┌────────────────────────────────────────────────┐
+ │ HealthGuard IoT Gateway (/api/readings/raw)    │
+ └────────────────────────────────────────────────┘
+```
+
+### Microcontroller C++ Snippet:
+```cpp
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+
+void transmitTelemetry(float hr, float spo2, float temp) {
+  StaticJsonDocument<256> doc;
+  doc["patient_id"] = 1;
+  doc["node_id"] = "ESP32_ICU_01";
+  doc["heart_rate"] = hr;
+  doc["spo2"] = spo2;
+  doc["temperature"] = temp;
+
+  String payload;
+  serializeJson(doc, payload);
+
+  HTTPClient http;
+  http.begin("http://healthguard-gateway.local/api/readings/raw");
+  http.addHeader("Content-Type", "application/json");
+  int httpCode = http.POST(payload);
+  http.end();
+}
+```
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: Zero-Dependency Standalone Web App (Instant)
+```bash
+# 1. Clone the repository
+git clone https://github.com/mvishnunaidu/IOT_Healthcare.git
+cd IOT_Healthcare
+
+# 2. Launch with any HTTP server (or open index.html directly)
+python -m http.server 8080
+# or
+npx serve .
+```
+> Open your browser at **`http://localhost:8080`**
+
+---
+
+### Option 2: Python FastAPI Backend
 ```bash
 cd backend
+python -m venv venv
+venv\Scripts\activate  # Windows (or source venv/bin/activate on Linux/Mac)
 pip install -r requirements.txt
+
+# Run Unit & Integration Test Suite
 python -m pytest app/tests
+
+# Launch Live REST & WebSocket Server
 uvicorn app.main:app --reload --port 8000
 ```
+> API Swagger UI: **`http://localhost:8000/docs`**
 
-### Option C: React + Vite Frontend
+---
+
+### Option 3: React + Vite + TypeScript Frontend
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+> Open your browser at **`http://localhost:5173`**
 
 ---
 
-## 15. Physical Microcontroller Hardware Bridge Blueprint
+## 🗂️ Project Structure
 
-To bridge the software platform with physical microcontroller hardware:
-
-1. **Microcontroller:** ESP32-WROOM-32 (Dual-core 240MHz, Wi-Fi enabled).
-2. **Pulse/SpO2 Sensor:** MAX30102 connected via I2C (`SDA = GPIO 21`, `SCL = GPIO 22`).
-3. **Temperature Sensor:** DS18B20 digital thermistor via 1-Wire (`GPIO 4` with $4.7\text{k}\Omega$ pull-up).
-4. **Firmware:** Package JSON frames using the `ArduinoJson` library and transmit via HTTP POST or WebSockets to `/api/readings/raw`.
+```
+IOT_Healthcare/
+├── index.html                   # Standalone 60 FPS Web App (Netlify & GitHub Ready)
+├── css/
+│   ├── style.css                # Cyber-Medical Glassmorphism & Dark Mode Tokens
+│   └── responsive.css           # Mobile & Tablet Responsive Adaptations
+├── js/
+│   ├── app.js                   # Central SPA Controller & View Router
+│   ├── auth.js                  # Staff Auth Manager & Profile Storage
+│   ├── sensors.js               # Stochastic Biomedical Sensor Simulator
+│   ├── edge-processing.js       # Edge Clamping, EMA Filter & Latency Metric
+│   ├── abnormality-detection.js # 3-Tier Deterministic Clinical Classifier
+│   ├── oscilloscope.js          # 60 FPS Lead-II ECG & PPG Canvas Oscilloscope
+│   ├── charts.js                # Multi-Axis Chart.js Telemetry Engine
+│   ├── simulator.js             # Multi-Profile Scenario Engine
+│   ├── alerts.js                # Clinical Alarm & Emergency Dispatch Hub
+│   ├── patients.js              # Multi-Patient Ward Data Models
+│   ├── history.js               # Time-Series Storage & CSV Export Engine
+│   └── audio.js                 # Web Audio Telemetry Sound Synthesizer
+├── backend/                     # Python FastAPI Backend
+│   ├── app/
+│   │   ├── main.py              # Application Entry Point & WebSockets
+│   │   ├── routers/             # Auth, Alerts, Telemetry & Simulation APIs
+│   │   ├── services/            # Edge Processor & Anomaly Classifier
+│   │   ├── models/              # SQLAlchemy Database ORM Models
+│   │   └── tests/               # Pytest Automated Test Suite (10/10)
+│   └── requirements.txt
+├── frontend/                    # React 18 + Vite + TailwindCSS Application
+├── docs/                        # Complete System Architecture & API Specs
+├── netlify.toml                 # Static Hosting Configuration
+└── README.md                    # Project Documentation
+```
 
 ---
 
-## 16. License & Medical Disclaimer
-This software is designed for educational, research, and technical simulation of clinical IoT telemetry pipelines. For deployment in live clinical care environments, appropriate regulatory medical clearance and hardware calibration must be conducted.
+## 🧪 Testing & Validation
+
+```bash
+python -m pytest backend/app/tests
+```
+
+```
+============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.1.1, pluggy-1.6.0
+collected 10 items
+
+backend/app/tests/test_abnormality_detector.py ...                       [ 30%]
+backend/app/tests/test_api_endpoints.py ....                             [ 70%]
+backend/app/tests/test_edge_processor.py ...                             [100%]
+
+======================== 10 passed in 0.58s ========================
+```
+
+---
+
+## 🛡️ Default Staff Credentials
+
+| Role | Name | Email | Password |
+| :--- | :--- | :--- | :--- |
+| **Attending Physician** | Dr. Pavan | `dr.pavan@hospital.org` | `iot@123` *(or custom)* |
+| **Staff Nurse** | Nurse Ananya | `nurse@hospital.org` | `iot@123` *(or custom)* |
+| **New Users** | *Custom* | *Custom* | *Created during sign up* |
+
+---
+
+## 📄 License & Medical Disclaimer
+
+Distributed under the **MIT License**. See `LICENSE` for more information.
+
+> ⚠️ **Clinical Notice:** This software is engineered for biomedical engineering research, simulation, and technological evaluation of IoT telemetry pipelines. Live clinical deployment requires appropriate regulatory clearance and medical device calibration.
+
+<div align="center">
+  <sub>Built with ❤️ for modern connected healthcare.</sub>
+</div>
