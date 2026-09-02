@@ -22,6 +22,8 @@ const HealthGuardApp = {
       subtitle: 'Clinical Subject Profile',
       category: 'Source Entity',
       icon: 'bi-person-heart',
+      color: '#2563eb',
+      bgSubtle: 'rgba(37, 99, 235, 0.10)',
       desc: 'Clinical subject with demographic records, physiological baseline, and assigned monitoring ward.',
       input: 'Patient demographics, medical baseline, and clinical diagnosis',
       output: 'Continuous biophysical vital signs (cardiac pulse wave, blood oxygenation, core body temperature)',
@@ -40,6 +42,8 @@ const HealthGuardApp = {
       subtitle: 'Biomedical Transduction',
       category: 'Sensors Layer',
       icon: 'bi-activity',
+      color: '#0891b2',
+      bgSubtle: 'rgba(8, 145, 178, 0.10)',
       desc: 'High-precision Photoplethysmography (PPG), dual-wavelength optical pulse oximetry, and clinical thermistors.',
       input: 'Physiological vitals & simulation scenario mode (Normal, Tachycardia, Hypoxia, High Fever, Bradycardia)',
       output: 'Raw biometric readings (Heart Rate BPM, SpO2 %, Temp °C, Blood Pressure, Respiration Rate)',
@@ -57,7 +61,9 @@ const HealthGuardApp = {
       title: '3. IoT Device',
       subtitle: 'Microcontroller Gateway',
       category: 'IoT Gateway Layer',
-      icon: 'bi-cpu',
+      icon: 'bi-cpu-fill',
+      color: '#7c3aed',
+      bgSubtle: 'rgba(124, 58, 237, 0.10)',
       desc: 'Embedded microcontroller (ESP32-WROOM-32) sampling hardware ADCs and packaging standardized JSON frames.',
       input: 'Sampled biomedical sensor ADC values',
       output: 'Standardized IoT telemetry JSON packet with sequence ID, transmission timestamp, and device node ID',
@@ -75,7 +81,9 @@ const HealthGuardApp = {
       title: '4. Edge Processing',
       subtitle: 'Near-Sensor Sanitization',
       category: 'Edge Computing Layer',
-      icon: 'bi-filter-circle',
+      icon: 'bi-filter-circle-fill',
+      color: '#0284c7',
+      bgSubtle: 'rgba(2, 132, 199, 0.10)',
       desc: 'Near-sensor biological validation, boundary clipping, and Exponential Moving Average (EMA) smoothing.',
       input: 'Raw IoT JSON frame from transmitter',
       output: 'Sanitized, artifact-smoothed payload with edge latency (ms) and Signal Quality Index (SQI %)',
@@ -93,7 +101,9 @@ const HealthGuardApp = {
       title: '5. Abnormality Detection',
       subtitle: 'Clinical Rule Intelligence',
       category: 'Intelligence Layer',
-      icon: 'bi-exclamation-triangle',
+      icon: 'bi-exclamation-triangle-fill',
+      color: '#d97706',
+      bgSubtle: 'rgba(217, 119, 6, 0.10)',
       desc: 'Multi-tier deterministic rule matrix and Z-score statistical engine classifying vitals into NORMAL, WARNING, and CRITICAL.',
       input: 'Sanitized biometric vital stream',
       output: 'Overall triage status, detected clinical issues list, and bedside clinical recommendation',
@@ -111,7 +121,9 @@ const HealthGuardApp = {
       title: '6. Database / Cloud',
       subtitle: 'Time-Series Persistence',
       category: 'Persistence Layer',
-      icon: 'bi-database-check',
+      icon: 'bi-database-fill-check',
+      color: '#059669',
+      bgSubtle: 'rgba(5, 150, 105, 0.10)',
       desc: 'Relational SQLite and time-series telemetry store with indexed historical audit trails.',
       input: 'Sanitized telemetry logs, clinical alerts, and triage actions',
       output: 'Historical query logs, CSV dataset download, and audit trails',
@@ -129,7 +141,9 @@ const HealthGuardApp = {
       title: '7. Healthcare Dashboard',
       subtitle: 'Real-Time Telemetry UI',
       category: 'Presentation Layer',
-      icon: 'bi-grid-1x2',
+      icon: 'bi-grid-1x2-fill',
+      color: '#4f46e5',
+      bgSubtle: 'rgba(79, 70, 229, 0.10)',
       desc: 'High-end responsive SaaS telemetry workstation with multi-axis Chart.js waveforms and real-time oscilloscopes.',
       input: 'Live telemetry stream & state transitions',
       output: 'Real-time Lead-II ECG canvas oscilloscope, Plethysmograph wave, and multi-bed matrix',
@@ -148,9 +162,11 @@ const HealthGuardApp = {
       subtitle: 'Emergency Alarm Dispatch',
       category: 'Notification Layer',
       icon: 'bi-bell-fill',
+      color: '#e11d48',
+      bgSubtle: 'rgba(225, 29, 72, 0.10)',
       desc: 'Automated alarm dispatching with Web Audio tone synthesis, audio-visual triage, and acknowledgment lifecycle.',
       input: 'Abnormality detection triggers (Critical/Warning)',
-      output: 'Two-tone audio alarm chime, bedside emergency banner, and triage audit history',
+      output: 'Two-tone audio alarm chime, bedside emergency broadcast banner, and triage audit history',
       tech: 'Alert Lifecycle Manager & Web Audio Synthesizer (alerts.js, audio.js)',
       specifications: [
         'Implements full clinical alarm lifecycle: ACTIVE -> ACKNOWLEDGED -> RESOLVED with clinician timestamps.',
@@ -965,12 +981,14 @@ const HealthGuardApp = {
     if (landingGrid) {
       landingGrid.innerHTML = this.architectureNodes.map((node, idx) => `
         <div class="col-6 col-md-3">
-          <div class="arch-node-card h-100" id="step-node-${node.id}" onclick="HealthGuardApp.inspectArchNode('${node.id}')">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace" style="font-size: 10px;">Stage 0${node.step}</span>
-              <i class="bi ${node.icon} text-primary"></i>
+          <div class="arch-node-card h-100 position-relative" id="step-node-${node.id}" onclick="HealthGuardApp.inspectArchNode('${node.id}')" style="border-top: 3.5px solid ${node.color};">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge font-monospace px-2 py-1" style="background: ${node.bgSubtle}; color: ${node.color}; border: 1px solid ${node.color}33; font-size: 10px; font-weight: 700;">Stage 0${node.step}</span>
+              <span class="rounded-3 d-flex align-items-center justify-content-center" style="background: ${node.bgSubtle}; color: ${node.color}; width: 28px; height: 28px;">
+                <i class="bi ${node.icon} fs-6"></i>
+              </span>
             </div>
-            <h6 class="fw-bold mb-0 text-truncate" style="font-size: 13px;">${node.title.replace(/^[0-9]+\.\s*/, '')}</h6>
+            <h6 class="fw-bold mb-1 text-truncate" style="font-size: 13.5px; color: var(--text-primary);">${node.title.replace(/^[0-9]+\.\s*/, '')}</h6>
             <span class="text-muted d-block" style="font-size: 11px;">${node.subtitle || node.category}</span>
           </div>
         </div>
@@ -981,10 +999,10 @@ const HealthGuardApp = {
     const archTrack = document.getElementById('archPipelineTrack');
     if (archTrack) {
       archTrack.innerHTML = this.architectureNodes.map((node, idx) => `
-        <div class="pipeline-step-node ${idx === 0 ? 'active' : ''}" id="track-node-${node.id}" onclick="HealthGuardApp.inspectArchNode('${node.id}')">
-          <span class="badge bg-primary-subtle text-primary font-monospace mb-1" style="font-size: 9px;">0${node.step}</span>
-          <div class="text-primary mb-1"><i class="bi ${node.icon} fs-5"></i></div>
-          <div class="fw-bold small text-truncate" style="font-size: 11px;">${node.title.replace(/^[0-9]+\.\s*/, '')}</div>
+        <div class="pipeline-step-node ${idx === 0 ? 'active' : ''}" id="track-node-${node.id}" onclick="HealthGuardApp.inspectArchNode('${node.id}')" style="border-top: 3px solid ${node.color};">
+          <span class="badge font-monospace mb-1" style="background: ${node.bgSubtle}; color: ${node.color}; font-size: 9px; font-weight: 700;">0${node.step}</span>
+          <div class="mb-1" style="color: ${node.color};"><i class="bi ${node.icon} fs-5"></i></div>
+          <div class="fw-bold small text-truncate" style="font-size: 11px; color: var(--text-primary);">${node.title.replace(/^[0-9]+\.\s*/, '')}</div>
         </div>
         ${idx < this.architectureNodes.length - 1 ? '<i class="bi bi-arrow-right pipeline-arrow"></i>' : ''}
       `).join('');
@@ -996,10 +1014,10 @@ const HealthGuardApp = {
       archList.innerHTML = this.architectureNodes.map((node, idx) => `
         <button class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-2.5 ${idx === 0 ? 'active' : ''}" id="list-btn-${node.id}" onclick="HealthGuardApp.inspectArchNode('${node.id}')">
           <div class="d-flex align-items-center gap-2">
-            <span class="badge bg-primary-subtle text-primary border font-monospace" style="font-size: 10px;">0${node.step}</span>
+            <span class="badge font-monospace" style="background: ${node.bgSubtle}; color: ${node.color}; border: 1px solid ${node.color}33; font-size: 10px;">0${node.step}</span>
             <span class="fw-semibold">${node.title}</span>
           </div>
-          <i class="bi bi-chevron-right text-muted small"></i>
+          <i class="bi ${node.icon}" style="color: ${node.color};"></i>
         </button>
       `).join('');
     }
