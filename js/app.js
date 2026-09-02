@@ -695,6 +695,7 @@ const HealthGuardApp = {
       backdrop.classList.remove('show');
       backdrop.classList.add('d-none');
     }
+    this.toggleMobileMoreSheet(false);
     document.body.style.overflow = '';
   },
 
@@ -1046,7 +1047,7 @@ const HealthGuardApp = {
                   <h6 class="fw-bold mb-0 text-body">${p.name}</h6>
                   <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle font-monospace">${p.code}</span>
                 </div>
-                <span class="text-muted small">${p.room} • ${p.age} Yrs / ${p.gender}</span>
+                <span class="text-muted small">${p.room} • ${p.age} Yrs / ${p.gender} • Node: <strong class="text-primary font-monospace">${p.deviceId || 'ESP32_NODE_0' + p.id}</strong></span>
               </div>
               <span class="${badgeClass}">${status}</span>
             </div>
@@ -1071,9 +1072,14 @@ const HealthGuardApp = {
                 </div>
               </div>
             </div>
-            <button class="btn btn-sm btn-outline-info w-100 py-2 fw-semibold" onclick="HealthGuardApp.inspectPatient(${p.id})">
-              <i class="bi bi-activity me-1"></i> Open Bedside Telemetry
-            </button>
+            <div class="d-flex justify-content-between align-items-center gap-2">
+              <button class="btn btn-sm btn-outline-info flex-fill py-1.5 fw-semibold" onclick="HealthGuardApp.inspectPatient(${p.id})">
+                <i class="bi bi-activity me-1"></i> Bedside Vitals
+              </button>
+              <button class="btn btn-sm btn-outline-primary flex-fill py-1.5 fw-semibold" onclick="HealthGuardApp.openPatientDetails(${p.id})">
+                <i class="bi bi-person-vcard me-1"></i> Full Details
+              </button>
+            </div>
           </div>
         `;
       }).join('');
@@ -1230,12 +1236,24 @@ const HealthGuardApp = {
     const dRoom = document.getElementById('detailPatientRoom');
     const dCond = document.getElementById('detailPatientCondition');
     const dBadge = document.getElementById('detailPatientStatusBadge');
+    const dHR = document.getElementById('detailHR');
+    const dSpO2 = document.getElementById('detailSpO2');
+    const dTemp = document.getElementById('detailTemp');
+    const dNode = document.getElementById('detailNodeId');
+    const dBP = document.getElementById('detailBP');
+    const dPhysician = document.getElementById('detailPhysician');
 
     if (dName) dName.innerText = p.name;
     if (dCode) dCode.innerText = p.code;
     if (dAgeGen) dAgeGen.innerText = `${p.age} Yrs / ${p.gender}`;
     if (dRoom) dRoom.innerText = `Room: ${p.room}`;
     if (dCond) dCond.innerText = `Condition: ${p.condition}`;
+    if (dHR) dHR.innerText = p.hr || 74;
+    if (dSpO2) dSpO2.innerText = `${p.spo2 || 98}%`;
+    if (dTemp) dTemp.innerText = `${p.temp || 36.7}°C`;
+    if (dNode) dNode.innerText = p.deviceId || 'ESP32_NODE_0' + p.id;
+    if (dBP) dBP.innerText = `${p.systolicBP || 120} / ${p.diastolicBP || 80} mmHg`;
+    if (dPhysician) dPhysician.innerText = p.physician || 'Dr. Pavan (Cardiology)';
     if (dBadge) {
       dBadge.className = `badge badge-${p.status.toLowerCase()} px-3 py-1.5`;
       dBadge.innerText = p.status;
@@ -1272,6 +1290,25 @@ const HealthGuardApp = {
 
   inspectPatient(patientId) {
     this.selectActivePatient(patientId, 'live');
+  },
+
+  openPatientDetails(patientId) {
+    this.selectActivePatient(patientId, 'patient-details');
+  },
+
+  toggleMobileMoreSheet(forceState) {
+    const sheet = document.getElementById('mobileMoreSheet');
+    if (!sheet) return;
+    const isCurrentlyOpen = !sheet.classList.contains('d-none');
+    const shouldOpen = forceState !== undefined ? forceState : !isCurrentlyOpen;
+
+    if (shouldOpen) {
+      sheet.classList.remove('d-none');
+      document.body.style.overflow = 'hidden';
+    } else {
+      sheet.classList.add('d-none');
+      document.body.style.overflow = '';
+    }
   },
 
   renderAlerts() {

@@ -24,8 +24,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Custom Cyber-Medical Design System CSS -->
-  <link rel="stylesheet" href="css/style.css?v=2.3">
-  <link rel="stylesheet" href="css/responsive.css?v=2.3">
+  <link rel="stylesheet" href="css/style.css?v=2.4">
+  <link rel="stylesheet" href="css/responsive.css?v=2.4">
 </head>
 <body>
 
@@ -456,6 +456,64 @@
           </div>
         </div>
 
+        <!-- Quick Access Clinical Modules Hub (All Options Directly Accessible) -->
+        <div class="saas-card mb-3 p-2.5 shadow-sm">
+          <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+            <span class="small fw-bold text-muted text-uppercase" style="font-size: 10.5px; letter-spacing: 0.05em;"><i class="bi bi-grid-fill text-primary me-1"></i> Quick Clinical Navigation</span>
+            <span class="badge bg-primary-subtle text-primary font-monospace" style="font-size: 9.5px;">8 Modules</span>
+          </div>
+          <div class="row g-2 text-center">
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('patients')">
+                <i class="bi bi-people-fill text-primary fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Patients</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('live')">
+                <i class="bi bi-activity text-success fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Bedside</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('simulator')">
+                <i class="bi bi-cpu-fill text-info fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Simulator</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('alerts')">
+                <i class="bi bi-bell-fill text-danger fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Alerts</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('history')">
+                <i class="bi bi-clock-history text-secondary fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">History</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('architecture')">
+                <i class="bi bi-diagram-3-fill text-primary fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Pipeline</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('settings')">
+                <i class="bi bi-sliders text-warning fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Thresholds</span>
+              </a>
+            </div>
+            <div class="col-3 col-md">
+              <a href="#" class="dash-quick-link d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" data-bs-toggle="modal" data-bs-target="#systemSpecsModal">
+                <i class="bi bi-shield-check text-success fs-5 mb-1"></i>
+                <span class="small fw-semibold text-body" style="font-size: 10.5px;">Protocols</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Active Patient Telemetry Card -->
         <div class="saas-card mb-4">
           <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 border-bottom mb-3 gap-3">
@@ -674,6 +732,45 @@
                 <span class="small text-muted">Core Temperature</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Clinical Dossier & Assigned IoT Infrastructure -->
+        <div class="saas-card mb-4 shadow-sm">
+          <h6 class="fw-bold mb-3"><i class="bi bi-file-earmark-medical text-primary me-1.5"></i> Patient Clinical Dossier &amp; IoT Node</h6>
+          <div class="row g-2 mb-3">
+            <div class="col-6 col-md-3">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small" style="font-size: 10px;">ASSIGNED IOT NODE</span>
+                <span class="fw-bold font-monospace text-primary" id="detailNodeId">ESP32_NODE_01</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small" style="font-size: 10px;">BLOOD PRESSURE</span>
+                <span class="fw-bold font-monospace text-body" id="detailBP">120 / 80 mmHg</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small" style="font-size: 10px;">ATTENDING PHYSICIAN</span>
+                <span class="fw-bold text-body" id="detailPhysician">Dr. Pavan (Cardiology)</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small" style="font-size: 10px;">TELEMETRY LINK</span>
+                <span class="fw-bold text-success font-monospace" id="detailTelemetrySync">● REAL-TIME SYNC</span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 pt-2 border-top">
+            <button class="btn btn-sm btn-primary flex-fill fw-bold" onclick="HealthGuardApp.inspectPatient(HealthGuardApp.selectedPatientId)">
+              <i class="bi bi-activity me-1"></i> Bedside Oscilloscope
+            </button>
+            <button class="btn btn-sm btn-outline-secondary flex-fill fw-semibold" onclick="HealthGuardApp.navigateTo('simulator')">
+              <i class="bi bi-sliders me-1"></i> IoT Simulator
+            </button>
           </div>
         </div>
       </div>
@@ -1186,27 +1283,66 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Mobile Threshold Cards (Visible on mobile <768px for complete clarity) -->
+          <div class="d-md-none mt-2">
+            <div class="p-2.5 rounded-3 bg-inner-box border border-secondary-subtle mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="fw-bold small text-body" style="color: var(--color-hr);"><i class="bi bi-heart-pulse-fill me-1"></i> Heart Rate (BPM)</span>
+                <span class="badge badge-normal font-monospace">60 - 100</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center small font-monospace" style="font-size: 11px;">
+                <span class="text-warning">⚠️ Warning: 101 - 130</span>
+                <span class="text-danger">🚨 Critical: &gt;130 / &lt;45</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-3 bg-inner-box border border-secondary-subtle mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="fw-bold small text-body" style="color: var(--color-spo2);"><i class="bi bi-lungs-fill me-1"></i> SpO2 Oxygen (%)</span>
+                <span class="badge badge-normal font-monospace">95 - 100%</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center small font-monospace" style="font-size: 11px;">
+                <span class="text-warning">⚠️ Warning: 90 - 94.9%</span>
+                <span class="text-danger">🚨 Critical: &le;89.9%</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-3 bg-inner-box border border-secondary-subtle mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="fw-bold small text-body" style="color: var(--color-temp);"><i class="bi bi-thermometer-half me-1"></i> Temperature (°C)</span>
+                <span class="badge badge-normal font-monospace">36.5 - 37.5°C</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center small font-monospace" style="font-size: 11px;">
+                <span class="text-warning">⚠️ Warning: 37.6 - 38.7°C</span>
+                <span class="text-danger">🚨 Critical: &ge;38.8°C</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="saas-card">
           <h6 class="fw-bold mb-2">Edge Computing Parameters</h6>
-          <div class="row g-3 small">
-            <div class="col-md-4">
-              <div class="p-3 rounded bg-light border">
-                <span class="text-muted d-block">EMA Smoothing Factor (&alpha;)</span>
+          <div class="row g-2 small">
+            <div class="col-12 col-md-4">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small">EMA Smoothing Factor (&alpha;)</span>
                 <span class="font-monospace fw-bold fs-6 text-primary">0.30</span>
+                <span class="text-muted d-block" style="font-size: 10px;">Exponential signal smoothing</span>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="p-3 rounded bg-light border">
-                <span class="text-muted d-block">Biological Boundary Clamping</span>
-                <span class="font-monospace fw-bold fs-6 text-success">Enabled (25 - 260 BPM)</span>
+            <div class="col-12 col-md-4">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small">Biological Boundary Clamping</span>
+                <span class="font-monospace fw-bold fs-6 text-success">25 - 260 BPM</span>
+                <span class="text-muted d-block" style="font-size: 10px;">Artifact rejection clamping</span>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="p-3 rounded bg-light border">
-                <span class="text-muted d-block">Target Edge Gateway Latency</span>
-                <span class="font-monospace fw-bold fs-6 text-dark">&lt; 20 ms</span>
+            <div class="col-12 col-md-4">
+              <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
+                <span class="text-muted d-block small">Target Edge Gateway Latency</span>
+                <span class="font-monospace fw-bold fs-6 text-info">&lt; 20 ms</span>
+                <span class="text-muted d-block" style="font-size: 10px;">Real-time edge triage loop</span>
               </div>
             </div>
           </div>
@@ -1388,8 +1524,66 @@
         </div>
         <span class="mobile-nav-label">Alerts</span>
       </a>
+      <a href="#" class="mobile-nav-item" data-route="more" id="bnav-more" title="All Options" onclick="event.preventDefault(); HealthGuardApp.toggleMobileMoreSheet();">
+        <div class="mobile-nav-icon-wrap">
+          <i class="bi bi-grid-3x3-gap-fill"></i>
+        </div>
+        <span class="mobile-nav-label">More</span>
+      </a>
     </div>
   </nav>
+
+  <!-- Mobile More Options Quick Action Sheet -->
+  <div id="mobileMoreSheet" class="mobile-more-sheet d-none">
+    <div class="mobile-more-backdrop" onclick="HealthGuardApp.toggleMobileMoreSheet(false)"></div>
+    <div class="mobile-more-content p-3 shadow-lg">
+      <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+        <div class="d-flex align-items-center gap-1.5">
+          <i class="bi bi-grid-3x3-gap-fill text-primary"></i>
+          <h6 class="fw-bold mb-0 text-body" style="font-size: 13px;">All Clinical Modules</h6>
+        </div>
+        <button type="button" class="btn-close btn-sm" onclick="HealthGuardApp.toggleMobileMoreSheet(false)" aria-label="Close"></button>
+      </div>
+      <div class="row g-2 text-center">
+        <div class="col-4">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('history'); HealthGuardApp.toggleMobileMoreSheet(false);">
+            <i class="bi bi-clock-history text-secondary fs-5 mb-1"></i>
+            <span class="small fw-semibold text-body" style="font-size: 11px;">History</span>
+          </a>
+        </div>
+        <div class="col-4">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('architecture'); HealthGuardApp.toggleMobileMoreSheet(false);">
+            <i class="bi bi-diagram-3-fill text-primary fs-5 mb-1"></i>
+            <span class="small fw-semibold text-body" style="font-size: 11px;">Pipeline</span>
+          </a>
+        </div>
+        <div class="col-4">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" onclick="HealthGuardApp.navigateTo('settings'); HealthGuardApp.toggleMobileMoreSheet(false);">
+            <i class="bi bi-sliders text-warning fs-5 mb-1"></i>
+            <span class="small fw-semibold text-body" style="font-size: 11px;">Thresholds</span>
+          </a>
+        </div>
+        <div class="col-4">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" data-bs-toggle="modal" data-bs-target="#systemSpecsModal" onclick="HealthGuardApp.toggleMobileMoreSheet(false);">
+            <i class="bi bi-shield-check text-success fs-5 mb-1"></i>
+            <span class="small fw-semibold text-body" style="font-size: 11px;">Protocols</span>
+          </a>
+        </div>
+        <div class="col-4">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none" data-bs-toggle="modal" data-bs-target="#addPatientModal" onclick="HealthGuardApp.toggleMobileMoreSheet(false);">
+            <i class="bi bi-person-plus-fill text-primary fs-5 mb-1"></i>
+            <span class="small fw-semibold text-body" style="font-size: 11px;">Register</span>
+          </a>
+        </div>
+        <div class="col-4">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none text-danger" onclick="HealthGuardApp.logout(); HealthGuardApp.toggleMobileMoreSheet(false);">
+            <i class="bi bi-box-arrow-right text-danger fs-5 mb-1"></i>
+            <span class="small fw-semibold text-danger" style="font-size: 11px;">Sign Out</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -1397,18 +1591,18 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Modular Vanilla JavaScript Simulation Engine -->
-  <script src="js/audio.js?v=2.3"></script>
-  <script src="js/sensors.js?v=2.3"></script>
-  <script src="js/edge-processing.js?v=2.3"></script>
-  <script src="js/abnormality-detection.js?v=2.3"></script>
-  <script src="js/oscilloscope.js?v=2.3"></script>
-  <script src="js/charts.js?v=2.3"></script>
-  <script src="js/simulator.js?v=2.3"></script>
-  <script src="js/patients.js?v=2.3"></script>
-  <script src="js/alerts.js?v=2.3"></script>
-  <script src="js/history.js?v=2.3"></script>
-  <script src="js/auth.js?v=2.3"></script>
-  <script src="js/firebase-config.js?v=2.3"></script>
-  <script src="js/app.js?v=2.3"></script>
+  <script src="js/audio.js?v=2.4"></script>
+  <script src="js/sensors.js?v=2.4"></script>
+  <script src="js/edge-processing.js?v=2.4"></script>
+  <script src="js/abnormality-detection.js?v=2.4"></script>
+  <script src="js/oscilloscope.js?v=2.4"></script>
+  <script src="js/charts.js?v=2.4"></script>
+  <script src="js/simulator.js?v=2.4"></script>
+  <script src="js/patients.js?v=2.4"></script>
+  <script src="js/alerts.js?v=2.4"></script>
+  <script src="js/history.js?v=2.4"></script>
+  <script src="js/auth.js?v=2.4"></script>
+  <script src="js/firebase-config.js?v=2.4"></script>
+  <script src="js/app.js?v=2.4"></script>
 </body>
 </html>
