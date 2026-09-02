@@ -422,48 +422,94 @@ body.auth-logged-in #mobileNavToggle {
   border-color: rgba(16, 185, 129, 0.35) !important;
 }
 
-/* Sleek Micro Logout Button */
-#headerLogoutBtn {
-  font-size: 9px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em !important;
-  padding: 1.5px 6px !important;
-  height: 19px !important;
-  min-height: 19px !important;
-  line-height: 1 !important;
-  border-radius: 4px !important;
-  background-color: rgba(239, 68, 68, 0.05) !important;
-  color: #dc2626 !important;
-  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+/* Unified Modern Header Action Buttons (Mobile & Desktop) */
+.header-action-btn {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  padding: 0 !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
   align-items: center !important;
-  gap: 3.5px !important;
+  justify-content: center !important;
+  background: rgba(241, 245, 249, 0.75) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.15s ease;
   user-select: none;
 }
 
-#headerLogoutBtn i {
-  font-size: 9px !important;
-  line-height: 1 !important;
+.header-action-btn:hover {
+  background: #ffffff !important;
+  border-color: var(--primary-accent) !important;
+  color: var(--primary-accent) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
 }
 
-#headerLogoutBtn:hover {
-  background-color: rgba(239, 68, 68, 0.12) !important;
-  border-color: rgba(239, 68, 68, 0.45) !important;
-  color: #b91c1c !important;
-  transform: translateY(-0.5px);
+.header-action-btn:active {
+  transform: scale(0.92) !important;
 }
 
-[data-bs-theme="dark"] #headerLogoutBtn {
-  background-color: rgba(239, 68, 68, 0.1) !important;
+[data-bs-theme="dark"] .header-action-btn {
+  background: rgba(30, 41, 59, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
+}
+
+[data-bs-theme="dark"] .header-action-btn:hover {
+  background: var(--bg-card) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.15);
+}
+
+/* Specific styling for header logout button */
+.header-action-btn.header-logout-btn {
+  background: rgba(239, 68, 68, 0.06) !important;
+  border-color: rgba(239, 68, 68, 0.22) !important;
+  color: #ef4444 !important;
+}
+
+.header-action-btn.header-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.14) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  color: #dc2626 !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2) !important;
+}
+
+[data-bs-theme="dark"] .header-action-btn.header-logout-btn {
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
   color: #f87171 !important;
-  border-color: rgba(239, 68, 68, 0.35) !important;
 }
 
-[data-bs-theme="dark"] #headerLogoutBtn:hover {
-  background-color: rgba(239, 68, 68, 0.2) !important;
+[data-bs-theme="dark"] .header-action-btn.header-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.22) !important;
   border-color: rgba(239, 68, 68, 0.6) !important;
   color: #fca5a5 !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Pulsating online beacon integrated inside brand logo */
+.brand-beacon-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #10b981;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 0 6px #10b981;
+  animation: beaconPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+[data-bs-theme="dark"] .brand-beacon-dot {
+  border-color: #0b1329;
 }
 
 #headerLogoutBtn:not(.d-none) {

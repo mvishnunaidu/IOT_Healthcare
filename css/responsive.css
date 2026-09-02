@@ -194,13 +194,14 @@ header.navbar {
 
 @media (max-width: 767.98px) {
   header.navbar {
-    padding-top: max(0.35rem, env(safe-area-inset-top)) !important;
-    padding-bottom: 0.35rem !important;
-    padding-left: max(0.55rem, env(safe-area-inset-left)) !important;
-    padding-right: max(0.55rem, env(safe-area-inset-right)) !important;
-    min-height: var(--mobile-header-height) !important;
+    padding-top: max(0.4rem, env(safe-area-inset-top)) !important;
+    padding-bottom: 0.4rem !important;
+    padding-left: max(0.75rem, env(safe-area-inset-left)) !important;
+    padding-right: max(0.75rem, env(safe-area-inset-right)) !important;
+    min-height: 56px !important;
     max-width: 100vw !important;
     overflow-x: hidden !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
   }
 
   #headerPublicNav {
@@ -208,36 +209,38 @@ header.navbar {
   }
 
   .brand-text {
-    font-size: 0.95rem !important;
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
     letter-spacing: -0.015em;
   }
 
   .brand-icon {
-    width: 28px !important;
-    height: 28px !important;
-    padding: 0.25rem !important;
-    border-radius: 7px !important;
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0.3rem !important;
+    border-radius: 8px !important;
   }
 
   .brand-icon i {
-    font-size: 13px !important;
+    font-size: 14px !important;
+  }
+
+  .header-right-actions {
+    gap: 6px !important;
+  }
+
+  .header-action-btn {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    border-radius: 9px !important;
+  }
+
+  .header-action-btn i {
+    font-size: 13.5px !important;
   }
 
   #mobileNavToggle {
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    padding: 0 !important;
-  }
-
-  #userAvatarBadge {
-    width: 32px !important;
-    height: 32px !important;
-    font-size: 12px !important;
-  }
-
-  #themeToggleBtn,
-  header.navbar a[data-route="alerts"] {
     width: 34px !important;
     height: 34px !important;
     min-width: 34px !important;

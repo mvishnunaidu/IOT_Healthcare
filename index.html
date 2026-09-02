@@ -30,19 +30,21 @@
 <body>
 
   <!-- Top Glassmorphism Navbar -->
+  <!-- Top Glassmorphism Navbar -->
   <header class="navbar navbar-expand-lg sticky-top px-2 px-sm-3 px-md-4 py-2" role="banner">
     <div class="container-fluid px-0 flex-nowrap justify-content-between align-items-center position-relative">
       <!-- Left side: Hamburger (Mobile + Tablet) & Brand -->
-      <div class="d-flex align-items-center gap-1.5 gap-sm-2 min-w-0">
-        <!-- Sidebar toggle trigger (All Devices: Mobile, Tablet & Desktop) -->
-        <button id="mobileNavToggle" class="btn btn-sm btn-outline-secondary p-1.5 rounded-3 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" aria-label="Toggle navigation menu" title="Toggle Sidebar">
+      <div class="d-flex align-items-center gap-2 min-w-0">
+        <!-- Sidebar toggle trigger -->
+        <button id="mobileNavToggle" class="header-action-btn" aria-label="Toggle navigation menu" title="Toggle Sidebar">
           <i class="bi bi-list fs-5"></i>
         </button>
 
         <!-- Brand Logo -->
         <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none m-0 text-truncate" href="#" data-route="landing" title="HealthGuard Home">
-          <span class="p-1.5 rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm brand-icon flex-shrink-0">
+          <span class="p-1.5 rounded-3 bg-primary text-white d-flex align-items-center justify-content-center shadow-sm brand-icon flex-shrink-0 position-relative">
             <i class="bi bi-heart-pulse-fill heartbeat-icon"></i>
+            <span class="brand-beacon-dot" title="Telemetry Gateway Online"></span>
           </span>
           <span class="fw-bold fs-6 tracking-tight brand-text text-truncate">HealthGuard <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-monospace ms-1 d-none d-md-inline-block">IoT Telemetry</span></span>
         </a>
@@ -64,58 +66,58 @@
         </a>
       </nav>
 
-      <!-- Right Controls & Status Bar (Compact & Single-Row on Mobile: ☰ VitalIQ 🔔 👤) -->
-      <div class="d-flex align-items-center gap-2 flex-nowrap ms-auto">
+      <!-- Right Controls & Status Bar (Compact, Uniform & Beautiful on Mobile) -->
+      <div class="d-flex align-items-center gap-1.5 gap-sm-2 flex-nowrap ms-auto header-right-actions">
         
-        <!-- Live System Status Beacon (Compact size) -->
-        <span id="headerOnlineBadge" class="badge badge-normal d-inline-flex align-items-center justify-content-center" style="font-size: 9px; padding: 0 8px; height: 24px; font-weight: 700; border-radius: 9999px; letter-spacing: 0.04em; gap: 4px;" title="System Operational (ONLINE)">
+        <!-- Live System Status Beacon (Desktop only, mobile has beacon on brand icon) -->
+        <span id="headerOnlineBadge" class="badge badge-normal d-none d-md-inline-flex align-items-center justify-content-center" style="font-size: 9px; padding: 0 8px; height: 26px; font-weight: 700; border-radius: 9999px; letter-spacing: 0.04em; gap: 4px;" title="System Operational (ONLINE)">
           <span class="live-beacon" style="width: 5px; height: 5px;"></span>
-          <span class="d-none d-md-inline">ONLINE</span>
+          <span>ONLINE</span>
         </span>
 
         <!-- Audio Telemetry Sound Toggle (Desktop) -->
-        <button id="audioToggleBtn" class="btn btn-sm btn-outline-secondary rounded-2 d-none d-md-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="Toggle Bedside Telemetry Beep (Muted)" aria-label="Toggle audio">
+        <button id="audioToggleBtn" class="header-action-btn d-none d-md-inline-flex" title="Toggle Bedside Telemetry Beep (Muted)" aria-label="Toggle audio">
           <i class="bi bi-volume-mute text-muted" style="font-size: 14px;"></i>
         </button>
 
         <!-- System Specifications & Protocols Button (Desktop) -->
-        <button class="btn btn-sm btn-outline-primary rounded-2 fw-semibold d-none d-lg-inline-flex align-items-center justify-content-center gap-1.5 auth-logged-in-only" style="height: 32px; padding: 0 12px; font-size: 11.5px;" data-bs-toggle="modal" data-bs-target="#systemSpecsModal" title="Protocol Specifications">
+        <button class="btn btn-sm btn-outline-primary rounded-pill fw-semibold d-none d-lg-inline-flex align-items-center justify-content-center gap-1.5 auth-logged-in-only" style="height: 36px; padding: 0 14px; font-size: 11.5px;" data-bs-toggle="modal" data-bs-target="#systemSpecsModal" title="Protocol Specifications">
           <i class="bi bi-shield-check" style="font-size: 12px;"></i> Protocols
         </button>
 
         <!-- Theme Toggle -->
-        <button id="themeToggleBtn" class="btn btn-sm btn-outline-secondary rounded-3 d-flex align-items-center justify-content-center p-0" style="width: 34px; height: 34px; min-width: 34px;" title="Toggle Light/Dark Mode" aria-label="Toggle theme">
+        <button id="themeToggleBtn" class="header-action-btn" title="Toggle Light/Dark Mode" aria-label="Toggle theme">
           <i class="bi bi-moon" style="font-size: 14px;"></i>
         </button>
 
         <!-- Quick Alerts Trigger (🔔) -->
-        <a href="#" data-route="alerts" class="btn btn-sm btn-outline-secondary rounded-3 position-relative d-flex align-items-center justify-content-center p-0" style="width: 34px; height: 34px; min-width: 34px;" title="Clinical Alerts" aria-label="View alerts">
+        <a href="#" data-route="alerts" class="header-action-btn position-relative" title="Clinical Alerts" aria-label="View alerts">
           <i class="bi bi-bell" style="font-size: 14px;"></i>
           <span id="alertsBadgeCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none; font-size: 9px; padding: 0.25em 0.4em;">
             0
           </span>
         </a>
 
-        <!-- Doctor Avatar & Profile (👤 DP) - Visible on Mobile, Tablet & Desktop -->
-        <div id="headerAuthContainer" class="d-flex align-items-center gap-2 border-start ms-1 ps-2 ms-sm-2 ps-sm-3">
+        <!-- Doctor Avatar & Profile (👤 DP) & Logout -->
+        <div id="headerAuthContainer" class="d-flex align-items-center gap-1.5 gap-sm-2 ms-1">
           <!-- When Logged In: Shows Avatar, Name, Role and Logout button -->
-          <div id="headerProfileGroup" class="d-flex align-items-center gap-3">
-            <a href="#" data-route="login" class="text-decoration-none d-flex align-items-center gap-2" title="User Profile / Sign In" aria-label="User profile">
-              <div id="userAvatarBadge" class="rounded-circle bg-primary-subtle text-primary fw-bold d-none d-md-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 32px; height: 32px; font-size: 12px;">
+          <div id="headerProfileGroup" class="d-flex align-items-center gap-1.5 gap-sm-2">
+            <a href="#" data-route="login" class="text-decoration-none d-none d-md-flex align-items-center gap-2" title="User Profile / Sign In" aria-label="User profile">
+              <div id="userAvatarBadge" class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 34px; height: 34px; font-size: 12px;">
                 DP
               </div>
-              <div class="d-none d-md-flex flex-column justify-content-center text-start h-100">
+              <div class="d-flex flex-column justify-content-center text-start h-100">
                 <span id="userDisplayName" class="fw-bold text-body" style="font-size: 12.5px; line-height: 1.2;">Dr. Pavan</span>
                 <span id="userRoleBadge" class="text-muted fw-medium" style="font-size: 10px; line-height: 1.2; margin-top: 2px;">Physician</span>
               </div>
             </a>
-            <button id="headerLogoutBtn" class="btn btn-sm btn-outline-danger shadow-sm d-inline-flex align-items-center justify-content-center gap-1.5 px-2 px-sm-3" title="Sign Out / Logout" style="height: 34px; border-radius: 8px; font-weight: 600; font-size: 11.5px;">
-              <i class="bi bi-box-arrow-right" style="font-size: 14px;"></i> <span class="d-none d-sm-inline">Logout</span>
+            <button id="headerLogoutBtn" class="header-action-btn header-logout-btn" title="Sign Out / Logout" aria-label="Logout">
+              <i class="bi bi-box-arrow-right" style="font-size: 14px;"></i> <span class="d-none d-sm-inline ms-1" style="font-size: 11px; font-weight: 600;">Logout</span>
             </button>
           </div>
 
           <!-- When Logged Out: Shows Sign In button -->
-          <a id="headerSignInBtn" href="#" data-route="login" class="btn btn-primary d-inline-flex align-items-center gap-1 gap-sm-1.5 px-2 px-sm-3 py-1.5 rounded-2 fw-bold text-white shadow-sm flex-shrink-0" style="font-size: 13px; height: 32px;" title="Sign In">
+          <a id="headerSignInBtn" href="#" data-route="login" class="btn btn-primary d-inline-flex align-items-center gap-1.5 px-3 py-1.5 rounded-pill fw-bold text-white shadow-sm flex-shrink-0" style="font-size: 12px; height: 36px;" title="Sign In">
             <i class="bi bi-box-arrow-in-right" style="font-size: 13px;"></i> <span>Sign In</span>
           </a>
         </div>
