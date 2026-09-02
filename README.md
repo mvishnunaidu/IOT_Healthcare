@@ -279,8 +279,8 @@ backend/app/tests/test_edge_processor.py ...                             [100%]
 
 | Role | Name | Email | Password |
 | :--- | :--- | :--- | :--- |
-| **Attending Physician** | Dr. Pavan | `dr.pavan@hospital.org` | `iot@123` *(or custom)* |
-| **Staff Nurse** | Nurse Ananya | `nurse@hospital.org` | `iot@123` *(or custom)* |
+| **Attending Physician** | Dr. Pavan | `dr.pavan@hospital.org` | `[REDACTED]` |
+| **Staff Nurse** | Nurse Ananya | `nurse@hospital.org` | `[REDACTED]` |
 | **New Users** | *Custom* | *Custom* | *Created during sign up* |
 
 ---
