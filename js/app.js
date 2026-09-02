@@ -246,11 +246,9 @@ const HealthGuardApp = {
       btn.addEventListener('click', () => {
         const mode = btn.getAttribute('data-sim-mode');
         document.querySelectorAll('[data-sim-mode]').forEach(b => {
-          b.classList.remove('active', 'btn-primary', 'btn-warning', 'btn-danger', 'btn-info', 'btn-dark');
-          b.classList.add('btn-outline-secondary');
+          b.classList.remove('active');
         });
-        btn.classList.remove('btn-outline-secondary');
-        btn.classList.add('active', 'btn-primary');
+        btn.classList.add('active');
         iotSimulator.setMode(mode);
         this.updateSimulatorUI();
       });
