@@ -1226,3 +1226,16 @@ body.auth-logged-in .auth-guest-only {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
+
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-bs-theme="dark"] .hover-lift:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4) !important;
+}

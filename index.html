@@ -239,26 +239,26 @@
            ============================================================ -->
       <div id="view-landing" class="app-view">
         <!-- Hero Section -->
-        <div class="text-center py-5 hero-glow-bg">
-          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 shadow-sm hero-badge">
+        <div class="text-center py-5 px-sm-3 hero-glow-bg">
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill mb-4 shadow-sm hero-badge text-wrap" style="line-height: 1.4;">
             <i class="bi bi-shield-check me-1"></i> Autonomous Clinical Telemetry &amp; Edge Intelligence Platform
           </span>
-          <h1 class="hero-main-title mb-3">Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</h1>
-          <p class="hero-subtitle text-muted col-md-9 mx-auto mb-4" style="font-size: 1.1rem; line-height: 1.6;">
+          <h1 class="hero-main-title mb-4 fw-bolder text-body-emphasis" style="letter-spacing: -0.04em;">Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</h1>
+          <p class="hero-subtitle text-muted col-md-9 mx-auto mb-5" style="font-size: 1.15rem; line-height: 1.6; font-weight: 500;">
             Continuous hospital-grade physiological vital signs telemetry, sub-15ms edge signal conditioning, and automated clinical abnormality triage across multi-patient ICU wards.
           </p>
-          <div class="hero-actions-container d-flex justify-content-center align-items-center flex-wrap gap-2.5 mb-3">
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow hero-btn-main auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
+          <div class="hero-actions-container d-flex justify-content-center align-items-center flex-wrap gap-3 mb-3">
+            <button class="btn btn-primary px-4 py-3 rounded-pill fw-bold shadow-lg hero-btn-main auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
               <i class="bi bi-box-arrow-in-right me-1.5"></i> Access Clinical Workstation <i class="bi bi-arrow-right ms-1"></i>
             </button>
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow hero-btn-main auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
+            <button class="btn btn-primary px-4 py-3 rounded-pill fw-bold shadow-lg hero-btn-main auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
               <i class="bi bi-display me-1.5"></i> Open Clinical Dashboard <i class="bi bi-arrow-right ms-1"></i>
             </button>
-            <div class="hero-sub-actions d-flex gap-2">
-              <button class="btn btn-outline-primary px-3.5 py-2.5 rounded-3 fw-semibold hero-btn-sub" onclick="document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'})">
+            <div class="hero-sub-actions d-flex gap-2.5 w-100 justify-content-center">
+              <button class="btn btn-outline-primary px-4 py-3 rounded-pill fw-semibold hero-btn-sub bg-body" onclick="document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'})">
                 <i class="bi bi-diagram-3 me-1.5"></i> 8-Stage Pipeline
               </button>
-              <button class="btn btn-outline-secondary px-3.5 py-2.5 rounded-3 fw-semibold hero-btn-sub" onclick="document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'})">
+              <button class="btn btn-outline-secondary px-4 py-3 rounded-pill fw-semibold hero-btn-sub bg-body" onclick="document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'})">
                 <i class="bi bi-cpu me-1.5"></i> Hardware Sensors
               </button>
             </div>
@@ -276,48 +276,48 @@
 
           <div class="row g-3 g-lg-4">
             <div class="col-md-6 col-xl-3">
-              <div class="saas-card h-100 p-3.5 border shadow-sm">
-                <div class="p-2.5 rounded-3 bg-primary-subtle text-primary d-inline-flex mb-3 shadow-xs">
-                  <i class="bi bi-heart-pulse-fill fs-5"></i>
+              <div class="saas-card h-100 p-4 border border-primary-subtle shadow-sm rounded-4 text-start hover-lift">
+                <div class="p-3 rounded-circle bg-primary-subtle text-primary d-inline-flex mb-4 shadow-sm border border-primary border-opacity-25">
+                  <i class="bi bi-heart-pulse-fill fs-4"></i>
                 </div>
-                <h6 class="fw-bold mb-1.5">Biomedical Transduction</h6>
-                <p class="text-muted small mb-0" style="line-height: 1.5;">
+                <h5 class="fw-bolder mb-3 text-body-emphasis">Biomedical Transduction</h5>
+                <p class="text-secondary small mb-0" style="line-height: 1.6; font-size: 0.95rem;">
                   Optical photoplethysmography (PPG) and digital semiconductor thermistors capture real-time cardiac cycles, blood oxygen saturation (SpO2), and core temperature.
                 </p>
               </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
-              <div class="saas-card h-100 p-3.5 border shadow-sm">
-                <div class="p-2.5 rounded-3 bg-info-subtle text-info d-inline-flex mb-3 shadow-xs">
-                  <i class="bi bi-cpu-fill fs-5"></i>
+              <div class="saas-card h-100 p-4 border border-info-subtle shadow-sm rounded-4 text-start hover-lift">
+                <div class="p-3 rounded-circle bg-info-subtle text-info d-inline-flex mb-4 shadow-sm border border-info border-opacity-25">
+                  <i class="bi bi-cpu-fill fs-4"></i>
                 </div>
-                <h6 class="fw-bold mb-1.5">Sub-15ms Edge Processing</h6>
-                <p class="text-muted small mb-0" style="line-height: 1.5;">
+                <h5 class="fw-bolder mb-3 text-body-emphasis">Sub-15ms Edge Processing</h5>
+                <p class="text-secondary small mb-0" style="line-height: 1.6; font-size: 0.95rem;">
                   ESP32 edge nodes execute 5-point moving average smoothing, spike clipping, and sensor calibration before transmission, reducing network load by 68%.
                 </p>
               </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
-              <div class="saas-card h-100 p-3.5 border shadow-sm">
-                <div class="p-2.5 rounded-3 bg-warning-subtle text-warning d-inline-flex mb-3 shadow-xs">
-                  <i class="bi bi-shield-exclamation fs-5"></i>
+              <div class="saas-card h-100 p-4 border border-warning-subtle shadow-sm rounded-4 text-start hover-lift">
+                <div class="p-3 rounded-circle bg-warning-subtle text-warning d-inline-flex mb-4 shadow-sm border border-warning border-opacity-25">
+                  <i class="bi bi-shield-exclamation fs-4"></i>
                 </div>
-                <h6 class="fw-bold mb-1.5">Automated Abnormality Engine</h6>
-                <p class="text-muted small mb-0" style="line-height: 1.5;">
+                <h5 class="fw-bolder mb-3 text-body-emphasis">Automated Abnormality Engine</h5>
+                <p class="text-secondary small mb-0" style="line-height: 1.6; font-size: 0.95rem;">
                   Dual-tier rule validation instantly flags acute tachycardia (&gt;100 BPM), bradycardia (&lt;60 BPM), hypoxia (&lt;90% SpO2), and hyperthermic fever spikes (&gt;38.0°C).
                 </p>
               </div>
             </div>
 
             <div class="col-md-6 col-xl-3">
-              <div class="saas-card h-100 p-3.5 border shadow-sm">
-                <div class="p-2.5 rounded-3 bg-success-subtle text-success d-inline-flex mb-3 shadow-xs">
-                  <i class="bi bi-activity fs-5"></i>
+              <div class="saas-card h-100 p-4 border border-success-subtle shadow-sm rounded-4 text-start hover-lift">
+                <div class="p-3 rounded-circle bg-success-subtle text-success d-inline-flex mb-4 shadow-sm border border-success border-opacity-25">
+                  <i class="bi bi-activity fs-4"></i>
                 </div>
-                <h6 class="fw-bold mb-1.5">60 FPS CRT Oscilloscope</h6>
-                <p class="text-muted small mb-0" style="line-height: 1.5;">
+                <h5 class="fw-bolder mb-3 text-body-emphasis">60 FPS CRT Oscilloscope</h5>
+                <p class="text-secondary small mb-0" style="line-height: 1.6; font-size: 0.95rem;">
                   HTML5 Canvas rendering engine generates continuous 60 FPS sweeping waveforms for Lead-II ECG and PPG plethysmograms with zero screen tearing.
                 </p>
               </div>
