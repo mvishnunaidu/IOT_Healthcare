@@ -13,9 +13,7 @@
 
 # Node.js & Frontend Dependencies
 node_modules/
-frontend/node_modules/
 dist/
-frontend/dist/
 build/
 .npm/
 .yarn/

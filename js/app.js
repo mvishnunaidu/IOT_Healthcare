@@ -754,14 +754,17 @@ const HealthGuardApp = {
       }
     });
 
-    // Switch view visibility
+    // Switch view visibility with fluid entrance animation
     document.querySelectorAll('.app-view').forEach(view => {
       view.classList.add('d-none');
+      view.classList.remove('view-animate-in');
     });
 
     const targetView = document.getElementById(`view-${route}`);
     if (targetView) {
       targetView.classList.remove('d-none');
+      void targetView.offsetWidth; // Force CSS animation restart
+      targetView.classList.add('view-animate-in');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 

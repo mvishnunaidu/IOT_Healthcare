@@ -90,11 +90,11 @@ ARCHITECTURE_NODES: List[Dict[str, Any]] = [
         "step": 5,
         "title": "Abnormality Detection",
         "category": "Intelligence Layer",
-        "short_desc": "Configurable multi-tier rule engine + Machine Learning risk classifier.",
+        "short_desc": "Configurable multi-tier rule engine with clinical reason generation.",
         "purpose": "Classifies incoming readings into NORMAL, WARNING, or CRITICAL with detailed clinical rationales.",
         "input": "Sanitized physiological vitals.",
         "output": "Overall status, issue breakdown, risk severity, clinical recommendations.",
-        "technology": "Multi-tier rule matrix, Configurable Thresholds, ML Anomaly Classifier Stub.",
+        "technology": "Multi-tier rule matrix, Configurable Thresholds, Physiological Boundaries.",
         "example_data": {
             "overall_status": "CRITICAL",
             "issues": ["Severe Tachycardia: Heart rate 136 BPM > 130 BPM", "Low SpO2: 86.5% <= 89.9%"],
@@ -102,7 +102,7 @@ ARCHITECTURE_NODES: List[Dict[str, Any]] = [
         },
         "viva_talking_points": [
             "Multi-tier boundaries avoid hardcoding and can be modified at runtime.",
-            "Includes dedicated extension point to plug in scikit-learn / XGBoost models."
+            "Deterministic rule engine prevents false negatives on life-critical vitals."
         ]
     },
     {
@@ -132,7 +132,7 @@ ARCHITECTURE_NODES: List[Dict[str, Any]] = [
         "purpose": "Displays live vital cards, interactive waveform charts, telemetry grids, and patient records.",
         "input": "WebSocket live stream, REST API responses.",
         "output": "Visual charts, color-coded vital badges, audio-visual alert cues.",
-        "technology": "React, TypeScript, Tailwind CSS, Recharts, HTML5 WebSockets.",
+        "technology": "HTML5 Canvas (60 FPS), Chart.js, Vanilla JavaScript, Bootstrap 5.3, Web Audio API.",
         "example_data": {
             "active_patients_count": 5,
             "connected_status": "CONNECTED",

@@ -4,7 +4,6 @@
 ### **Autonomous Multi-Node Edge Telemetry & Clinical Abnormality Detection Platform**
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Python](https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![HTML5_Canvas](https://img.shields.io/badge/HTML5_Canvas_60FPS-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap_5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
@@ -80,7 +79,7 @@ graph LR
 | **03** | **IoT Gateway Device** | `simulator.js` / ESP32 | High-frequency JSON packetization, sequence numbering, and hardware node tagging. |
 | **04** | **Edge Processing** | `edge-processing.js` | Biological boundary clamping, EMA smoothing ($\alpha=0.3$), and latency tracking. |
 | **05** | **Abnormality Classifier** | `abnormality-detection.js` | Deterministic 3-tier clinical rule matrices for real-time abnormality classification. |
-| **06** | **Cloud & Database** | FastAPI / SQLite / Firebase | Time-series telemetry persistence, audit trails, and historical telemetry logging. |
+| **06** | **Cloud & Database** | FastAPI / SQLite / SQLAlchemy | Time-series telemetry persistence, audit trails, and historical telemetry logging. |
 | **07** | **Healthcare Dashboard** | `oscilloscope.js` / `charts.js` | 60 FPS CRT vector oscilloscopes and synchronized Chart.js multi-axis trends. |
 | **08** | **Clinical Alert Hub** | `alerts.js` / `audio.js` | Emergency alarm chimes, toast notifications, and practitioner triage workflows. |
 
@@ -199,7 +198,7 @@ venv\Scripts\activate  # Windows (or source venv/bin/activate on Linux/Mac)
 pip install -r requirements.txt
 
 # Run Unit & Integration Test Suite
-python -m pytest app/tests
+python -m pytest
 
 # Launch Live REST & WebSocket Server
 uvicorn app.main:app --reload --port 8000
@@ -208,13 +207,10 @@ uvicorn app.main:app --reload --port 8000
 
 ---
 
-### Option 3: React + Vite + TypeScript Frontend
+### Option 3: Standalone Python IoT CLI Transmitter
 ```bash
-cd frontend
-npm install
-npm run dev
+python -m simulator.main --patient 1 --mode NORMAL --interval 3
 ```
-> Open your browser at **`http://localhost:5173`**
 
 ---
 
@@ -247,7 +243,9 @@ IOT_Healthcare/
 │   │   ├── models/              # SQLAlchemy Database ORM Models
 │   │   └── tests/               # Pytest Automated Test Suite (10/10)
 │   └── requirements.txt
-├── frontend/                    # React 18 + Vite + TailwindCSS Application
+├── simulator/                   # Standalone Python IoT CLI Transmitter
+│   ├── main.py                  # CLI Transmitter Entry Point
+│   └── virtual_device.py        # Emulated Medical IoT Device
 ├── docs/                        # Complete System Architecture & API Specs
 ├── netlify.toml                 # Static Hosting Configuration
 └── README.md                    # Project Documentation

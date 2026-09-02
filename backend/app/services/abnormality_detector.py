@@ -11,7 +11,6 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 import copy
 from app.core.config import settings
-from app.services.ml_detector_stub import ml_detector_stub
 
 class AbnormalityDetector:
     def __init__(self, custom_thresholds: Optional[Dict[str, Any]] = None):
@@ -177,21 +176,12 @@ class AbnormalityDetector:
             recommendation = "MONITOR CLOSELY: Observe trend velocity over next 15 minutes and verify sensor probe placement."
         else:
             recommendation = "STABLE: Patient physiological vitals within nominal target baseline."
-
-        # ML Ensemble Hook
-        ml_prediction = ml_detector_stub.predict_anomaly_risk({
-            "heart_rate": hr or 75.0,
-            "spo2": spo2 or 98.0,
-            "temperature": temp or 36.7
-        })
-
         return {
             "overall_status": overall_status,
             "severity_score": highest_severity,
             "issues_detected": issues,
             "parameters_status": param_status,
             "recommendation": recommendation,
-            "ml_insights": ml_prediction,
             "generated_alerts": generated_alerts,
             "timestamp": datetime.now(timezone.utc)
         }

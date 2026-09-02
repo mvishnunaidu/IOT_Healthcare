@@ -31,7 +31,7 @@
 
   <!-- Top Glassmorphism Navbar -->
   <header class="navbar navbar-expand-lg sticky-top px-2 px-sm-3 px-md-4 py-2" role="banner">
-    <div class="container-fluid px-0 flex-nowrap justify-content-between align-items-center">
+    <div class="container-fluid px-0 flex-nowrap justify-content-between align-items-center position-relative">
       <!-- Left side: Hamburger (Mobile + Tablet) & Brand -->
       <div class="d-flex align-items-center gap-1.5 gap-sm-2 min-w-0">
         <!-- Sidebar toggle trigger (All Devices: Mobile, Tablet & Desktop) -->
@@ -48,8 +48,8 @@
         </a>
       </div>
 
-      <!-- Public Navigation Links (Visible when logged out on desktop) -->
-      <nav id="headerPublicNav" class="d-none d-lg-flex align-items-center gap-1 ms-3">
+      <!-- Public Navigation Links (Visible when logged out on desktop - Centered) -->
+      <nav id="headerPublicNav" class="d-none d-lg-flex align-items-center justify-content-center gap-1.5" aria-label="Public navigation">
         <a href="#landing-features" class="public-nav-link" onclick="HealthGuardApp.navigateTo('landing'); document.getElementById('landing-features')?.scrollIntoView({behavior: 'smooth'});">
           <i class="bi bi-grid me-1"></i> Capabilities
         </a>
@@ -240,30 +240,39 @@
       <div id="view-landing" class="app-view">
         <!-- Hero Section -->
         <div class="text-center py-5 hero-glow-bg">
-          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 shadow-sm hero-badge text-wrap lh-base">
+          <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 shadow-sm hero-badge text-wrap lh-base d-inline-flex align-items-center gap-1.5">
+            <span class="d-inline-block rounded-circle bg-info pulse-dot" style="width: 6px; height: 6px;"></span>
             <i class="bi bi-shield-check me-1"></i> Autonomous Clinical Telemetry &amp; Edge Intelligence Platform
           </span>
-          <h1 class="hero-main-title mb-3">Intelligent IoT Healthcare Monitoring &amp; Abnormality Detection</h1>
+          <h1 class="hero-main-title mb-3">
+            Intelligent IoT Healthcare Monitoring <br class="d-none d-lg-inline"/>&amp; <span class="hero-title-gradient">Abnormality Detection</span>
+          </h1>
           <p class="hero-subtitle text-muted col-md-9 mx-auto mb-4" style="font-size: 1.1rem; line-height: 1.6;">
             Continuous hospital-grade physiological vital signs telemetry, sub-15ms edge signal conditioning, and automated clinical abnormality triage across multi-patient ICU wards.
           </p>
-          <div class="hero-actions-container d-flex justify-content-center align-items-center flex-wrap gap-2.5 mb-3">
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow hero-btn-main auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
-              <i class="bi bi-box-arrow-in-right me-1.5"></i> Access Clinical Workstation <i class="bi bi-arrow-right ms-1"></i>
-            </button>
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow hero-btn-main auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
-              <i class="bi bi-display me-1.5"></i> Open Clinical Dashboard <i class="bi bi-arrow-right ms-1"></i>
-            </button>
-            <div class="hero-sub-actions d-flex gap-2">
-              <button class="btn btn-outline-primary px-3.5 py-2.5 rounded-3 fw-semibold hero-btn-sub" onclick="document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'})">
+          
+          <!-- Hero Actions (Subtle Vertical Space & Elegant Oval Pill Borders) -->
+          <div class="hero-actions-container d-flex flex-column align-items-center mb-3">
+            <!-- Row 1: Primary Action Button (Oval Shaped) -->
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-primary px-4 py-2.5 rounded-pill fw-bold shadow-lg hero-btn-main auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
+                <i class="bi bi-box-arrow-in-right me-1.5"></i> Access Clinical Workstation <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+              <button class="btn btn-primary px-4 py-2.5 rounded-pill fw-bold shadow-lg hero-btn-main auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
+                <i class="bi bi-display me-1.5"></i> Open Clinical Dashboard <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+            
+            <!-- Row 2: Secondary Action Buttons (Oval Shaped with Tasteful Little Vertical Space) -->
+            <div class="hero-sub-actions d-flex justify-content-center align-items-center">
+              <button class="btn btn-outline-primary px-3.5 py-1.5 rounded-pill fw-semibold hero-btn-sub" onclick="document.getElementById('landing-architecture')?.scrollIntoView({behavior: 'smooth'})">
                 <i class="bi bi-diagram-3 me-1.5"></i> 8-Stage Pipeline
               </button>
-              <button class="btn btn-outline-secondary px-3.5 py-2.5 rounded-3 fw-semibold hero-btn-sub" onclick="document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'})">
+              <button class="btn btn-outline-secondary px-3.5 py-1.5 rounded-pill fw-semibold hero-btn-sub" onclick="document.getElementById('landing-sensors')?.scrollIntoView({behavior: 'smooth'})">
                 <i class="bi bi-cpu me-1.5"></i> Hardware Sensors
               </button>
             </div>
           </div>
-
         </div>
 
         <!-- Section 1: Core System Capabilities Grid -->
@@ -423,12 +432,12 @@
           <p class="text-muted col-md-7 mx-auto mb-4" style="font-size: 1rem;">
             Authorized clinical personnel can authenticate to access the real-time ICU monitoring dashboard, patient physiological data, and intelligent alert triage.
           </p>
-          <div class="d-flex justify-content-center gap-2">
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
-              <i class="bi bi-shield-lock me-1"></i> Authenticate to Access
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <button class="btn btn-primary px-4 py-2.5 rounded-pill fw-bold shadow auth-guest-only" onclick="HealthGuardApp.navigateTo('login')">
+              <i class="bi bi-shield-lock me-1"></i> Authenticate to Access <i class="bi bi-arrow-right ms-1"></i>
             </button>
-            <button class="btn btn-primary px-4 py-2.5 rounded-3 fw-bold shadow auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
-              <i class="bi bi-display me-1"></i> Return to Telemetry Dashboard
+            <button class="btn btn-primary px-4 py-2.5 rounded-pill fw-bold shadow auth-logged-in-only" onclick="HealthGuardApp.navigateTo('dashboard')">
+              <i class="bi bi-display me-1"></i> Return to Telemetry Dashboard <i class="bi bi-arrow-right ms-1"></i>
             </button>
           </div>
         </div>

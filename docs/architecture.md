@@ -19,7 +19,7 @@ graph TD
 
     subgraph Cloud_Backend_Domain ["Cloud Backend & Intelligence Layer (FastAPI)"]
         API[FastAPI Ingestion Endpoint /api/readings]
-        ADE[Rule-Based Abnormality Detection Engine\n- Multi-tier Threshold Matrix\n- Clinical Reason Generator\n- ML Anomaly Risk Hook]
+        ADE[Rule-Based Abnormality Detection Engine\n- Multi-tier Threshold Matrix\n- Clinical Reason Generator\n- Boundary Evaluation]
         DB[(Database: PostgreSQL / SQLite\nSQLAlchemy Relational ORM)]
         WSH[WebSocket Broadcasting Hub /ws/live]
         
@@ -29,7 +29,7 @@ graph TD
         ADE --> WSH
     end
 
-    subgraph Presentation_Domain ["Healthcare Application (React + TypeScript)"]
+    subgraph Presentation_Domain ["Healthcare Application (Vanilla JS, Canvas & Bootstrap 5)"]
         DASH[Clinical Live Monitoring Dashboard]
         ALERT[Alert Triage Center]
         HIST[Health History & Trend Waveforms]
@@ -47,7 +47,7 @@ graph TD
 ## 2. Component Breakdown
 
 ### 2.1 Virtual Sensor Generator
-- **Location:** `backend/app/services/simulator_service.py` & `simulator/sensors/`
+- **Location:** `backend/app/services/simulator_service.py` & `simulator/virtual_device.py`
 - **Mechanism:** Generates physiological time series using stochastic random walks and harmonic waveforms ($f(t) = A \sin(\omega t) + \epsilon(t)$).
 - **Supported Modes:** `NORMAL`, `WARNING`, `CRITICAL`, `WAVE`, `RANDOM`, `CUSTOM`.
 
