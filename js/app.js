@@ -1478,7 +1478,7 @@ const HealthGuardApp = {
               <i class="bi bi-exclamation-triangle-fill"></i>
             </span>
             <div>
-              <div class="d-flex align-items-center gap-2">
+              <div class="d-flex flex-wrap align-items-center gap-2">
                 <span class="badge badge-${a.severity.toLowerCase()}">${a.severity}</span>
                 <span class="badge bg-light text-dark border font-monospace">Patient PT-100${a.patientId}</span>
                 <span class="text-muted small">${a.time}</span>

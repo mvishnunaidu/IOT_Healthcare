@@ -372,6 +372,10 @@ header.navbar {
     border-radius: 0.65rem !important;
   }
 
+  .app-sidebar .gateway-status-card {
+    margin-bottom: max(2.5rem, env(safe-area-inset-bottom)) !important;
+  }
+
   .sidebar-header {
     margin-bottom: 0.75rem !important;
     padding-bottom: 0.6rem !important;
