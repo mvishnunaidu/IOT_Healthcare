@@ -1792,3 +1792,9 @@ body.auth-logged-in .auth-guest-only {
 [data-bs-theme="dark"] .saas-card:hover {
   border-color: rgba(56, 189, 248, 0.35);
 }
+
+/* Hide alerts badges when logged out (guest mode) */
+body.auth-guest #alertsBadgeCount,
+body.auth-guest #bottomNavAlertsBadge {
+  display: none !important;
+}
