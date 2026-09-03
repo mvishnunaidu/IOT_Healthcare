@@ -345,6 +345,7 @@ header.navbar {
     left: 0;
     bottom: 0;
     width: min(300px, 86vw);
+    height: 100dvh;
     z-index: 1060;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border-subtle);
@@ -352,17 +353,16 @@ header.navbar {
     transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: none;
     padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .sidebar-scroll-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: max(4rem, env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom)) !important;
   }
 
   .app-sidebar.show {
