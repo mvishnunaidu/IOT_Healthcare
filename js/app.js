@@ -696,10 +696,7 @@ const HealthGuardApp = {
     if (logoutBtn) {
       logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        AuthManager.logout();
-        this.updateUserHeaderUI();
-        this.showToast('You have been signed out.', 'info');
-        this.navigateTo('login');
+        this.confirmLogout();
       });
     }
 
@@ -712,6 +709,57 @@ const HealthGuardApp = {
         telemetryCharts.setMaxPoints(range);
       });
     });
+  },
+
+  confirmLogout() {
+    let modal = document.getElementById('customLogoutModal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'customLogoutModal';
+      modal.innerHTML = `
+        <div class="custom-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;">
+          <div class="custom-modal-content rounded-4 shadow-lg p-4 text-center" style="background-color: var(--bs-body-bg); color: var(--bs-body-color); transform: scale(0.85); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); max-width: 320px; width: 90%; border: 1px solid var(--bs-border-color-translucent);">
+            <div class="modal-icon text-danger mb-3">
+              <i class="bi bi-box-arrow-right" style="font-size: 3.5rem;"></i>
+            </div>
+            <h4 class="fw-bold mb-2">Sign Out?</h4>
+            <p class="text-muted small mb-4">Are you sure you want to end your clinical session?</p>
+            <div class="d-flex gap-2 w-100">
+              <button id="cancelLogoutBtn" class="btn btn-outline-secondary rounded-pill flex-grow-1 fw-medium">Cancel</button>
+              <button id="confirmLogoutBtn" class="btn btn-danger rounded-pill flex-grow-1 fw-bold shadow-sm">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      document.getElementById('cancelLogoutBtn').addEventListener('click', () => {
+        const overlay = modal.querySelector('.custom-modal-overlay');
+        const content = modal.querySelector('.custom-modal-content');
+        overlay.style.opacity = '0';
+        content.style.transform = 'scale(0.85)';
+        setTimeout(() => modal.style.display = 'none', 300);
+      });
+
+      document.getElementById('confirmLogoutBtn').addEventListener('click', () => {
+        const overlay = modal.querySelector('.custom-modal-overlay');
+        const content = modal.querySelector('.custom-modal-content');
+        overlay.style.opacity = '0';
+        content.style.transform = 'scale(0.85)';
+        setTimeout(() => {
+          modal.style.display = 'none';
+          this.logout();
+        }, 300);
+      });
+    }
+
+    modal.style.display = 'block';
+    // Trigger reflow for animation
+    void modal.offsetWidth;
+    const overlay = modal.querySelector('.custom-modal-overlay');
+    const content = modal.querySelector('.custom-modal-content');
+    overlay.style.opacity = '1';
+    content.style.transform = 'scale(1)';
   },
 
   logout() {

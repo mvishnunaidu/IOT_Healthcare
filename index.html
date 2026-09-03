@@ -157,7 +157,7 @@
                 <span id="drawerUserRole" class="text-muted" style="font-size: 10px;">Attending Physician</span>
               </div>
             </div>
-            <button id="mobileDrawerLogoutBtn" class="btn btn-xs btn-outline-danger py-0.5 px-1.5 rounded-2" style="font-size: 10px;" onclick="HealthGuardApp.logout()">
+            <button id="mobileDrawerLogoutBtn" class="btn btn-xs btn-outline-danger py-0.5 px-1.5 rounded-2" style="font-size: 10px;" onclick="HealthGuardApp.confirmLogout()">
               <i class="bi bi-box-arrow-right me-1" style="font-size: 9.5px;"></i>Logout
             </button>
             <a id="mobileDrawerSignInBtn" href="#" data-route="login" class="btn btn-xs btn-primary py-0.5 px-2 rounded-2 d-none" style="font-size: 10px;">
@@ -1767,7 +1767,7 @@
           </a>
         </div>
         <div class="col-4">
-          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none text-danger" onclick="HealthGuardApp.logout(); HealthGuardApp.toggleMobileMoreSheet(false);">
+          <a href="#" class="more-sheet-tile d-flex flex-column align-items-center justify-content-center p-2 rounded-3 bg-inner-box border border-secondary-subtle text-decoration-none text-danger" onclick="HealthGuardApp.toggleMobileMoreSheet(false); HealthGuardApp.confirmLogout();">
             <i class="bi bi-box-arrow-right text-danger fs-5 mb-1"></i>
             <span class="small fw-semibold text-danger" style="font-size: 11px;">Sign Out</span>
           </a>
