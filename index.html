@@ -130,8 +130,9 @@
 
   <div class="d-flex">
     <!-- Desktop & Mobile Slide-Out Sidebar Navigation Drawer -->
-    <aside class="app-sidebar p-3 d-flex flex-column justify-content-between" role="navigation" aria-label="Main sidebar">
-      <div class="d-flex flex-column gap-1">
+    <aside class="app-sidebar d-flex flex-column" role="navigation" aria-label="Main sidebar">
+      <div class="sidebar-scroll-content flex-grow-1 overflow-y-auto d-flex flex-column p-3" style="min-height: 0; -webkit-overflow-scrolling: touch;">
+        <div class="d-flex flex-column gap-1 mb-4">
         <!-- Sidebar Header with Close Button (All Devices) -->
         <div class="sidebar-header d-flex align-items-center justify-content-between pb-2 mb-2 border-bottom">
           <div class="d-flex align-items-center gap-2">
@@ -206,7 +207,7 @@
       </div>
 
       <!-- Enterprise IoT Gateway Status Panel -->
-      <div class="gateway-status-card mt-4">
+      <div class="gateway-status-card mt-auto mb-2">
         <div class="d-flex align-items-start justify-content-between mb-2">
           <div class="d-flex gap-2 align-items-center">
             <div class="gateway-icon-wrapper">
@@ -230,6 +231,7 @@
         <button class="btn w-100 rounded-3 text-white fw-bold shadow-sm gateway-btn" data-bs-toggle="modal" data-bs-target="#systemSpecsModal">
           <i class="bi bi-shield-check me-1"></i> Protocol Specs
         </button>
+      </div>
       </div>
     </aside>
 
