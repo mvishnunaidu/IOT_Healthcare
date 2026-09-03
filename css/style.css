@@ -409,9 +409,9 @@ body.auth-logged-in #mobileNavToggle {
   background-color: rgba(16, 185, 129, 0.09) !important;
   color: #059669 !important;
   border: 1px solid rgba(16, 185, 129, 0.28) !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 3.5px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 3.5px;
   user-select: none;
   transition: all 0.15s ease;
 }
@@ -429,9 +429,9 @@ body.auth-logged-in #mobileNavToggle {
   min-width: 36px !important;
   padding: 0 !important;
   border-radius: 10px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(241, 245, 249, 0.75) !important;
   border: 1px solid rgba(226, 232, 240, 0.9) !important;
   color: var(--text-secondary) !important;

@@ -192,7 +192,9 @@ header.navbar {
   transition: padding 0.2s ease, background-color 0.2s ease;
 }
 
-@media (max-width: 767.98px) {
+  /* --------------------------------------------------------------------------
+     4. Top Navbar Header Bar (Ultra-Compact on Mobile: ☰ HealthGuard 🌙 🔔 👤)
+     -------------------------------------------------------------------------- */
   header.navbar {
     padding-top: max(0.4rem, env(safe-area-inset-top)) !important;
     padding-bottom: 0.4rem !important;
@@ -201,32 +203,74 @@ header.navbar {
     min-height: 56px !important;
     max-width: 100vw !important;
     overflow-x: hidden !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05) !important;
   }
 
   #headerPublicNav {
     display: none !important;
   }
 
+  /* Hide ONLINE badge and sound icon in mobile header as requested */
+  #headerOnlineBadge,
+  #audioToggleBtn {
+    display: none !important;
+  }
+
+  /* Make HealthGuard brand name appear fully and beautifully without truncation */
   .brand-text {
-    font-size: 0.92rem !important;
+    font-size: 1rem !important;
     font-weight: 700 !important;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    display: inline-block !important;
+    color: var(--text-primary) !important;
+  }
+
+  .navbar-brand {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    flex-shrink: 0 !important;
   }
 
   .brand-icon {
-    width: 30px !important;
-    height: 30px !important;
-    padding: 0.3rem !important;
-    border-radius: 8px !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0.35rem !important;
+    border-radius: 9px !important;
+    position: relative !important;
+    box-shadow: 0 2px 6px rgba(13, 110, 253, 0.25) !important;
   }
 
   .brand-icon i {
-    font-size: 14px !important;
+    font-size: 15px !important;
+  }
+
+  /* Vibrant Green Blinking Beacon on Mobile Logo - Indicates Live Telemetry Online */
+  .brand-beacon-dot {
+    position: absolute !important;
+    top: -2.5px !important;
+    right: -2.5px !important;
+    width: 9.5px !important;
+    height: 9.5px !important;
+    border-radius: 50% !important;
+    background-color: #10b981 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.9) !important;
+    animation: beaconPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite !important;
+    display: block !important;
+    z-index: 5 !important;
+  }
+
+  [data-bs-theme="dark"] .brand-beacon-dot {
+    border-color: #0f172a !important;
   }
 
   .header-right-actions {
     gap: 6px !important;
+    flex-shrink: 0 !important;
   }
 
   .header-action-btn {
@@ -244,6 +288,17 @@ header.navbar {
     width: 34px !important;
     height: 34px !important;
     min-width: 34px !important;
+  }
+}
+
+/* Desktop & Laptop Header Navbar Styles (>=768px) */
+@media (min-width: 768px) {
+  #headerOnlineBadge {
+    display: inline-flex !important;
+  }
+
+  #audioToggleBtn {
+    display: inline-flex !important;
   }
 }
 
