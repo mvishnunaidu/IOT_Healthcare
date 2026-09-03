@@ -164,8 +164,10 @@ body.auth-guest #headerOnlineBadge {
   display: none !important;
 }
 
-body.auth-guest #headerPublicNav {
-  display: flex !important;
+@media (min-width: 992px) {
+  body.auth-guest #headerPublicNav {
+    display: flex !important;
+  }
 }
 
 /* Centered Public Navigation Bar */
