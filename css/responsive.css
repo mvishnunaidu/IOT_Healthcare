@@ -273,6 +273,19 @@ header.navbar {
     flex-shrink: 0 !important;
   }
 
+  /* Ensure Sign In button is beautifully styled and visible on mobile (top right) */
+  #headerSignInBtn {
+    padding: 0.35rem 0.75rem !important;
+    font-size: 11px !important;
+    height: 32px !important;
+    border-radius: 999px !important;
+  }
+
+  #headerSignInBtn i {
+    font-size: 11px !important;
+    margin-right: 2px !important;
+  }
+
   .header-action-btn {
     width: 34px !important;
     height: 34px !important;
