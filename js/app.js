@@ -1093,8 +1093,8 @@ const HealthGuardApp = {
 
     resultBox.classList.remove('d-none');
     const badgeClass = `badge badge-${detection.overallStatus.toLowerCase()}`;
-    const issuesHtml = detection.issues.length > 0
-      ? `<ul class="mb-2 ps-3 small text-danger">${detection.issues.map(i => `<li><strong>${i.type}</strong>: ${i.message}</li>`).join('')}</ul>`
+    const issuesHtml = (detection.reasons && detection.reasons.length > 0)
+      ? `<ul class="mb-2 ps-3 small text-danger">${detection.reasons.map(r => `<li>${r}</li>`).join('')}</ul>`
       : `<p class="small text-success mb-2">All physiological vital parameters are within nominal clinical boundaries.</p>`;
 
     resultBox.innerHTML = `
