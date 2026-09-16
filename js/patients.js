@@ -7,7 +7,7 @@
 
 const PatientManager = {
   patients: [
-    { id: 1, code: 'PT-1001', name: 'Pavan', age: 42, gender: 'Male', room: 'ICU-101', condition: 'Severe Arrhythmia / Ventricular Tachycardia', deviceId: 'ESP32_NODE_01', status: 'CRITICAL', hr: 185, spo2: 95.1, temp: 37.1, systolicBP: 168, diastolicBP: 110, resp: 24, baselines: {} },
+    { id: 1, code: 'PT-1001', name: 'Pavan', age: 23, gender: 'Male', room: 'ICU-101', condition: 'Severe Arrhythmia / Ventricular Tachycardia', deviceId: 'ESP32_NODE_01', status: 'CRITICAL', hr: 185, spo2: 95.1, temp: 37.1, systolicBP: 168, diastolicBP: 110, resp: 24, baselines: {} },
     { id: 2, code: 'PT-1002', name: 'Priya Sharma', age: 29, gender: 'Female', room: 'W-204', condition: 'Acute Bronchial Asthma & Wheezing', deviceId: 'ESP32_NODE_02', status: 'WARNING', hr: 104, spo2: 94.2, temp: 37.8, systolicBP: 126, diastolicBP: 82, resp: 22, baselines: {} },
     { id: 3, code: 'PT-1003', name: 'Arjun Reddy', age: 58, gender: 'Male', room: 'CCU-05', condition: 'Hypertensive Heart Failure & Arrhythmia', deviceId: 'ESP32_NODE_03', status: 'NORMAL', hr: 74, spo2: 98.4, temp: 36.7, systolicBP: 118, diastolicBP: 78, resp: 16, baselines: {} },
     { id: 4, code: 'PT-1004', name: 'Sneha Rao', age: 34, gender: 'Female', room: 'W-108', condition: 'Sinus Bradycardia & Syncope Observation', deviceId: 'ESP32_NODE_04', status: 'NORMAL', hr: 44, spo2: 97.0, temp: 36.4, systolicBP: 102, diastolicBP: 66, resp: 14, baselines: { heartRate: { normalMin: 40, normalMax: 60, warningLow: 35, warningHigh: 80, criticalLow: 30, criticalHigh: 100 } } },

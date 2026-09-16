@@ -51,7 +51,7 @@ def init_db():
                 Patient(
                     patient_code="P-1001",
                     name="Pavan",
-                    age=42,
+                    age=23,
                     gender="Male",
                     phone="+91 98765 43210",
                     email="rahul.kumar@example.com",

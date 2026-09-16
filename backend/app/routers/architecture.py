@@ -17,7 +17,7 @@ ARCHITECTURE_NODES: List[Dict[str, Any]] = [
         "example_data": {
             "patient_code": "P-1001",
             "name": "Pavan",
-            "age": 42,
+            "age": 23,
             "room_number": "ICU-102"
         },
         "viva_talking_points": [
