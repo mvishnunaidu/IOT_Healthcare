@@ -9,8 +9,8 @@ Authenticates a healthcare practitioner and issues a JWT token.
 - **Request:**
   ```json
   {
-    "email": "dr.pavan@hospital.org",
-    "password": "iot@123"
+    "email": "dr.ankitha@hospital.org",
+    "password": "iot@0919"
   }
   ```
 - **Response (200 OK):**
@@ -20,8 +20,8 @@ Authenticates a healthcare practitioner and issues a JWT token.
     "token_type": "bearer",
     "user": {
       "id": 1,
-      "name": "Dr. Pavan, MD",
-      "email": "dr.pavan@hospital.org",
+      "name": "Dr. Ankitha, MD",
+      "email": "dr.ankitha@hospital.org",
       "role": "doctor"
     }
   }

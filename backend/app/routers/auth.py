@@ -7,17 +7,17 @@ from app.core.security import verify_password, create_access_token, get_password
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-DEFAULT_PASSWORD = "iot@123"
+DEFAULT_PASSWORD = "iot@0919"
 
 @router.post("/login", response_model=TokenResponse)
 def login(login_data: UserLogin, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == login_data.email).first()
     
-    # If user doesn't exist yet, auto-provision user account with provided password (or default iot@123)
+    # If user doesn't exist yet, auto-provision user account with provided password (or default iot@0919)
     if not user:
         is_nurse = "nurse" in login_data.email.lower()
-        is_pavan = "pavan" in login_data.email.lower()
-        user_name = "Nurse Ananya Deshmukh" if is_nurse else ("Dr. Pavan, MD" if is_pavan else f"Dr. {login_data.email.split('@')[0].capitalize()}")
+        is_ankitha = "ankitha" in login_data.email.lower()
+        user_name = "Nurse Ananya Deshmukh" if is_nurse else ("Dr. Ankitha, MD" if is_ankitha else f"Dr. {login_data.email.split('@')[0].capitalize()}")
         user = User(
             name=user_name,
             email=login_data.email,
@@ -28,7 +28,7 @@ def login(login_data: UserLogin, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(user)
 
-    # Allow custom password match OR default iot@123
+    # Allow custom password match OR default iot@0919
     password_matches = verify_password(login_data.password, user.password_hash) or (login_data.password == DEFAULT_PASSWORD)
     if not password_matches:
         raise HTTPException(
@@ -64,7 +64,7 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
     return user
 
 @router.get("/me", response_model=UserResponse)
-def get_current_user(email: str = "dr.pavan@hospital.org", db: Session = Depends(get_db)):
+def get_current_user(email: str = "dr.ankitha@hospital.org", db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == email).first()
     if not user:
         user = db.query(User).filter(User.email == "doctor@hospital.org").first()

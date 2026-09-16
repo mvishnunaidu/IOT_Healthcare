@@ -16,7 +16,7 @@ ARCHITECTURE_NODES: List[Dict[str, Any]] = [
         "technology": "Clinical Demographics Data Model, Relational Schema.",
         "example_data": {
             "patient_code": "P-1001",
-            "name": "Rahul Kumar",
+            "name": "Pavan",
             "age": 42,
             "room_number": "ICU-102"
         },

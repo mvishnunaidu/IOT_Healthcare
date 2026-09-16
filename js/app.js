@@ -33,7 +33,7 @@ const HealthGuardApp = {
         'Facilitates multi-patient isolation, ward allocation, and longitudinal clinical telemetry records.',
         'HL7/FHIR compliant patient identity data schema.'
       ],
-      liveDataSample: 'Patient: Rahul Kumar (PT-1001) | Baseline: 74 BPM, 98% SpO2, 36.7°C'
+      liveDataSample: 'Patient: Pavan (PT-1001) | Baseline: 74 BPM, 98% SpO2, 36.7°C'
     },
     {
       id: 'node_sensors',
@@ -247,10 +247,10 @@ const HealthGuardApp = {
       const u = auth.currentUser;
       if (profileGroup) profileGroup.classList.remove('d-none');
       if (signInBtn) signInBtn.classList.add('d-none');
-      if (nameEl) nameEl.innerText = u.name || 'Dr. Pavan';
+      if (nameEl) nameEl.innerText = u.name || 'Dr. Ankitha';
       if (roleEl) roleEl.innerText = u.role ? u.role.split('/')[0].trim() : 'Physician';
       if (avatarEl) {
-        const cleanName = (u.name || 'Dr. Pavan').replace(/^(Dr\.|Nurse|Mr\.|Ms\.)\s*/i, '').trim();
+        const cleanName = (u.name || 'Dr. Ankitha').replace(/^(Dr\.|Nurse|Mr\.|Ms\.)\s*/i, '').trim();
         const parts = cleanName.split(' ');
         const initials = parts.length > 1
           ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
@@ -259,8 +259,8 @@ const HealthGuardApp = {
       }
       if (logoutBtn) logoutBtn.classList.remove('d-none');
 
-      if (drawerNameEl) drawerNameEl.innerText = u.name || 'Dr. Pavan';
-      if (drawerRoleEl) drawerRoleEl.innerText = u.role ? u.role.split('/')[0].trim() : 'Attending Physician';
+      if (drawerNameEl) drawerNameEl.innerText = u.name || 'Dr. Ankitha';
+      if (drawerRoleEl) drawerRoleEl.innerText = u.role ? u.role.split('/')[0].trim() : 'Doctor';
       if (drawerAvatarEl && avatarEl) drawerAvatarEl.innerText = avatarEl.innerText;
       if (drawerLogoutBtn) drawerLogoutBtn.classList.remove('d-none');
       if (drawerSignInBtn) drawerSignInBtn.classList.add('d-none');
@@ -271,7 +271,7 @@ const HealthGuardApp = {
       document.body.classList.add('auth-logged-in');
       document.body.classList.remove('auth-guest');
     } else {
-      // User is logged out: completely remove profile (Pavan) and logout button!
+      // User is logged out: completely remove profile (Ankitha) and logout button!
       if (profileGroup) profileGroup.classList.add('d-none');
       if (signInBtn) signInBtn.classList.remove('d-none');
       if (logoutBtn) logoutBtn.classList.add('d-none');
@@ -658,7 +658,7 @@ const HealthGuardApp = {
         e.preventDefault();
         const name = document.getElementById('regName')?.value;
         const email = document.getElementById('regEmail')?.value;
-        const role = document.getElementById('regRole')?.value || 'Attending Physician';
+        const role = document.getElementById('regRole')?.value || 'Doctor';
         const password = document.getElementById('regPassword')?.value;
         const confirmPassword = document.getElementById('regConfirmPassword')?.value;
 
@@ -1364,6 +1364,12 @@ const HealthGuardApp = {
     const liveRoom = document.getElementById('bedsidePatientRoom');
     const liveCondition = document.getElementById('bedsidePatientCondition');
     const liveStatus = document.getElementById('bedsideStatusBadge');
+    const liveHR = document.getElementById('bedsideHRVal');
+    const liveSpO2 = document.getElementById('bedsideSpO2Val');
+    const liveTemp = document.getElementById('bedsideTempVal');
+    const liveBP = document.getElementById('bedsideBPVal');
+    const liveResp = document.getElementById('bedsideRespVal');
+
     if (liveName) liveName.innerText = p.name;
     if (liveCode) liveCode.innerText = `${p.code} (${p.age} Yrs, ${p.gender})`;
     if (liveRoom) liveRoom.innerText = `Unit: ${p.room}`;
@@ -1372,6 +1378,11 @@ const HealthGuardApp = {
       liveStatus.className = `badge badge-${p.status.toLowerCase()} px-3 py-1.5`;
       liveStatus.innerText = p.status;
     }
+    if (liveHR) liveHR.innerText = p.hr || 74;
+    if (liveSpO2) liveSpO2.innerText = `${p.spo2 || 98}%`;
+    if (liveTemp) liveTemp.innerText = `${p.temp || 36.7}°C`;
+    if (liveBP) liveBP.innerText = `${p.systolicBP || 120}/${p.diastolicBP || 80}`;
+    if (liveResp) liveResp.innerText = `${p.resp || 16} rpm`;
 
     // 3. Update detail page
     const dName = document.getElementById('detailPatientName');
@@ -1397,7 +1408,7 @@ const HealthGuardApp = {
     if (dTemp) dTemp.innerText = `${p.temp || 36.7}°C`;
     if (dNode) dNode.innerText = p.deviceId || 'ESP32_NODE_0' + p.id;
     if (dBP) dBP.innerText = `${p.systolicBP || 120} / ${p.diastolicBP || 80} mmHg`;
-    if (dPhysician) dPhysician.innerText = p.physician || 'Dr. Pavan (Cardiology)';
+    if (dPhysician) dPhysician.innerText = p.physician || 'Dr. Ankitha (Cardiology)';
     if (dBadge) {
       dBadge.className = `badge badge-${p.status.toLowerCase()} px-3 py-1.5`;
       dBadge.innerText = p.status;
@@ -1423,6 +1434,11 @@ const HealthGuardApp = {
       if (iotSimulator.sensors && iotSimulator.sensors.setBaseline) {
         iotSimulator.sensors.setBaseline(p.hr || 74, p.spo2 || 98.4, p.temp || 36.7);
       }
+    }
+    
+    // 6. Instantly update oscilloscope base values so it reflects the new patient immediately
+    if (window.bedsideOscilloscope) {
+      window.bedsideOscilloscope.updateVitals(p.hr || 74, p.spo2 || 98);
     }
 
     if (navigateView) {

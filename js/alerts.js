@@ -8,14 +8,14 @@ const AlertManager = {
   alerts: [
     {
       id: 'ALT-9041',
-      patientId: 3,
+      patientId: 1,
       severity: 'CRITICAL',
       status: 'ACTIVE',
-      title: 'Acute Desaturation & Hypoxia Emergency',
-      message: 'Arjun Reddy (PT-1003): SpO2 dropped to 84.2% with secondary tachycardia (138 BPM). Immediate oxygenation required.',
+      title: 'Severe Ventricular Tachycardia (V-Tach)',
+      message: 'Pavan (PT-1001): Heart rate spiked to 185 BPM with irregular rhythm. Immediate defibrillation protocol required.',
       time: '2 mins ago',
       timestamp: new Date(Date.now() - 120000).toISOString(),
-      vitalValues: { hr: 138, spo2: 84.2, temp: 39.2 }
+      vitalValues: { hr: 185, spo2: 95.1, temp: 37.1 }
     },
     {
       id: 'ALT-9038',

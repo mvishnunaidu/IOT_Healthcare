@@ -21,36 +21,36 @@ def init_db():
 
     try:
         # 1. Seed Demo Users
-        existing_user = db.query(User).filter(User.email.in_(["dr.pavan@hospital.org", "doctor@hospital.org"])).first()
+        existing_user = db.query(User).filter(User.email.in_(["dr.ankitha@hospital.org", "doctor@hospital.org"])).first()
         if not existing_user:
             demo_doctor = User(
-                name="Dr. Pavan, MD",
-                email="dr.pavan@hospital.org",
-                password_hash=get_password_hash("iot@123"),
+                name="Dr. Ankitha, MD",
+                email="dr.ankitha@hospital.org",
+                password_hash=get_password_hash("iot@0919"),
                 role="doctor"
             )
             demo_doctor_alias = User(
-                name="Dr. Pavan, MD",
+                name="Dr. Ankitha, MD",
                 email="doctor@hospital.org",
-                password_hash=get_password_hash("iot@123"),
+                password_hash=get_password_hash("iot@0919"),
                 role="doctor"
             )
             demo_nurse = User(
                 name="Nurse Ananya Deshmukh",
                 email="nurse@hospital.org",
-                password_hash=get_password_hash("iot@123"),
+                password_hash=get_password_hash("iot@0919"),
                 role="nurse"
             )
             db.add_all([demo_doctor, demo_doctor_alias, demo_nurse])
             db.commit()
-            print("[INFO] Seeded demo users: dr.pavan@hospital.org / iot@123 (Default password for all)")
+            print("[INFO] Seeded demo users: dr.ankitha@hospital.org / iot@0919 (Default password for all)")
 
         # 2. Seed Demo Patients
         if db.query(Patient).count() == 0:
             demo_patients = [
                 Patient(
                     patient_code="P-1001",
-                    name="Rahul Kumar",
+                    name="Pavan",
                     age=42,
                     gender="Male",
                     phone="+91 98765 43210",
@@ -125,7 +125,7 @@ def init_db():
                 # Generate 25 historical points
                 for i in range(25, 0, -1):
                     t = now - timedelta(minutes=i * 5)
-                    if p.name == "Rahul Kumar":
+                    if p.name == "Pavan":
                         hr, spo2, temp = 74.0 + (i % 3), 98.0 + (i % 2) * 0.5, 36.7 + (i % 2) * 0.1
                         status = "NORMAL"
                     elif p.name == "Priya Sharma":

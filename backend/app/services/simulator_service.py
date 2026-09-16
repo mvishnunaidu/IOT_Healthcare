@@ -25,7 +25,7 @@ class VirtualSensorSimulator:
     def __init__(self):
         self.is_running = False
         self.patient_id: Optional[int] = 1
-        self.patient_name: Optional[str] = "Rahul Kumar"
+        self.patient_name: Optional[str] = "Pavan"
         self.mode: str = "NORMAL"  # NORMAL, WARNING, CRITICAL, RANDOM, WAVE
         self.interval_seconds: float = 3.0
         self.device_id: str = "VIRTUAL_NODE_01"

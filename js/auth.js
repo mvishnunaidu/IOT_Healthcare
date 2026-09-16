@@ -1,12 +1,12 @@
 /**
  * Authentication Module
  * =====================
- * Handles clinical staff login session, default credentials (iot@123),
+ * Handles clinical staff login session, default credentials (iot@0919),
  * user registration with custom passwords, and session persistence.
  */
 
 const AuthManager = {
-  DEFAULT_PASSWORD: 'iot@123',
+  DEFAULT_PASSWORD: 'iot@0919',
 
   currentUser: null,
   isAuthenticated: false,
@@ -68,7 +68,7 @@ const AuthManager = {
     }
   },
 
-  register(name, email, password, role = 'Attending Physician') {
+  register(name, email, password, role = 'Doctor') {
     if (!name || !email || !password) {
       throw new Error('Please provide name, email, and password');
     }
@@ -87,7 +87,7 @@ const AuthManager = {
     const profile = {
       name: name.trim(),
       email: cleanEmail,
-      role: role || 'Attending Physician',
+      role: role || 'Doctor',
       hospital: 'City Central Healthcare'
     };
     profiles[cleanEmail] = profile;
@@ -106,7 +106,7 @@ const AuthManager = {
     const cleanEmail = email.trim().toLowerCase();
     const cleanPassword = password.trim();
 
-    // Check custom password if previously saved, otherwise accept default 'iot@123' or save custom password
+    // Check custom password if previously saved, otherwise accept default 'iot@0919' or save custom password
     const customUsers = this.getStoredUsers();
     if (customUsers[cleanEmail]) {
       if (cleanPassword !== customUsers[cleanEmail] && cleanPassword !== this.DEFAULT_PASSWORD) {
@@ -124,12 +124,12 @@ const AuthManager = {
       this.currentUser = profiles[cleanEmail];
     } else {
       const isNurse = cleanEmail.includes('nurse');
-      const isDrPavan = cleanEmail.includes('pavan') || cleanEmail.includes('doctor');
+      const isDrAnkitha = cleanEmail.includes('ankitha') || cleanEmail.includes('doctor');
 
       this.currentUser = {
-        name: isNurse ? 'Nurse Ananya Deshmukh' : (isDrPavan ? 'Dr. Pavan' : 'Dr. ' + cleanEmail.split('@')[0].replace('.', ' ').replace(/\b\w/g, l => l.toUpperCase())),
+        name: isNurse ? 'Nurse Ananya Deshmukh' : (isDrAnkitha ? 'Dr. Ankitha' : 'Dr. ' + cleanEmail.split('@')[0].replace('.', ' ').replace(/\b\w/g, l => l.toUpperCase())),
         email: email,
-        role: isNurse ? 'Staff Nurse' : 'Attending Physician',
+        role: isNurse ? 'Staff Nurse' : 'Doctor',
         hospital: 'City Central Healthcare'
       };
     }

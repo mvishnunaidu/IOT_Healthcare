@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge-Enabled IoT Healthcare System - BTP Poster</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Poster Styles -->
+    <link rel="stylesheet" href="css/poster.css">
+</head>
+<body>
+    <div class="poster-container">
+        <!-- Header Section -->
+        <header class="poster-header">
+            <div class="logo-placeholder left-logo">
+                <i class="fas fa-university"></i>
+                <span>Institute Logo</span>
+            </div>
+            
+            <div class="title-section">
+                <h1>Edge-Enabled IoT Healthcare System</h1>
+                <h2 class="department">Department of Computer Science and Engineering</h2>
+                <div class="authors">
+                    <p><strong>Students:</strong> [Student 1 Name] (Roll: [12345]), [Student 2 Name] (Roll: [67890])</p>
+                    <p><strong>Guide:</strong> Prof. [Guide Name]</p>
+                </div>
+            </div>
+            
+            <div class="logo-placeholder right-logo">
+                <i class="fas fa-microchip"></i>
+                <span>Project Logo</span>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="poster-grid">
+            
+            <!-- Left Column -->
+            <div class="column">
+                <section class="card">
+                    <h3 class="card-title"><i class="fas fa-exclamation-triangle"></i> Problem Statement</h3>
+                    <p>Traditional healthcare monitoring systems suffer from critical <strong>delays in data processing</strong> and emergency response. Relying heavily on centralized cloud servers for decision-making increases latency during medical emergencies, which can be fatal.</p>
+                </section>
+
+                <section class="card">
+                    <h3 class="card-title"><i class="fas fa-bullseye"></i> Objective</h3>
+                    <p>To enable <strong>real-time patient monitoring</strong> using integrated IoT sensors and edge computing. This minimizes latency, ensures data privacy, and triggers instant life-saving alerts before data is even sent to the cloud.</p>
+                </section>
+
+                <section class="card parameters-card">
+                    <h3 class="card-title"><i class="fas fa-heartbeat"></i> Key Parameters</h3>
+                    <div class="parameter-grid">
+                        <div class="param-item heart">
+                            <i class="fas fa-heart"></i>
+                            <span>Heart Rate</span>
+                        </div>
+                        <div class="param-item spo2">
+                            <i class="fas fa-lungs"></i>
+                            <span>SpO₂</span>
+                        </div>
+                        <div class="param-item temp">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span>Body Temp</span>
+                        </div>
+                        <div class="param-item bp">
+                            <i class="fas fa-tint"></i>
+                            <span>Blood Pressure</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Center Column (Architecture) -->
+            <div class="column center-column">
+                <section class="card architecture-card">
+                    <h3 class="card-title"><i class="fas fa-network-wired"></i> System Architecture</h3>
+                    <div class="architecture-diagram">
+                        
+                        <div class="flow-item patient">
+                            <i class="fas fa-procedures"></i>
+                            <span>Patient</span>
+                        </div>
+                        
+                        <div class="flow-arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+                        
+                        <div class="flow-item sensor">
+                            <i class="fas fa-wave-square"></i>
+                            <span>IoT Sensors</span>
+                        </div>
+                        
+                        <div class="flow-arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+                        
+                        <div class="flow-item edge">
+                            <i class="fas fa-server"></i>
+                            <span>Edge Device</span>
+                            <small>Local Data Processing</small>
+                        </div>
+                        
+                        <!-- Split Path for Edge to Cloud/Dashboard -->
+                        <div class="flow-split">
+                            <div class="split-branch">
+                                <div class="flow-arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+                                <div class="flow-item cloud">
+                                    <i class="fas fa-cloud"></i>
+                                    <span>Healthcare Server</span>
+                                    <small>Database</small>
+                                </div>
+                            </div>
+                            <div class="split-branch">
+                                <div class="flow-arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+                                <div class="flow-item dashboard">
+                                    <i class="fas fa-laptop-medical"></i>
+                                    <span>Doctor Dashboard</span>
+                                    <small>Admin</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card highlight-card">
+                    <h3 class="card-title"><i class="fas fa-microchip"></i> Edge Computing</h3>
+                    <p>By processing critical patient data locally at the edge, the system achieves <strong>faster emergency detection</strong> and <strong>reduced latency</strong>, crucial for immediate medical interventions without waiting for cloud round-trips.</p>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="column">
+                <section class="card">
+                    <h3 class="card-title"><i class="fas fa-desktop"></i> Dashboard</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-chart-line"></i> Show live patient vitals</li>
+                        <li><i class="fas fa-users"></i> Patient records & ward/room details</li>
+                        <li><i class="fas fa-bell"></i> Normal, warning & critical status</li>
+                        <li><i class="fas fa-exclamation-circle"></i> Instant actionable alerts</li>
+                    </ul>
+                </section>
+
+                <section class="card">
+                    <h3 class="card-title"><i class="fas fa-star"></i> Key Features</h3>
+                    <div class="tags-container">
+                        <span class="tag">Real-time monitoring</span>
+                        <span class="tag">Edge-based processing</span>
+                        <span class="tag">Patient management</span>
+                        <span class="tag">Critical alerts</span>
+                        <span class="tag">Data storage</span>
+                        <span class="tag">Healthcare dashboard</span>
+                    </div>
+                </section>
+
+                <section class="card benefits-card">
+                    <h3 class="card-title"><i class="fas fa-check-circle"></i> Benefits</h3>
+                    <ul class="check-list">
+                        <li>Low latency response</li>
+                        <li>Faster emergency detection</li>
+                        <li>Reduced cloud dependency</li>
+                        <li>Continuous monitoring</li>
+                        <li>Improved healthcare response</li>
+                    </ul>
+                </section>
+
+                <section class="card future-card">
+                    <h3 class="card-title"><i class="fas fa-rocket"></i> Future Scope</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-brain"></i> AI-based prediction</li>
+                        <li><i class="fas fa-watch"></i> Wearable integration</li>
+                        <li><i class="fas fa-chart-pie"></i> Cloud analytics</li>
+                        <li><i class="fas fa-user-md"></i> Remote doctor monitoring</li>
+                    </ul>
+                </section>
+            </div>
+
+        </main>
+        
+        <footer class="poster-footer">
+            <p>B.Tech Project Exhibition - Department of Computer Science and Engineering</p>
+        </footer>
+    </div>
+</body>
+</html>

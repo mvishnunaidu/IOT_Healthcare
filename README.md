@@ -51,7 +51,7 @@ graph LR
 * ⚡ **Near-Sensor Edge Computing:** Exponential Moving Average ($\text{EMA}_\alpha = 0.3$) filtering with strict physiological boundary clamping ($25 \le \text{HR} \le 260\text{ BPM}$) ensuring sub-15ms processing latency.
 * 🚨 **Deterministic 3-Tier Clinical Triage:** Hierarchical rule engine classifying vital signs into `NORMAL`, `WARNING`, and `CRITICAL` states with automatic emergency broadcast dispatch.
 * 🔊 **Synthesized Web Audio Engine:** Acoustic pulse beeps dynamically pitched to current $\text{SpO}_2$ oxygen saturation, paired with two-tone critical alarm chimes.
-* 👤 **Multi-User Clinical Auth Portal:** Pre-configured practitioner profiles (**Dr. Pavan** / `iot@123`), password visibility toggles, and custom staff registration.
+* 👤 **Multi-User Clinical Auth Portal:** Pre-configured practitioner profiles (**Dr. Ankitha** / `iot@0919`), password visibility toggles, and custom staff registration.
 * 🔄 **Dynamic Patient Ward Switching:** Instant vitals and telemetry state synchronization across multiple patient beds without page reloads.
 * 🌙 **Zero-Glare Cyber-Medical Theme:** High-contrast clinical dark and light themes designed for ICU lighting conditions.
 
@@ -277,7 +277,7 @@ backend/app/tests/test_edge_processor.py ...                             [100%]
 
 | Role | Name | Email | Password |
 | :--- | :--- | :--- | :--- |
-| **Attending Physician** | Dr. Pavan | `dr.pavan@hospital.org` | `[REDACTED]` |
+| **Doctor** | Dr. Ankitha | `dr.ankitha@hospital.org` | `[REDACTED]` |
 | **Staff Nurse** | Nurse Ananya | `nurse@hospital.org` | `[REDACTED]` |
 | **New Users** | *Custom* | *Custom* | *Created during sign up* |
 

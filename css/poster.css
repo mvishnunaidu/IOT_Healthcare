@@ -1,0 +1,447 @@
+/* css/poster.css */
+:root {
+    /* Color Palette */
+    --primary-dark: #0f172a; 
+    --primary-main: #1e3a8a; 
+    --primary-light: #3b82f6; 
+    
+    --teal-dark: #0f766e; 
+    --teal-main: #14b8a6; 
+    --teal-light: #5eead4; 
+
+    --bg-color: #f8fafc; 
+    --card-bg: #ffffff;
+    --text-main: #334155; 
+    --text-light: #64748b; 
+    
+    --warning: #f59e0b;
+    --critical: #ef4444;
+    --normal: #10b981;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1e293b; /* Dark background for web viewing */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem;
+    overflow-x: auto;
+}
+
+/* A1 Landscape Poster (Virtual Size 1600x1131) */
+.poster-container {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    width: 1600px;
+    height: 1131px;
+    min-width: 1600px;
+    min-height: 1131px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transform-origin: top left;
+}
+
+/* Background texture/pattern */
+.poster-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        radial-gradient(circle at 100% 0%, rgba(20, 184, 166, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Header */
+.poster-header {
+    background: linear-gradient(90deg, var(--primary-main) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    border-bottom: 8px solid var(--teal-main);
+}
+
+.logo-placeholder {
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.logo-placeholder i {
+    font-size: 3.5rem;
+    color: var(--teal-light);
+}
+
+.title-section {
+    text-align: center;
+    flex: 1;
+    padding: 0 2rem;
+}
+
+.title-section h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.title-section .department {
+    font-size: 1.6rem;
+    color: var(--teal-light);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.authors {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    font-size: 1.3rem;
+    background: rgba(255,255,255,0.1);
+    padding: 0.8rem 2.5rem;
+    border-radius: 50px;
+    display: inline-flex;
+}
+
+.authors strong {
+    color: var(--teal-light);
+}
+
+/* Main Grid */
+.poster-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    z-index: 1;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    padding: 1.8rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    margin-bottom: 1.5rem;
+    border-top: 5px solid var(--primary-light);
+}
+
+.card:last-child {
+    margin-bottom: 0;
+}
+
+.card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primary-main);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.8rem;
+}
+
+.card-title i {
+    color: var(--teal-main);
+}
+
+.card p {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+/* Lists */
+.feature-list, .check-list {
+    list-style: none;
+}
+
+.feature-list li {
+    font-size: 1.25rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-main);
+}
+
+.feature-list li i {
+    color: var(--primary-light);
+    width: 24px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.check-list li {
+    font-size: 1.25rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-left: 2.2rem;
+    color: var(--text-main);
+}
+
+.check-list li::before {
+    content: '\f058'; /* FontAwesome Check Circle */
+    font-family: 'Font Awesome 6 Free';
+    position: absolute;
+    left: 0;
+    color: var(--teal-main);
+    font-weight: 900;
+    font-size: 1.4rem;
+}
+
+/* Parameters Grid */
+.parameters-card .parameter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.param-item {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #e2e8f0;
+}
+
+.param-item i {
+    font-size: 2.5rem;
+}
+
+.param-item.heart i { color: var(--critical); }
+.param-item.spo2 i { color: var(--primary-light); }
+.param-item.temp i { color: var(--warning); }
+.param-item.bp i { color: var(--teal-main); }
+
+.param-item span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Architecture Diagram */
+.architecture-card {
+    border-top-color: var(--teal-main);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+.architecture-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    flex: 1;
+    justify-content: center;
+}
+
+.flow-item {
+    background: white;
+    border: 3px solid var(--primary-light);
+    border-radius: 1rem;
+    padding: 1.2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 280px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2;
+}
+
+.flow-item i {
+    font-size: 3rem;
+    color: var(--primary-main);
+}
+
+.flow-item span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.flow-item small {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.flow-item.patient { border-color: var(--teal-main); }
+.flow-item.patient i { color: var(--teal-main); }
+
+.flow-item.edge { 
+    background: var(--primary-main);
+    color: white;
+    border-color: var(--primary-dark);
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.4);
+}
+.flow-item.edge i, .flow-item.edge span, .flow-item.edge small {
+    color: white;
+}
+
+.flow-arrow {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-light);
+    font-size: 2.5rem;
+    z-index: 1;
+}
+
+.flow-split {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: relative;
+}
+
+/* Custom drawing for the split lines */
+.flow-split::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    width: 50%;
+    height: 4px;
+    background: var(--primary-light);
+    z-index: 0;
+}
+
+.split-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.flow-item.cloud i { color: var(--primary-light); }
+.flow-item.dashboard i { color: var(--teal-main); }
+
+/* Highlight Card */
+.highlight-card {
+    background: linear-gradient(135deg, var(--primary-main) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    margin-top: auto;
+}
+
+.highlight-card .card-title {
+    color: var(--teal-light);
+    border-bottom-color: rgba(255,255,255,0.2);
+}
+
+.highlight-card p {
+    color: #e2e8f0;
+    font-size: 1.3rem;
+}
+
+.highlight-card p strong {
+    color: white;
+}
+
+/* Tags */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tag {
+    background: #e0f2fe;
+    color: var(--primary-main);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 1px solid #bae6fd;
+}
+
+/* Footer */
+.poster-footer {
+    background: var(--primary-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Scaling based on viewport width to fit the screen while designing, but maintain standard ratio */
+@media screen and (max-width: 1700px) {
+    .poster-container {
+        transform: scale(0.9);
+    }
+}
+@media screen and (max-width: 1500px) {
+    .poster-container {
+        transform: scale(0.8);
+    }
+}
+@media screen and (max-width: 1350px) {
+    .poster-container {
+        transform: scale(0.7);
+    }
+}
+@media screen and (max-width: 1150px) {
+    .poster-container {
+        transform: scale(0.6);
+    }
+}
+@media screen and (max-width: 950px) {
+    .poster-container {
+        transform: scale(0.5);
+    }
+}
+@media print {
+    body {
+        padding: 0;
+        background: none;
+        margin: 0;
+        display: block;
+    }
+    .poster-container {
+        transform: none;
+        box-shadow: none;
+        width: 100%;
+        height: 100%;
+        page-break-after: always;
+    }
+}

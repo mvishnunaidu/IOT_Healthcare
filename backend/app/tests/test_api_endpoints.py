@@ -24,7 +24,7 @@ def test_get_patients_endpoint(client):
     assert response.status_code == 200
     patients = response.json()
     assert len(patients) >= 1
-    assert any(p["name"] == "Rahul Kumar" for p in patients)
+    assert any(p["name"] == "Pavan" for p in patients)
 
 def test_architecture_nodes_endpoint(client):
     response = client.get("/api/architecture/nodes")

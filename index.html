@@ -107,7 +107,7 @@
                 DP
               </div>
               <div class="d-flex flex-column justify-content-center text-start h-100">
-                <span id="userDisplayName" class="fw-bold text-body" style="font-size: 12.5px; line-height: 1.2;">Dr. Pavan</span>
+                <span id="userDisplayName" class="fw-bold text-body" style="font-size: 12.5px; line-height: 1.2;">Dr. Ankitha</span>
                 <span id="userRoleBadge" class="text-muted fw-medium" style="font-size: 10px; line-height: 1.2; margin-top: 2px;">Physician</span>
               </div>
             </a>
@@ -154,8 +154,8 @@
                 DP
               </div>
               <div class="lh-1">
-                <span id="drawerUserName" class="small fw-semibold text-body d-block">Dr. Pavan</span>
-                <span id="drawerUserRole" class="text-muted" style="font-size: 10px;">Attending Physician</span>
+                <span id="drawerUserName" class="small fw-semibold text-body d-block">Dr. Ankitha</span>
+                <span id="drawerUserRole" class="text-muted" style="font-size: 10px;">Doctor</span>
               </div>
             </div>
             <button id="mobileDrawerLogoutBtn" class="btn btn-xs btn-outline-danger py-0.5 px-1.5 rounded-2" style="font-size: 10px;" onclick="HealthGuardApp.confirmLogout()">
@@ -480,12 +480,12 @@
               <form id="loginForm">
                 <div class="mb-3.5">
                   <label class="form-label small fw-bold text-secondary"><i class="bi bi-envelope me-1"></i> Email Address</label>
-                  <input type="email" id="loginEmail" class="form-control px-3 py-2.5 rounded-3" value="dr.pavan@hospital.org" placeholder="e.g. dr.pavan@hospital.org" required>
+                  <input type="email" id="loginEmail" class="form-control px-3 py-2.5 rounded-3" value="dr.ankitha@hospital.org" placeholder="e.g. dr.ankitha@hospital.org" required>
                 </div>
                 <div class="mb-4">
                   <label class="form-label small fw-bold text-secondary"><i class="bi bi-key me-1"></i> Password</label>
                   <div class="input-group">
-                    <input type="password" id="loginPassword" class="form-control px-3 py-2.5" style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;" value="iot@123" placeholder="Enter password" required>
+                    <input type="password" id="loginPassword" class="form-control px-3 py-2.5" style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;" value="iot@0919" placeholder="Enter password" required>
                     <button class="btn btn-outline-secondary toggle-password-btn px-3" style="border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem;" type="button" data-target="loginPassword" title="Show/Hide Password">
                       <i class="bi bi-eye"></i>
                     </button>
@@ -517,7 +517,7 @@
                 <div class="mb-3">
                   <label class="form-label small fw-bold text-secondary"><i class="bi bi-hospital me-1"></i> Clinical Role</label>
                   <select id="regRole" class="form-select px-3 py-2 rounded-3">
-                    <option value="Attending Physician">👨‍⚕️ Doctor / Attending Physician</option>
+                    <option value="Doctor">👨‍⚕️ Doctor</option>
                     <option value="Staff Nurse">👩‍⚕️ Staff Nurse / Ward In-charge</option>
                     <option value="Clinical Specialist">📊 Clinical Telemetry Specialist</option>
                     <option value="IoT Administrator">⚙️ IoT Systems Administrator</option>
@@ -704,9 +704,9 @@
             <div class="d-flex flex-wrap align-items-center gap-3">
               <div>
                 <div class="d-flex align-items-center gap-2">
-                  <h5 class="fw-bold mb-0" id="dashPatientName">Rahul Kumar</h5>
+                  <h5 class="fw-bold mb-0" id="dashPatientName">Pavan</h5>
                   <span class="badge bg-light text-dark border font-monospace" id="dashPatientCode">PT-1001</span>
-                  <span class="badge badge-normal" id="dashPatientStatus">NORMAL</span>
+                  <span class="badge badge-critical" id="dashPatientStatus">CRITICAL</span>
                 </div>
                 <span class="text-muted small" id="dashPatientRoom">Room: ICU-101 • Assigned: ESP32_NODE_01</span>
               </div>
@@ -717,9 +717,9 @@
                   <i class="bi bi-people-fill text-primary"></i> Change Patient:
                 </label>
                 <select id="dashPatientSelect" class="form-select form-select-sm fw-semibold" style="min-width: 210px; max-width: 300px; font-size: 12px; color: var(--text-primary); background-color: var(--bg-card);" aria-label="Change Patient">
-                  <option value="1" selected>Rahul Kumar (PT-1001) - ICU-101 [NORMAL]</option>
+                  <option value="1" selected>Pavan (PT-1001) - ICU-101 [CRITICAL]</option>
                   <option value="2">Priya Sharma (PT-1002) - W-204 [WARNING]</option>
-                  <option value="3">Arjun Reddy (PT-1003) - CCU-05 [CRITICAL]</option>
+                  <option value="3">Arjun Reddy (PT-1003) - CCU-05 [NORMAL]</option>
                   <option value="4">Sneha Rao (PT-1004) - W-108 [CRITICAL]</option>
                   <option value="5">Kiran Patel (PT-1005) - ICU-105 [WARNING]</option>
                   <option value="6">Ananya Deshmukh (PT-1006) - ICU-103 [CRITICAL]</option>
@@ -881,7 +881,7 @@
           </button>
           <div class="d-flex justify-content-between align-items-center">
             <div>
-              <h3 class="fw-bold mb-0" id="detailPatientName">Rahul Kumar</h3>
+              <h3 class="fw-bold mb-0" id="detailPatientName">Pavan</h3>
               <span class="text-muted font-monospace small" id="detailPatientCode">PT-1001</span> • 
               <span class="text-muted small" id="detailPatientAgeGender">42 Yrs / Male</span> • 
               <span class="text-muted small" id="detailPatientRoom">Room: ICU-102</span>
@@ -937,8 +937,8 @@
             </div>
             <div class="col-6 col-md-3">
               <div class="p-2.5 rounded bg-inner-box border border-secondary-subtle">
-                <span class="text-muted d-block small" style="font-size: 10px;">ATTENDING PHYSICIAN</span>
-                <span class="fw-bold text-body" id="detailPhysician">Dr. Pavan (Cardiology)</span>
+                <span class="text-muted d-block small" style="font-size: 10px;">DOCTOR</span>
+                <span class="fw-bold text-body" id="detailPhysician">Dr. Ankitha (Cardiology)</span>
               </div>
             </div>
             <div class="col-6 col-md-3">
@@ -985,7 +985,7 @@
             <div class="d-flex align-items-center gap-3">
               <div class="p-2 rounded bg-success text-dark fw-bold font-monospace" style="font-size: 13px;">BED 01</div>
               <div>
-                <h5 class="fw-bold mb-0 text-light" id="bedsidePatientName">Rahul Kumar</h5>
+                <h5 class="fw-bold mb-0 text-light" id="bedsidePatientName">Pavan</h5>
                 <span class="small text-muted" id="bedsidePatientCode">PT-1001 (42 Yrs, Male)</span> • 
                 <span class="small text-muted" id="bedsidePatientRoom">Unit: ICU-101</span>
               </div>
@@ -996,9 +996,9 @@
                   <i class="bi bi-person-fill text-info"></i> PATIENT:
                 </label>
                 <select id="bedsidePatientSelect" class="form-select form-select-sm bg-black text-light border-secondary" style="max-width: 220px; font-size: 11px;">
-                  <option value="1" selected>Rahul Kumar (PT-1001) - ICU-101 [NORMAL]</option>
+                  <option value="1" selected>Pavan (PT-1001) - ICU-101 [CRITICAL]</option>
                   <option value="2">Priya Sharma (PT-1002) - W-204 [WARNING]</option>
-                  <option value="3">Arjun Reddy (PT-1003) - CCU-05 [CRITICAL]</option>
+                  <option value="3">Arjun Reddy (PT-1003) - CCU-05 [NORMAL]</option>
                   <option value="4">Sneha Rao (PT-1004) - W-108 [CRITICAL]</option>
                   <option value="5">Kiran Patel (PT-1005) - ICU-105 [WARNING]</option>
                   <option value="6">Ananya Deshmukh (PT-1006) - ICU-103 [CRITICAL]</option>
@@ -1018,7 +1018,7 @@
                   <option value="20">Shalini Verma (PT-1020) - W-102 [NORMAL]</option>
                 </select>
               </div>
-              <span id="bedsidePatientCondition" class="small text-secondary d-none d-lg-inline">Diagnosis: Cardiac Recovery</span>
+              <span id="bedsidePatientCondition" class="small text-secondary d-none d-lg-inline">Diagnosis: Severe Arrhythmia / V-Tach</span>
               <span id="bedsideStatusBadge" class="badge badge-normal px-3 py-1.5">NORMAL</span>
             </div>
           </div>
@@ -1143,7 +1143,7 @@
               <div class="mb-3">
                 <label class="form-label small fw-bold">Select Active Patient Bed</label>
                 <select id="simPatientSelect" class="form-select form-select-sm">
-                  <option value="1">Rahul Kumar (PT-1001) - ICU-102</option>
+                  <option value="1">Pavan (PT-1001) - ICU-102</option>
                   <option value="2">Priya Sharma (PT-1002) - W-204</option>
                   <option value="3">Arjun Reddy (PT-1003) - CCU-05</option>
                   <option value="4">Sneha Rao (PT-1004) - W-108</option>
